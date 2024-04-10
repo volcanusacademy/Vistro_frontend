@@ -14,7 +14,7 @@ import IconFacebookCircle from '../../components/Icon/IconFacebookCircle';
 import IconTwitter from '../../components/Icon/IconTwitter';
 import IconGoogle from '../../components/Icon/IconGoogle';
 import axios from 'axios';
-import {BASE_URL} from '../../config'
+import { BASE_URL } from '../../config'
 
 
 const RegisterCover = () => {
@@ -35,18 +35,20 @@ const RegisterCover = () => {
         }
     };
     const [flag, setFlag] = useState(themeConfig.locale);
+    const [name, setname] = useState("")
+    const [email, setemail] = useState("")
+    const [password, setpassword] = useState("")
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+        console.log(name, email, password)
         e.preventDefault();
-        try { 
-            const formData = {
-                name: (e.currentTarget.elements.namedItem('Name') as HTMLInputElement).value,
-                email: (e.currentTarget.elements.namedItem('Email') as HTMLInputElement).value,
-                password: (e.currentTarget.elements.namedItem('Password') as HTMLInputElement).value,
-            };
-            
-
-            const response = await axios.post(`${BASE_URL}/add_user`, formData);
+        try {
+            const response = await axios.post(`${BASE_URL}/add_user`, { name, email, password }, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true
+            });
 
             console.log('Response:', response.data);
             // Reset form fields if needed
@@ -58,7 +60,7 @@ const RegisterCover = () => {
             // Handle error, display error message, or perform other actions
         }
     };
-    
+
     return (
         <div>
             <div className="absolute inset-0">
@@ -135,7 +137,9 @@ const RegisterCover = () => {
                                 <div>
                                     <label htmlFor="Name">Name</label>
                                     <div className="relative text-white-dark">
-                                        <input id="Name" type="text" placeholder="Enter Name" className="form-input ps-10 placeholder:text-white-dark" />
+                                        <input
+                                            onChange={(e) => setname(e.target.value)}
+                                            id="Name" type="text" placeholder="Enter Name" className="form-input ps-10 placeholder:text-white-dark" />
                                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                                             <IconUser fill={true} />
                                         </span>
@@ -144,7 +148,9 @@ const RegisterCover = () => {
                                 <div>
                                     <label htmlFor="Email">Email</label>
                                     <div className="relative text-white-dark">
-                                        <input id="Email" type="email" placeholder="Enter Email" className="form-input ps-10 placeholder:text-white-dark" />
+                                        <input
+                                            onChange={(e) => setemail(e.target.value)}
+                                            id="Email" type="email" placeholder="Enter Email" className="form-input ps-10 placeholder:text-white-dark" />
                                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                                             <IconMail fill={true} />
                                         </span>
@@ -153,7 +159,9 @@ const RegisterCover = () => {
                                 <div>
                                     <label htmlFor="Password">Password</label>
                                     <div className="relative text-white-dark">
-                                        <input id="Password" type="password" placeholder="Enter Password" className="form-input ps-10 placeholder:text-white-dark" />
+                                        <input
+                                            onChange={(e) => setpassword(e.target.value)}
+                                            id="Password" type="password" placeholder="Enter Password" className="form-input ps-10 placeholder:text-white-dark" />
                                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                                             <IconLockDots fill={true} />
                                         </span>

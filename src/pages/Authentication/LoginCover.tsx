@@ -13,6 +13,7 @@ import IconFacebookCircle from '../../components/Icon/IconFacebookCircle';
 import IconTwitter from '../../components/Icon/IconTwitter';
 import IconGoogle from '../../components/Icon/IconGoogle';
 import {BASE_URL} from '../../config'
+import axios from 'axios';
 const LoginCover = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -36,14 +37,14 @@ const LoginCover = () => {
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch(`${BASE_URL}/login`, {
-                method: 'POST',
+            const response = await axios.post(`${BASE_URL}/login`,{
+                email, password
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
             });
-            if (response.ok) {
+            if (response) {
                 console.log("login submit")
                 // Redirect or perform any action after successful login
                 // alert("Login Successfull")

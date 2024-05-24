@@ -41,8 +41,10 @@ const RegisterCover = () => {
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         console.log(name, email, password)
+        debugger
         e.preventDefault();
         try {
+            debugger
             const response = await axios.post(`${BASE_URL}/add_user`, { name, email, password }, {
                 headers: {
                     "Content-Type": "application/json",

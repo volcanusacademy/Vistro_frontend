@@ -10,526 +10,262 @@ import { downloadExcel } from 'react-export-table-to-excel';
 import Dropdown from '../../components/Dropdown';
 import IconCaretDown from '../../components/Icon/IconCaretDown';
 import { IRootState } from '../../store';
+import { BASE_URL } from '../../config';
+import axios, { AxiosResponse } from 'axios';
+import '../../assets/css/tippy.css'
 
-const rowData = [
-    {
-        id: 1,
-        firstName: 'Caroline',
-        lastName: 'Jensen',
-        email: 'carolinejensen@zidant.com',
-        dob: '2004-05-28',
-        address: {
-            street: '529 Scholes Street',
-            city: 'Temperanceville',
-            zipcode: 5235,
-            geo: {
-                lat: 23.806115,
-                lng: 164.677197,
-            },
-        },
-        phone: '+1 (821) 447-3782',
-        isActive: true,
-        age: 39,
-        company: 'POLARAX',
-    },
-    {
-        id: 2,
-        firstName: 'Celeste',
-        lastName: 'Grant',
-        email: 'celestegrant@polarax.com',
-        dob: '1989-11-19',
-        address: {
-            street: '639 Kimball Street',
-            city: 'Bascom',
-            zipcode: 8907,
-            geo: {
-                lat: 65.954483,
-                lng: 98.906478,
-            },
-        },
-        phone: '+1 (838) 515-3408',
-        isActive: false,
-        age: 32,
-        company: 'MANGLO',
-    },
-    {
-        id: 3,
-        firstName: 'Tillman',
-        lastName: 'Forbes',
-        email: 'tillmanforbes@manglo.com',
-        dob: '2016-09-05',
-        address: {
-            street: '240 Vandalia Avenue',
-            city: 'Thynedale',
-            zipcode: 8994,
-            geo: {
-                lat: -34.949388,
-                lng: -82.958111,
-            },
-        },
-        phone: '+1 (969) 496-2892',
-        isActive: false,
-        age: 26,
-        company: 'APPLIDECK',
-    },
-    {
-        id: 4,
-        firstName: 'Daisy',
-        lastName: 'Whitley',
-        email: 'daisywhitley@applideck.com',
-        dob: '1987-03-23',
-        address: {
-            street: '350 Pleasant Place',
-            city: 'Idledale',
-            zipcode: 9369,
-            geo: {
-                lat: -54.458809,
-                lng: -127.476556,
-            },
-        },
-        phone: '+1 (861) 564-2877',
-        isActive: true,
-        age: 21,
-        company: 'VOLAX',
-    },
-    {
-        id: 5,
-        firstName: 'Weber',
-        lastName: 'Bowman',
-        email: 'weberbowman@volax.com',
-        dob: '1983-02-24',
-        address: {
-            street: '154 Conway Street',
-            city: 'Broadlands',
-            zipcode: 8131,
-            geo: {
-                lat: 54.501351,
-                lng: -167.47138,
-            },
-        },
-        phone: '+1 (962) 466-3483',
-        isActive: false,
-        age: 26,
-        company: 'ORBAXTER',
-    },
-    {
-        id: 6,
-        firstName: 'Buckley',
-        lastName: 'Townsend',
-        email: 'buckleytownsend@orbaxter.com',
-        dob: '2011-05-29',
-        address: {
-            street: '131 Guernsey Street',
-            city: 'Vallonia',
-            zipcode: 6779,
-            geo: {
-                lat: -2.681655,
-                lng: 3.528942,
-            },
-        },
-        phone: '+1 (884) 595-2643',
-        isActive: true,
-        age: 40,
-        company: 'OPPORTECH',
-    },
-    {
-        id: 7,
-        firstName: 'Latoya',
-        lastName: 'Bradshaw',
-        email: 'latoyabradshaw@opportech.com',
-        dob: '2010-11-23',
-        address: {
-            street: '668 Lenox Road',
-            city: 'Lowgap',
-            zipcode: 992,
-            geo: {
-                lat: 36.026423,
-                lng: 130.412198,
-            },
-        },
-        phone: '+1 (906) 474-3155',
-        isActive: true,
-        age: 24,
-        company: 'GORGANIC',
-    },
-    {
-        id: 8,
-        firstName: 'Kate',
-        lastName: 'Lindsay',
-        email: 'katelindsay@gorganic.com',
-        dob: '1987-07-02',
-        address: {
-            street: '773 Harrison Avenue',
-            city: 'Carlton',
-            zipcode: 5909,
-            geo: {
-                lat: 42.464724,
-                lng: -12.948403,
-            },
-        },
-        phone: '+1 (930) 546-2952',
-        isActive: true,
-        age: 24,
-        company: 'AVIT',
-    },
-    {
-        id: 9,
-        firstName: 'Marva',
-        lastName: 'Sandoval',
-        email: 'marvasandoval@avit.com',
-        dob: '2010-11-02',
-        address: {
-            street: '200 Malta Street',
-            city: 'Tuskahoma',
-            zipcode: 1292,
-            geo: {
-                lat: -52.206169,
-                lng: 74.19452,
-            },
-        },
-        phone: '+1 (927) 566-3600',
-        isActive: false,
-        age: 28,
-        company: 'QUILCH',
-    },
-    {
-        id: 10,
-        firstName: 'Decker',
-        lastName: 'Russell',
-        email: 'deckerrussell@quilch.com',
-        dob: '1994-04-21',
-        address: {
-            street: '708 Bath Avenue',
-            city: 'Coultervillle',
-            zipcode: 1268,
-            geo: {
-                lat: -41.550295,
-                lng: -146.598075,
-            },
-        },
-        phone: '+1 (846) 535-3283',
-        isActive: false,
-        age: 27,
-        company: 'MEMORA',
-    },
-    {
-        id: 11,
-        firstName: 'Odom',
-        lastName: 'Mills',
-        email: 'odommills@memora.com',
-        dob: '2010-01-24',
-        address: {
-            street: '907 Blake Avenue',
-            city: 'Churchill',
-            zipcode: 4400,
-            geo: {
-                lat: -56.061694,
-                lng: -130.238523,
-            },
-        },
-        phone: '+1 (995) 525-3402',
-        isActive: true,
-        age: 34,
-        company: 'ZORROMOP',
-    },
-    {
-        id: 12,
-        firstName: 'Sellers',
-        lastName: 'Walters',
-        email: 'sellerswalters@zorromop.com',
-        dob: '1975-11-12',
-        address: {
-            street: '978 Oakland Place',
-            city: 'Gloucester',
-            zipcode: 3802,
-            geo: {
-                lat: 11.732587,
-                lng: 96.118099,
-            },
-        },
-        phone: '+1 (830) 430-3157',
-        isActive: true,
-        age: 28,
-        company: 'ORBOID',
-    },
-    {
-        id: 13,
-        firstName: 'Wendi',
-        lastName: 'Powers',
-        email: 'wendipowers@orboid.com',
-        dob: '1979-06-02',
-        address: {
-            street: '376 Greenpoint Avenue',
-            city: 'Elliott',
-            zipcode: 9149,
-            geo: {
-                lat: -78.159578,
-                lng: -9.835103,
-            },
-        },
-        phone: '+1 (863) 457-2088',
-        isActive: true,
-        age: 31,
-        company: 'SNORUS',
-    },
-    {
-        id: 14,
-        firstName: 'Sophie',
-        lastName: 'Horn',
-        email: 'sophiehorn@snorus.com',
-        dob: '2018-09-20',
-        address: {
-            street: '343 Doughty Street',
-            city: 'Homestead',
-            zipcode: 330,
-            geo: {
-                lat: 65.484087,
-                lng: 137.413998,
-            },
-        },
-        phone: '+1 (885) 418-3948',
-        isActive: true,
-        age: 22,
-        company: 'XTH',
-    },
-    {
-        id: 15,
-        firstName: 'Levine',
-        lastName: 'Rodriquez',
-        email: 'levinerodriquez@xth.com',
-        dob: '1973-02-08',
-        address: {
-            street: '643 Allen Avenue',
-            city: 'Weedville',
-            zipcode: 8931,
-            geo: {
-                lat: -63.185586,
-                lng: 117.327808,
-            },
-        },
-        phone: '+1 (999) 565-3239',
-        isActive: true,
-        age: 27,
-        company: 'COMTRACT',
-    },
-    {
-        id: 16,
-        firstName: 'Little',
-        lastName: 'Hatfield',
-        email: 'littlehatfield@comtract.com',
-        dob: '2012-01-03',
-        address: {
-            street: '194 Anthony Street',
-            city: 'Williston',
-            zipcode: 7456,
-            geo: {
-                lat: 47.480837,
-                lng: 6.085909,
-            },
-        },
-        phone: '+1 (812) 488-3011',
-        isActive: false,
-        age: 33,
-        company: 'ZIDANT',
-    },
-    {
-        id: 17,
-        firstName: 'Larson',
-        lastName: 'Kelly',
-        email: 'larsonkelly@zidant.com',
-        dob: '2010-06-14',
-        address: {
-            street: '978 Indiana Place',
-            city: 'Innsbrook',
-            zipcode: 639,
-            geo: {
-                lat: -71.766732,
-                lng: 150.854345,
-            },
-        },
-        phone: '+1 (892) 484-2162',
-        isActive: true,
-        age: 20,
-        company: 'SUREPLEX',
-    },
-    {
-        id: 18,
-        firstName: 'Kendra',
-        lastName: 'Molina',
-        email: 'kendramolina@sureplex.com',
-        dob: '2002-07-19',
-        address: {
-            street: '567 Charles Place',
-            city: 'Kimmell',
-            zipcode: 1966,
-            geo: {
-                lat: 50.765816,
-                lng: -117.106499,
-            },
-        },
-        phone: '+1 (920) 528-3330',
-        isActive: false,
-        age: 31,
-        company: 'DANJA',
-    },
-    {
-        id: 19,
-        firstName: 'Ebony',
-        lastName: 'Livingston',
-        email: 'ebonylivingston@danja.com',
-        dob: '1994-10-18',
-        address: {
-            street: '284 Cass Place',
-            city: 'Navarre',
-            zipcode: 948,
-            geo: {
-                lat: 65.271256,
-                lng: -83.064729,
-            },
-        },
-        phone: '+1 (970) 591-3039',
-        isActive: false,
-        age: 33,
-        company: 'EURON',
-    },
-    {
-        id: 20,
-        firstName: 'Kaufman',
-        lastName: 'Rush',
-        email: 'kaufmanrush@euron.com',
-        dob: '2011-07-10',
-        address: {
-            street: '408 Kingsland Avenue',
-            city: 'Beaulieu',
-            zipcode: 7911,
-            geo: {
-                lat: 41.513153,
-                lng: 54.821641,
-            },
-        },
-        phone: '+1 (924) 463-2934',
-        isActive: false,
-        age: 39,
-        company: 'ILLUMITY',
-    },
-    {
-        id: 21,
-        firstName: 'Frank',
-        lastName: 'Hays',
-        email: 'frankhays@illumity.com',
-        dob: '2005-06-15',
-        address: {
-            street: '973 Caton Place',
-            city: 'Dargan',
-            zipcode: 4104,
-            geo: {
-                lat: 63.314988,
-                lng: -138.771323,
-            },
-        },
-        phone: '+1 (930) 577-2670',
-        isActive: false,
-        age: 31,
-        company: 'SYBIXTEX',
-    },
-    {
-        id: 22,
-        firstName: 'Carmella',
-        lastName: 'Mccarty',
-        email: 'carmellamccarty@sybixtex.com',
-        dob: '1980-03-06',
-        address: {
-            street: '919 Judge Street',
-            city: 'Canby',
-            zipcode: 8283,
-            geo: {
-                lat: 9.198597,
-                lng: -138.809971,
-            },
-        },
-        phone: '+1 (876) 456-3218',
-        isActive: true,
-        age: 21,
-        company: 'ZEDALIS',
-    },
-    {
-        id: 23,
-        firstName: 'Massey',
-        lastName: 'Owen',
-        email: 'masseyowen@zedalis.com',
-        dob: '2012-03-01',
-        address: {
-            street: '108 Seaview Avenue',
-            city: 'Slovan',
-            zipcode: 3599,
-            geo: {
-                lat: -74.648318,
-                lng: 99.620699,
-            },
-        },
-        phone: '+1 (917) 567-3786',
-        isActive: false,
-        age: 40,
-        company: 'DYNO',
-    },
-    {
-        id: 24,
-        firstName: 'Lottie',
-        lastName: 'Lowery',
-        email: 'lottielowery@dyno.com',
-        dob: '1982-10-10',
-        address: {
-            street: '557 Meserole Avenue',
-            city: 'Fowlerville',
-            zipcode: 4991,
-            geo: {
-                lat: 54.811546,
-                lng: -20.996515,
-            },
-        },
-        phone: '+1 (912) 539-3498',
-        isActive: true,
-        age: 36,
-        company: 'MULTIFLEX',
-    },
-    {
-        id: 25,
-        firstName: 'Addie',
-        lastName: 'Luna',
-        email: 'addieluna@multiflex.com',
-        dob: '1988-05-01',
-        address: {
-            street: '688 Bulwer Place',
-            city: 'Harmon',
-            zipcode: 7664,
-            geo: {
-                lat: -12.762766,
-                lng: -39.924497,
-            },
-        },
-        phone: '+1 (962) 537-2981',
-        isActive: true,
-        age: 32,
-        company: 'PHARMACON',
-    },
-];
+
 const Basic = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Range Search Table'));
     });
+
+    const [clientData, setClientData] = useState<UserData[]>([]);
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(rowData, 'id'));
+    // const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    const [initialRecords, setInitialRecords] = useState<UserData[]>([]);
     const [recordsData, setRecordsData] = useState(initialRecords);
     const [tempData, setTempData] = useState(initialRecords);
     const [search, setSearch] = useState('');
+    const [currentPage, setCurrentPage] = useState<number>(1); // Explicitly specify type as number
+    const [totalPages, setTotalPages] = useState<number>(1); // Explicitly specify type as number
+    const [pageSize, setPageSize] = useState<number>(10); // Explicitly specify type as number
+    const [totalRecords, setTotalRecords] = useState<number>(0);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
+    const [selectedAgent, setSelectedAgent] = useState("");
+    const [selectedFirm, setSelectedFirm] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
+
+    interface UserData {
+        id: number;
+        COMPANYID: string;
+        AGENTID: string;
+        AFIRMNAME: string;
+        ACTELEPHONENO: string;
+        ACMOBILENO: string;
+        ACADDRESSLINE1: string;
+        ACADDRESSLINE2: string;
+        ACADDRESSLINE3: string;
+        STATUS: string;
+        AGENTNAME: string;
+        ADOB: number;
+        APERSONALIDTYPE: string;
+        APERSONALID: string;
+        APMOBILENO: string;
+        APEMAILID: string;
+        APADDRESSLINE1: string;
+        APADDRESSLINE2: string;
+        APADDRESSLINE3: string;
+        APCITY: string;
+        APSTATE: string;
+        APCOUNTRY: string;
+        APDISTRICT: string;
+        APPINCODE: string;
+        ABANKNAME: string;
+        AACCOUNTTYPE: string;
+        AACCOUNTNO: string;
+        AACCOUNTHOLDERNAME: string;
+        ABRANCHNAME: string;
+        AIFSCCODE: string;
+        ACHEQUENO: string;
+        ACHEQUEREMARK: string;
+        AMICRCODE: string;
+        ATPNOBANK: string;
+        CREATEDBY: string;
+        CREATEDON: string;
+        UPDATEDBY: string;
+        UPDATEDON: string;
+        ACCITY: string;
+        ACSTATE: string;
+        ACCOUNTRY: string;
+        ACDISTRICT: string;
+        ACPINCODE: string;
+        REMARK: string;
+    }
+
+    interface FormData {
+        COMPANYID: any;
+        AGENTID: any;
+        AFIRMNAME: string;
+        ACTELEPHONENO: string;
+        ACMOBILENO: string;
+        ACADDRESSLINE1: string;
+        ACADDRESSLINE2: string;
+        ACADDRESSLINE3: string;
+        STATUS: string;
+        AGENTNAME: string;
+        ADOB: any;
+        APERSONALIDTYPE: string;
+        APERSONALID: string;
+        APMOBILENO: string;
+        APEMAILID: string;
+        APADDRESSLINE1: string;
+        APADDRESSLINE2: string;
+        APADDRESSLINE3: string;
+        APCITY: string;
+        APSTATE: string;
+        APCOUNTRY: string;
+        APDISTRICT: string;
+        APPINCODE: string;
+        ABANKNAME: string;
+        AACCOUNTTYPE: string;
+        AACCOUNTNO: string;
+        AACCOUNTHOLDERNAME: string;
+        ABRANCHNAME: string;
+        AIFSCCODE: string;
+        ACHEQUENO: string;
+        ACHEQUEREMARK: string;
+        AMICRCODE: string;
+        ATPNOBANK: string;
+        CREATEDBY: string;
+        CREATEDON: string;
+        UPDATEDBY: string;
+        UPDATEDON: string;
+        ACCITY: string;
+        ACSTATE: string;
+        ACCOUNTRY: string;
+        ACDISTRICT: string;
+        ACPINCODE: string;
+        REMARK: string;
+    }
+
+    const [formData, setFormData] = useState<FormData>({
+        COMPANYID: '',
+        AGENTID: '',
+        AFIRMNAME: '',
+        ACTELEPHONENO: '',
+        ACMOBILENO: '',
+        ACADDRESSLINE1: '',
+        ACADDRESSLINE2: '',
+        ACADDRESSLINE3: '',
+        STATUS: '',
+        AGENTNAME: '',
+        ADOB: '',
+        APERSONALIDTYPE: '',
+        APERSONALID: '',
+        APMOBILENO: '',
+        APEMAILID: '',
+        APADDRESSLINE1: '',
+        APADDRESSLINE2: '',
+        APADDRESSLINE3: '',
+        APCITY: '',
+        APSTATE: '',
+        APCOUNTRY: '',
+        APDISTRICT: '',
+        APPINCODE: '',
+        ABANKNAME: '',
+        AACCOUNTTYPE: '',
+        AACCOUNTNO: '',
+        AACCOUNTHOLDERNAME: '',
+        ABRANCHNAME: '',
+        AIFSCCODE: '',
+        ACHEQUENO: '',
+        ACHEQUEREMARK: '',
+        AMICRCODE: '',
+        ATPNOBANK: '',
+        CREATEDBY: '',
+        CREATEDON: '',
+        UPDATEDBY: '',
+        UPDATEDON: '',
+        ACCITY: '',
+        ACSTATE: '',
+        ACCOUNTRY: '',
+        ACDISTRICT: '',
+        ACPINCODE: '',
+        REMARK: '',
+    });
+
+
+    const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        if (name === 'Agent Name') {
+            setSelectedAgent(value);
+        } else if (name === 'Agent Firm Name') {
+            setSelectedFirm(value);
+        } else if (name === 'City') {
+            setSelectedCity(value);
+        } else if (name === 'State') {
+            setSelectedState(value);
+        } else if (name === 'Status') {
+            setSelectedStatus(value);
+        }
+    }
+    const handleSearch = () => {
+        const filteredData = initialRecords.filter(record => {
+            return (selectedAgent === "" || record.AGENTNAME === selectedAgent) &&
+                (selectedFirm === "" || record.AFIRMNAME === selectedFirm) &&
+                (selectedCity === "" || record.APCITY === selectedCity) &&
+                (selectedState === "" || record.APSTATE === selectedState) &&
+                (selectedStatus === "" || record.STATUS === selectedStatus);
+        });
+        setRecordsData(filteredData);
+    }
+
+    const handleReset = () => {
+        setSelectedAgent("");
+        setSelectedFirm("");
+        setSelectedCity("");
+        setSelectedState("");
+        setSelectedStatus("");
+        setRecordsData(initialRecords.slice(0, 10));
+    }
 
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
+
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/getMaster`)
+            .then(response => response.json())
+            .then(data => {
+                let detail = data;
+                setClientData(detail);
+                setInitialRecords(data);
+                setRecordsData(data)
+                setTempData(data)
+                console.log(detail, 'dataaaaaa');
+
+
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
+    interface ApiResponse {
+        totalRecords: number;
+        totalPages: number;
+        currentPage: number;
+        agents: UserData[];
+    }
+
+
+    useEffect(() => {
+        // Function to fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
+                console.log(currentPage, 'aaaaaaa')
+                const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
+                setInitialRecords(agents);
+                setRecordsData(agents);
+                setTempData(agents);
+                setTotalPages(totalPages);
+                setCurrentPage(fetchedCurrentPage);
+                setTotalRecords(totalRecords);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData(); // Fetch data when the component mounts or currentPage changes
+    }, [currentPage]);
+
 
     useEffect(() => {
         const from = (page - 1) * pageSize;
@@ -542,24 +278,22 @@ const Basic = () => {
             return tempData.filter((item) => {
                 return (
                     item.id.toString().includes(search.toLowerCase()) ||
-                    item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.company.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.dob.toLowerCase().includes(search.toLowerCase()) ||
-                    item.phone.toLowerCase().includes(search.toLowerCase())
+                    item.AGENTNAME.toLowerCase().includes(search.toLowerCase()) ||
+                    item.AFIRMNAME.toLowerCase().includes(search.toLowerCase()) ||
+                    item.APCOUNTRY.toLowerCase().includes(search.toLowerCase()) ||
+                    item.APEMAILID.toLowerCase().includes(search.toLowerCase()) ||
+                    item.ACADDRESSLINE1.toString().toLowerCase().includes(search.toLowerCase()) ||
+                    item.APCITY.toLowerCase().includes(search.toLowerCase()) ||
+                    item.APMOBILENO.toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     useEffect(() => {
         const data = sortBy(initialRecords, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
         setPage(1);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortStatus]);
 
     // const [minAge, setMinAge] = useState<any>('');
@@ -589,11 +323,12 @@ const Basic = () => {
         return '';
     };
 
-    const col = ['id', 'firstName', 'lastName', 'company', 'age', 'dob', 'email', 'phone'];
+    const col = ['id', 'agentName', 'agentFirmName', 'company', 'age', 'dob', 'email', 'phone'];
+    const header = ['id', 'COMPANYID', 'AGENTID', 'AFIRMNAME', 'ACTELEPHONENO', 'ACMOBILENO', 'ACADDRESSLINE1', 'STATUS', 'AGENTNAME', 'ADOB', 'APERSONALIDTYPE', 'APERSONALID', 'APMOBILENO', 'APEMAILID', 'APADDRESSLINE1', 'APCITY', 'APSTATE', 'APCOUNTRY', 'APDISTRICT', 'APPINCODE', 'ABANKNAME', 'AACCOUNTTYPE', 'AACCOUNTNO', 'AACCOUNTHOLDERNAME', 'ABRANCHNAME', 'AIFSCCODE', 'ACHEQUENO', 'ACHEQUEREMARK', 'AMICRCODE', 'ATPNOBANK', 'CREATEDBY', 'CREATEDON', 'UPDATEDBY', 'UPDATEDBY', 'UPDATEDON', 'ACCITY', 'ACCOUNTRY', 'ACDISTRICT', 'ACPINCODE', 'Remark'];
 
     const exportTable = (type: any) => {
-        let columns: any = col;
-        let records = rowData;
+        let columns: any = header;
+        let records = initialRecords;
         let filename = 'table';
 
         let newVariable: any;
@@ -700,30 +435,20 @@ const Basic = () => {
             }
         }
     };
-    const header = ['Id', 'First Name', 'Last Name', 'Email', 'Start Date', 'Phone No.', 'Age', 'Company'];
 
-    interface YourDataType {
-        id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-        dob: string;
-        phone: string;
-        age: number;
-        company: string;
-    }
+
     function handleDownloadExcel() {
-        const col: Array<keyof YourDataType> = ['id', 'firstName', 'lastName', 'email', 'dob', 'phone', 'age', 'company'];
+        const col: Array<keyof UserData> = ['id', 'COMPANYID', 'AGENTID', 'AFIRMNAME', 'ACTELEPHONENO', 'ACMOBILENO', 'ACADDRESSLINE1', 'STATUS', 'AGENTNAME', 'ADOB', 'APERSONALIDTYPE', 'APERSONALID', 'APMOBILENO', 'APEMAILID', 'APADDRESSLINE1', 'APCITY', 'APSTATE', 'APCOUNTRY', 'APDISTRICT', 'APPINCODE', 'ABANKNAME', 'AACCOUNTTYPE', 'AACCOUNTNO', 'AACCOUNTHOLDERNAME', 'ABRANCHNAME', 'AIFSCCODE', 'ACHEQUENO', 'ACHEQUEREMARK', 'AMICRCODE', 'ATPNOBANK', 'CREATEDBY', 'CREATEDON', 'UPDATEDBY', 'UPDATEDBY', 'UPDATEDON', 'ACCITY', 'ACCOUNTRY', 'ACDISTRICT', 'ACPINCODE', 'REMARK'];
         downloadExcel({
             fileName: 'table',
             sheet: 'react-export-table-to-excel',
             tablePayload: {
                 header,
-                body: rowData.map(row => col.map(key => row[key]))
+                body: recordsData.map(row => col.map(key => row[key]))
             },
         });
     };
-    
+
 
     const capitalize = (text: any) => {
         return text
@@ -742,8 +467,7 @@ const Basic = () => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     // show/hide
-
-    const [hideCols, setHideCols] = useState<any>(['age', 'dob', 'isActive']);
+    const [hideCols, setHideCols] = useState<any>(['age', 'dob', 'COMPANYID', 'AGENTID', 'ACTELEPHONENO', 'ACMOBILENO', 'ACADDRESSLINE1', 'STATUS', 'ADOB', 'APERSONALIDTYPE', 'APERSONALID', 'APMOBILENO', 'APADDRESSLINE1', 'APCITY', 'APSTATE', 'APCOUNTRY', 'APDISTRICT', 'APPINCODE', 'ABANKNAME', 'AACCOUNTTYPE', 'AACCOUNTNO', 'AACCOUNTHOLDERNAME', 'ABRANCHNAME', 'AIFSCCODE', 'ACHEQUENO', 'ACHEQUEREMARK', 'AMICRCODE', 'ATPNOBANK', 'CREATEDBY', 'CREATEDON', 'UPDATEDBY', 'UPDATEDBY', 'UPDATEDON', 'ACCITY', 'ACCOUNTRY', 'ACDISTRICT', 'ACPINCODE', 'ACSTATE', 'Remark', 'isActive']);
 
 
 
@@ -757,13 +481,39 @@ const Basic = () => {
 
     const cols = [
         { accessor: 'id', title: 'ID' },
-        { accessor: 'firstName', title: 'First Name' },
-        { accessor: 'lastName', title: 'Last Name' },
+        { accessor: 'agentName', title: 'Agent Name' },
+        { accessor: 'agentFirmName', title: 'Agent Firm Name' },
         { accessor: 'email', title: 'Email' },
         { accessor: 'dob', title: 'Startdate' },
         { accessor: 'phone', title: 'Phone' },
-        { accessor: 'age', title: 'Age' },
-        { accessor: 'company', title: 'Company' }
+        { accessor: 'age', title: 'Status' },
+        { accessor: 'Remark', title: 'Remark' },
+        { accessor: 'AACCOUNTHOLDERNAME', title: 'Account Holder Name' },
+        { accessor: 'AACCOUNTNO', title: 'Account No' },
+        { accessor: 'AACCOUNTTYPE', title: 'Account Type' },
+        { accessor: 'ABANKNAME', title: 'Bank Name' },
+        { accessor: 'ABRANCHNAME', title: 'Branch Name' },
+        { accessor: 'ACADDRESSLINE1', title: 'Company Address' },
+        { accessor: 'ACCITY', title: 'Company City' },
+        { accessor: 'ACCOUNTRY', title: 'Company Country' },
+        { accessor: 'ACDISTRICT', title: 'Company District' },
+        { accessor: 'ACHEQUENO', title: 'Cheque No' },
+        { accessor: 'ACHEQUEREMARK', title: 'Cheque Mark' },
+        { accessor: 'ACMOBILENO', title: 'Company Contact No' },
+        { accessor: 'ACPINCODE', title: 'Company Pincode' },
+        { accessor: 'ACSTATE', title: 'Company State' },
+        { accessor: 'ACTELEPHONENO', title: 'Company Telephone' },
+        { accessor: 'AIFSCCODE', title: 'IFSC Code' },
+        { accessor: 'AMICRCODE', title: 'MICR Code' },
+        { accessor: 'APADDRESSLINE1', title: 'Agent Address' },
+        { accessor: 'APCITY', title: 'City' },
+        { accessor: 'APDISTRICT', title: 'District' },
+        { accessor: 'APERSONALIDTYPE', title: 'Agent ID Type' },
+        { accessor: 'APERSONALID', title: 'Agent ID No' },
+        { accessor: 'APMOBILENO', title: 'Personal Contact No' },
+        { accessor: 'APPINCODE', title: 'Agent Pincode' },
+        { accessor: 'APSTATE', title: 'Agent State' },
+        { accessor: 'ATPNOBANK', title: 'Bank ATP No' },
     ];
 
     useEffect(() => {
@@ -776,23 +526,23 @@ const Basic = () => {
         setRecordsData([...initialRecords.slice(from, to)]);
     }, [page, pageSize, initialRecords]);
 
-    useEffect(() => {
-        setInitialRecords(() => {
-            return rowData.filter((item) => {
-                return (
-                    item.id.toString().includes(search.toLowerCase()) ||
-                    item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.company.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.dob.toLowerCase().includes(search.toLowerCase()) ||
-                    item.phone.toLowerCase().includes(search.toLowerCase())
-                );
-            });
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search]);
+    // useEffect(() => {
+    //     setInitialRecords(() => {
+    //         return rowData.filter((item) => {
+    //             return (
+    //                 item.id.toString().includes(search.toLowerCase()) ||
+    //                 item.agentName.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.agentFirmName.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.company.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.email.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.dob.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.phone.toLowerCase().includes(search.toLowerCase())
+    //             );
+    //         });
+    //     });
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [search]);
 
     useEffect(() => {
         const data = sortBy(initialRecords, sortStatus.columnAccessor);
@@ -800,6 +550,7 @@ const Basic = () => {
         setPage(1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortStatus]);
+
     return (
         <div>
             <div className="panel mt-6">
@@ -826,43 +577,25 @@ const Basic = () => {
 
 
                     </div>
-                    {/* <div className="">
-                        <input
-                            type="text"
-                            value={minAge}
-                            onChange={(e) => {
-                                setMinAge(e.target.value);
-                            }}
-                            className="form-input"
-                            placeholder="Minimum age..."
-                        />
-                    </div> */}
-                      <button type="button" className="btn btn-primary btn-sm m-1 w-50 h-5 ltr:mr-2 rtl:ml-2" 
-                      style={{width: "8%",
-                        height: "33px"}}
-                      >
-                               
-                            OK
-                        </button>
-                        <button type="button" className="btn btn-primary btn-sm m-1" 
-                         style={{width: "8%",
-                         height: "33px"}}
-                        >
+                    <button type="button" className="btn btn-primary btn-sm m-1 w-50 h-5 ltr:mr-2 rtl:ml-2"
+                        style={{
+                            width: "8%",
+                            height: "33px"
+                        }}
+                        onClick={handleReset}
+                    >
+                        Reset
+                    </button>
+                    <button type="button" className="btn btn-primary btn-sm m-1 w-50 h-5 ltr:mr-2 rtl:ml-2"
+                        style={{
+                            width: "8%",
+                            height: "33px"
+                        }}
+                        onClick={handleSearch}
+                    >
 
-                            CLOSE
-                        </button>
-                        
-                    {/* <div className=" ">
-                        <input
-                            type="text"
-                            value={maxAge}
-                            onChange={(e) => {
-                                setMaxAge(e.target.value);
-                            }}
-                            className="form-input"
-                            placeholder="Maximum age..."
-                        />
-                    </div> */}
+                        Search
+                    </button>
                     <div className="flex md:items-center md:flex-row flex-col  gap-1">
                         <div className="flex items-center gap-5 ltr:ml-auto rtl:mr-auto">
                             <div className="flex md:items-center md:flex-row flex-col gap-1">
@@ -877,35 +610,76 @@ const Basic = () => {
                                             </>
                                         }
                                     >
-                                        <ul className="!min-w-[140px]">
-                                            {cols.map((col, i) => {
-                                                return (
-                                                    <li
-                                                        key={i}
-                                                        className="flex flex-col"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                        }}
-                                                    >
-                                                        <div className="flex items-center px-4 py-1">
-                                                            <label className="cursor-pointer mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={!hideCols.includes(col.accessor)}
-                                                                    className="form-checkbox"
-                                                                    defaultValue={col.accessor}
-                                                                    onChange={(event: any) => {
-                                                                        setHideCols(event.target.value);
-                                                                        showHideColumns(col.accessor, event.target.checked);
-                                                                    }}
-                                                                />
-                                                                <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
+
+                                        <div className="overflow-auto max-h-[300px]">
+                                            <ul className="!min-w-[140px]">
+                                                {cols.map((col, i) => {
+                                                    if (i % 3 === 0) {
+                                                        return (
+                                                            <li key={i} className="flex md:flex-row flex-col " onClick={(e) => {
+                                                                e.stopPropagation();
+                                                            }}>
+                                                                <div className="flex items-center px-4 py-1 md:w-1/3">
+                                                                    <label className="cursor-pointer mb-0 flex items-center">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={!hideCols.includes(col.accessor)}
+                                                                            className="form-checkbox mr-2"
+                                                                            defaultValue={col.accessor}
+                                                                            onChange={(event) => {
+                                                                                setHideCols(event.target.value);
+                                                                                showHideColumns(col.accessor, event.target.checked);
+                                                                            }}
+                                                                        />
+                                                                        <span>{col.title}</span>
+                                                                    </label>
+                                                                </div>
+                                                                {cols[i + 1] && (
+                                                                    <div className="flex items-center px-4 py-1 md:w-1/3">
+                                                                        <label className="cursor-pointer mb-0 flex items-center">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checked={!hideCols.includes(cols[i + 1].accessor)}
+                                                                                className="form-checkbox mr-2"
+                                                                                defaultValue={cols[i + 1].accessor}
+                                                                                onChange={(event) => {
+                                                                                    setHideCols(event.target.value);
+                                                                                    showHideColumns(cols[i + 1].accessor, event.target.checked);
+                                                                                }}
+                                                                            />
+                                                                            <span>{cols[i + 1].title}</span>
+                                                                        </label>
+                                                                    </div>
+                                                                )}
+                                                                {cols[i + 2] && (
+                                                                    <div className="flex items-center px-4 py-1 md:w-1/3">
+                                                                        <label className="cursor-pointer mb-0 flex items-center">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checked={!hideCols.includes(cols[i + 2].accessor)}
+                                                                                className="form-checkbox mr-2"
+                                                                                defaultValue={cols[i + 2].accessor}
+                                                                                onChange={(event) => {
+                                                                                    setHideCols(event.target.value);
+                                                                                    showHideColumns(cols[i + 2].accessor, event.target.checked);
+                                                                                }}
+                                                                            />
+                                                                            <span>{cols[i + 2].title}</span>
+                                                                        </label>
+                                                                    </div>
+                                                                )}
+                                                            </li>
+                                                        );
+                                                    } else {
+                                                        return null;
+                                                    }
+                                                })}
+                                            </ul>
+                                        </div>
+
+
+
+
                                     </Dropdown>
                                 </div>
                             </div>
@@ -940,147 +714,6 @@ const Basic = () => {
                         </div>
                     </div>
                 </div> */}
-                {/* <div className="flex md:items-center md:flex-row flex-col  gap-1">
-                    <div >
-                        <div style={{display: "ruby"}} >
-                        <label>Agent Name </label>&nbsp;&nbsp;&nbsp;
-                            <div className="dropdown">
-                           
-                                <Dropdown
-                                    placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
-                                    btnClassName="!flex items-center border font-semibold border-white-light dark:border-[#253b5c] rounded-md px-4 py-2 text-sm dark:bg-[#1b2e4b] dark:text-white-dark"
-                                    button={
-                                        <>
-                                        
-                                            <span className="ltr:mr-1 rtl:ml-1">--All--</span>
-                                            <IconCaretDown className="w-5 h-5" />
-                                        </>
-                                    }
-                                >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <option     
-                                                                // className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                               
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                    </div>
-                      
-                <label>Mobile No.</label>
-                <input type="text" className="form-input w-auto" placeholder=""  onChange={(e) => setSearch(e.target.value)} />
-                                        <button className="form-input w-auto" style={{width:"25%"}}>OK</button>
-                </div> */}
-
-
-                {/* <div >
-                        <div style={{display: "ruby"}} >
-                        <label>Agent Name </label>&nbsp;&nbsp;&nbsp;
-                            <div className="dropdown">
-                           
-                                <Dropdown
-                                    placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
-                                    btnClassName="!flex items-center border font-semibold border-white-light dark:border-[#253b5c] rounded-md px-4 py-2 text-sm dark:bg-[#1b2e4b] dark:text-white-dark"
-                                    button={
-                                        <>
-                                        
-                                            <span className="ltr:mr-1 rtl:ml-1">--All--</span>
-                                            <IconCaretDown className="w-5 h-5" />
-                                        </>
-                                    }
-                                >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <option     
-                                                                // className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                               
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                            <div >
-                        <div style={{display: "ruby"}} >
-                        <label>Agent Name </label>&nbsp;&nbsp;&nbsp;
-                            <div className="dropdown">
-                           
-                                <Dropdown
-                                    placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
-                                    btnClassName="!flex items-center border font-semibold border-white-light dark:border-[#253b5c] rounded-md px-4 py-2 text-sm dark:bg-[#1b2e4b] dark:text-white-dark"
-                                    button={
-                                        <>
-                                        
-                                            <span className="ltr:mr-1 rtl:ml-1">--All--</span>
-                                            <IconCaretDown className="w-5 h-5" />
-                                        </>
-                                    }
-                                >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <option     
-                                                                // className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                               
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                    </div>
-                        </div>
-                        
-                    </div> */}
                 <table>
                     <thead>
                         <td>
@@ -1090,10 +723,17 @@ const Basic = () => {
                                         width: "144px",
                                         marginLeft: "3px",
                                         border: "1px solid #e5e7eb",
-                                        borderRadius:'5px'
+                                        borderRadius: '5px',
+                                        maxHeight: '200px'
                                     }}
+                                    value={selectedAgent}
+                                    onChange={handleDropdownChange}
                                 >
                                     <option value="">--ALL--</option>
+
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.AGENTNAME}>{record.AGENTNAME}</option>
+                                    ))}
                                 </select>
                             </label>
                         </td>
@@ -1104,31 +744,34 @@ const Basic = () => {
                                         width: "144px",
                                         marginLeft: "3px",
                                         border: "1px solid #e5e7eb",
-                                        borderRadius:'5px'
+                                        borderRadius: '5px'
                                     }}
+                                    value={selectedFirm}
+                                    onChange={handleDropdownChange}
                                 >
                                     <option value="">--ALL--</option>
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.AFIRMNAME}>{record.AFIRMNAME}</option>
+                                    ))}
                                 </select>
                             </label>
                         </td>
                         <td>
-                           <span>
-                            </span> Mobile No. <input type='text' 
-                                style={{
-                                width: "144px",
-                                border: "1px solid #e5e7eb",
-                                borderRadius:'5px'
-                             }}
-                            />
+
+
+                            <label htmlFor=""><span style={{
+                                marginRight: "2px"
+                            }}>Mobile No.
+                            </span>
+                                <input type='text'
+                                    style={{
+                                        width: "144px",
+                                        border: "1px solid #e5e7eb",
+                                        borderRadius: '5px'
+                                    }}
+                                />
+                            </label>
                         </td>
-                        {/* <button type="button" className="form-input" style={{
-                            marginRight: "111px",
-                            height: "23px",
-                            padding: "0px",
-                            marginTop: "3px"
-                        }}><b> ok </b></button> */}
-
-
                     </thead>
                     <thead>
                         <td>
@@ -1138,10 +781,15 @@ const Basic = () => {
                                         width: "144px",
                                         marginLeft: "58px",
                                         border: "1px solid #e5e7eb",
-                                        borderRadius:'5px'
+                                        borderRadius: '5px'
                                     }}
+                                    value={selectedCity}
+                                    onChange={handleDropdownChange}
                                 >
                                     <option value="">--ALL--</option>
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.APCITY}>{record.APCITY}</option>
+                                    ))}
                                 </select>
                             </label>
                         </td>
@@ -1152,10 +800,15 @@ const Basic = () => {
                                         width: "144px",
                                         marginLeft: "82px",
                                         border: "1px solid #e5e7eb",
-                                        borderRadius:'5px'
+                                        borderRadius: '5px'
                                     }}
+                                    value={selectedState}
+                                    onChange={handleDropdownChange}
                                 >
                                     <option value="">--ALL--</option>
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.APSTATE}>{record.APSTATE}</option>
+                                    ))}
                                 </select>
                             </label>
                         </td>
@@ -1167,20 +820,19 @@ const Basic = () => {
                                         width: "144px",
                                         marginLeft: "30px",
                                         border: "1px solid #e5e7eb",
-                                        borderRadius:'5px'
+                                        borderRadius: '5px'
                                     }}
+                                    value={selectedStatus}
+                                    onChange={handleDropdownChange}
                                 >
-                                    <option value="">Active</option>
+                                    <option value="">--All--</option>
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.STATUS}>{record.STATUS}</option>
+                                    ))}
                                 </select>
                             </label>
                         </td>
-                        {/* <button type="button" className="form-input" style={{
-                            marginRight: "111px",
-                            height: "23px",
-                            padding: "0px"
-                        }}><b> Close </b></button> */}
                     </thead>
-
                 </table>
 
                 <div className="datatables">
@@ -1188,32 +840,66 @@ const Basic = () => {
                         highlightOnHover
                         className="whitespace-nowrap table-hover"
                         records={recordsData}
+                        style={{
+                            position: "relative",
+                            zIndex: 0
+                        }}
                         columns={[
                             { accessor: 'id', title: '#', sortable: true, hidden: hideCols.includes('id') },
-                            { accessor: 'firstName', sortable: true, hidden: hideCols.includes('firstName') },
-                            { accessor: 'lastName', sortable: true, hidden: hideCols.includes('lastName') },
-                            { accessor: 'company', title: 'Company', sortable: true, hidden: hideCols.includes('company') },
-                            { accessor: 'age', title: 'Age', sortable: true, hidden: hideCols.includes('age') },
+                            { accessor: 'AGENTNAME', title: 'Agent Name', sortable: true, hidden: hideCols.includes('agentName') },
+                            { accessor: 'AFIRMNAME', title: 'Agent Firm Name', sortable: true, hidden: hideCols.includes('agentFirmName') },
+                            { accessor: 'APEMAILID', title: 'Email', sortable: true, hidden: hideCols.includes('email') },
+                            { accessor: 'APMOBILENO', title: 'Phone', sortable: true, hidden: hideCols.includes('phone') },
+                            { accessor: 'APCOUNTRY', title: 'Country', sortable: true, hidden: hideCols.includes('APCOUNTRY') },
+                            { accessor: 'APCITY', title: 'City', sortable: true, hidden: hideCols.includes('APCITY') },
+                            { accessor: 'APSTATE', title: 'State', sortable: true, hidden: hideCols.includes('APSTATE') },
+                            { accessor: 'APDISTRICT', title: 'District', sortable: true, hidden: hideCols.includes('APDISTRICT') },
+                            { accessor: 'APADDRESSLINE1', title: 'Agent Address', sortable: true, hidden: hideCols.includes('APADDRESSLINE1') },
+                            { accessor: 'APERSONALIDTYPE', title: 'Agent ID Type', sortable: true, hidden: hideCols.includes('APERSONALIDTYPE') },
+                            { accessor: 'APERSONALID', title: 'Agent ID No', sortable: true, hidden: hideCols.includes('APERSONALID') },
+                            { accessor: 'AACCOUNTHOLDERNAME', title: 'Account Holder Name', sortable: true, hidden: hideCols.includes('AACCOUNTHOLDERNAME') },
+                            { accessor: 'AACCOUNTTYPE', title: 'Account Type', sortable: true, hidden: hideCols.includes('AACCOUNTTYPE') },
+                            { accessor: 'AACCOUNTNO', title: 'Account Number', sortable: true, hidden: hideCols.includes('AACCOUNTNO') },
+                            { accessor: 'ABANKNAME', title: 'Bank Name', sortable: true, hidden: hideCols.includes('ABANKNAME') },
+                            { accessor: 'ABRANCHNAME', title: 'Branch Name', sortable: true, hidden: hideCols.includes('ABRANCHNAME') },
+                            { accessor: 'AIFSCCODE', title: 'IFSC Code', sortable: true, hidden: hideCols.includes('AIFSCCODE') },
+                            { accessor: 'AMICRCODE', title: 'MICR Code', sortable: true, hidden: hideCols.includes('AMICRCODE') },
+                            { accessor: 'ACHEQUENO', title: 'Cheque No', sortable: true, hidden: hideCols.includes('ACHEQUENO') },
+                            { accessor: 'ACHEQUEREMARK', title: 'Cheque Remark', sortable: true, hidden: hideCols.includes('ACHEQUEREMARK') },
+                            { accessor: 'ACADDRESSLINE1', title: 'Company Address', sortable: true, hidden: hideCols.includes('ACADDRESSLINE1') },
+                            { accessor: 'ACCITY', title: 'Company City', sortable: true, hidden: hideCols.includes('ACCITY') },
+                            { accessor: 'ACCOUNTRY', title: 'Company Country', sortable: true, hidden: hideCols.includes('ACCOUNTRY') },
+                            { accessor: 'ACDISTRICT', title: 'Company District', sortable: true, hidden: hideCols.includes('ACDISTRICT') },
+                            { accessor: 'ACSTATE', title: 'Company State', sortable: true, hidden: hideCols.includes('ACSTATE') },
+                            { accessor: 'ACMOBILENO', title: 'Company Contact No', sortable: true, hidden: hideCols.includes('ACMOBILENO') },
+                            { accessor: 'ACTELEPHONENO', title: 'Company Telephone', sortable: true, hidden: hideCols.includes('ACTELEPHONENO') },
+                            { accessor: 'ACPINCODE', title: 'Company Pincode', sortable: true, hidden: hideCols.includes('ACPINCODE') },
+                            { accessor: 'CREATEDBY', title: 'Created By', sortable: true, hidden: hideCols.includes('CREATEDBY') },
+                            { accessor: 'CREATEDON', title: 'Created On', sortable: true, hidden: hideCols.includes('CREATEDON') },
+                            { accessor: 'REMARK', title: 'Remark', sortable: true, hidden: hideCols.includes('Remark') },
+                            { accessor: 'UPDATEDBY', title: 'Updated By', sortable: true, hidden: hideCols.includes('UPDATEDBY') },
+                            { accessor: 'UPDATEDON', title: 'Updated On', sortable: true, hidden: hideCols.includes('UPDATEDON') },
+                            { accessor: 'STATUS', title: 'Status', sortable: true, hidden: hideCols.includes('age') },
                             {
-                                accessor: 'dob',
-                                title: 'Start Date',
+                                accessor: 'ADOB',
+                                title: 'DOB',
                                 sortable: true,
                                 hidden: hideCols.includes('dob'),
-                                render: ({ dob }) => <div>{formatDate(dob)}</div>,
-                            },
-                            { accessor: 'email', sortable: true, hidden: hideCols.includes('email') },
-                            { accessor: 'phone', sortable: true, hidden: hideCols.includes('phone') }
+                                // render: ({ dob }) => <div>{formatDate(dob)}</div>,
+                            }
                         ]}
-                        totalRecords={initialRecords.length}
+                        // totalRecords={initialRecords.length}
+                        totalRecords={totalRecords}
                         recordsPerPage={pageSize}
-                        page={page}
-                        onPageChange={(p) => setPage(p)}
+                        page={currentPage}
+                        onPageChange={(p) => setCurrentPage(p)}
                         recordsPerPageOptions={PAGE_SIZES}
                         onRecordsPerPageChange={setPageSize}
                         sortStatus={sortStatus}
                         onSortStatusChange={setSortStatus}
                         minHeight={200}
                         paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
+
                     />
                 </div>
             </div>
@@ -1226,74 +912,6 @@ const Basic = () => {
                     https://www.npmjs.com/package/mantine-datatable
                 </a> */}
             </div>
-
-            {/* <div className="panel mt-6">
-                <div className="mb-4.5 flex md:items-center md:flex-row flex-col gap-5">
-                    <div className="flex items-center gap-5">
-                        <div className="md:flex-auto flex-1">
-                            <input
-                                type="text"
-                                value={minAge}
-                                onChange={(e) => {
-                                    setMinAge(e.target.value);
-                                }}
-                                className="form-input"
-                                placeholder="Minimum age..."
-                            />
-                        </div>
-                        <div className="md:flex-auto flex-1">
-                            <input
-                                type="text"
-                                value={maxAge}
-                                onChange={(e) => {
-                                    setMaxAge(e.target.value);
-                                }}
-                                className="form-input"
-                                placeholder="Maximum age..."
-                            />
-                        </div>
-                    </div>
-                    <div className="ltr:ml-auto rtl:mr-auto">
-                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                    </div>
-                </div>
-                <div className="datatables">
-                    <DataTable
-                        highlightOnHover
-                        className="whitespace-nowrap table-hover"
-                        records={recordsData}
-                        columns={[
-                            { accessor: 'id', title: 'Id', sortable: true },
-                            {
-                                accessor: 'firstName',
-                                title: 'Name',
-                                sortable: true,
-                                render: ({ firstName, lastName }) => <div>{firstName + ' ' + lastName}</div>,
-                            },
-                            { accessor: 'company', title: 'Company', sortable: true },
-                            { accessor: 'age', title: 'Age', sortable: true },
-                            {
-                                accessor: 'dob',
-                                title: 'Start Date',
-                                sortable: true,
-                                render: ({ dob }) => <div>{formatDate(dob)}</div>,
-                            },
-                            { accessor: 'email', title: 'Email', sortable: true },
-                            { accessor: 'phone', title: 'Phone No.', sortable: true },
-                        ]}
-                        totalRecords={initialRecords.length}
-                        recordsPerPage={pageSize}
-                        page={page}
-                        onPageChange={(p) => setPage(p)}
-                        recordsPerPageOptions={PAGE_SIZES}
-                        onRecordsPerPageChange={setPageSize}
-                        sortStatus={sortStatus}
-                        onSortStatusChange={setSortStatus}
-                        minHeight={200}
-                        paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
-                    />
-                </div>
-            </div> */}
         </div>
     );
 };

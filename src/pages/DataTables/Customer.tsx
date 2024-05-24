@@ -10,624 +10,46 @@ import IconPrinter from '../../components/Icon/IconPrinter';
 import { IRootState } from '../../store';
 import Dropdown from '../../components/Dropdown';
 import IconCaretDown from '../../components/Icon/IconCaretDown';
-const rowData = [
-    {
-        id: 1,
-        firstName: 'Caroline',
-        lastName: 'Jensen',
-        email: 'carolinejensen@zidant.com',
-        dob: '2004-05-28',
-        address: {
-            street: '529 Scholes Street',
-            city: 'Temperanceville',
-            zipcode: 5235,
-            geo: {
-                lat: 23.806115,
-                lng: 164.677197,
-            },
-        },
-        phone: '+1 (821) 447-3782',
-        isActive: true,
-        age: 39,
-        company: 'POLARAX',
-    },
-    {
-        id: 2,
-        firstName: 'Celeste',
-        lastName: 'Grant',
-        email: 'celestegrant@polarax.com',
-        dob: '1989-11-19',
-        address: {
-            street: '639 Kimball Street',
-            city: 'Bascom',
-            zipcode: 8907,
-            geo: {
-                lat: 65.954483,
-                lng: 98.906478,
-            },
-        },
-        phone: '+1 (838) 515-3408',
-        isActive: false,
-        age: 32,
-        company: 'MANGLO',
-    },
-    {
-        id: 3,
-        firstName: 'Tillman',
-        lastName: 'Forbes',
-        email: 'tillmanforbes@manglo.com',
-        dob: '2016-09-05',
-        address: {
-            street: '240 Vandalia Avenue',
-            city: 'Thynedale',
-            zipcode: 8994,
-            geo: {
-                lat: -34.949388,
-                lng: -82.958111,
-            },
-        },
-        phone: '+1 (969) 496-2892',
-        isActive: false,
-        age: 26,
-        company: 'APPLIDECK',
-    },
-    {
-        id: 4,
-        firstName: 'Daisy',
-        lastName: 'Whitley',
-        email: 'daisywhitley@applideck.com',
-        dob: '1987-03-23',
-        address: {
-            street: '350 Pleasant Place',
-            city: 'Idledale',
-            zipcode: 9369,
-            geo: {
-                lat: -54.458809,
-                lng: -127.476556,
-            },
-        },
-        phone: '+1 (861) 564-2877',
-        isActive: true,
-        age: 21,
-        company: 'VOLAX',
-    },
-    {
-        id: 5,
-        firstName: 'Weber',
-        lastName: 'Bowman',
-        email: 'weberbowman@volax.com',
-        dob: '1983-02-24',
-        address: {
-            street: '154 Conway Street',
-            city: 'Broadlands',
-            zipcode: 8131,
-            geo: {
-                lat: 54.501351,
-                lng: -167.47138,
-            },
-        },
-        phone: '+1 (962) 466-3483',
-        isActive: false,
-        age: 26,
-        company: 'ORBAXTER',
-    },
-    {
-        id: 6,
-        firstName: 'Buckley',
-        lastName: 'Townsend',
-        email: 'buckleytownsend@orbaxter.com',
-        dob: '2011-05-29',
-        address: {
-            street: '131 Guernsey Street',
-            city: 'Vallonia',
-            zipcode: 6779,
-            geo: {
-                lat: -2.681655,
-                lng: 3.528942,
-            },
-        },
-        phone: '+1 (884) 595-2643',
-        isActive: true,
-        age: 40,
-        company: 'OPPORTECH',
-    },
-    {
-        id: 7,
-        firstName: 'Latoya',
-        lastName: 'Bradshaw',
-        email: 'latoyabradshaw@opportech.com',
-        dob: '2010-11-23',
-        address: {
-            street: '668 Lenox Road',
-            city: 'Lowgap',
-            zipcode: 992,
-            geo: {
-                lat: 36.026423,
-                lng: 130.412198,
-            },
-        },
-        phone: '+1 (906) 474-3155',
-        isActive: true,
-        age: 24,
-        company: 'GORGANIC',
-    },
-    {
-        id: 8,
-        firstName: 'Kate',
-        lastName: 'Lindsay',
-        email: 'katelindsay@gorganic.com',
-        dob: '1987-07-02',
-        address: {
-            street: '773 Harrison Avenue',
-            city: 'Carlton',
-            zipcode: 5909,
-            geo: {
-                lat: 42.464724,
-                lng: -12.948403,
-            },
-        },
-        phone: '+1 (930) 546-2952',
-        isActive: true,
-        age: 24,
-        company: 'AVIT',
-    },
-    {
-        id: 9,
-        firstName: 'Marva',
-        lastName: 'Sandoval',
-        email: 'marvasandoval@avit.com',
-        dob: '2010-11-02',
-        address: {
-            street: '200 Malta Street',
-            city: 'Tuskahoma',
-            zipcode: 1292,
-            geo: {
-                lat: -52.206169,
-                lng: 74.19452,
-            },
-        },
-        phone: '+1 (927) 566-3600',
-        isActive: false,
-        age: 28,
-        company: 'QUILCH',
-    },
-    {
-        id: 10,
-        firstName: 'Decker',
-        lastName: 'Russell',
-        email: 'deckerrussell@quilch.com',
-        dob: '1994-04-21',
-        address: {
-            street: '708 Bath Avenue',
-            city: 'Coultervillle',
-            zipcode: 1268,
-            geo: {
-                lat: -41.550295,
-                lng: -146.598075,
-            },
-        },
-        phone: '+1 (846) 535-3283',
-        isActive: false,
-        age: 27,
-        company: 'MEMORA',
-    },
-    {
-        id: 11,
-        firstName: 'Odom',
-        lastName: 'Mills',
-        email: 'odommills@memora.com',
-        dob: '2010-01-24',
-        address: {
-            street: '907 Blake Avenue',
-            city: 'Churchill',
-            zipcode: 4400,
-            geo: {
-                lat: -56.061694,
-                lng: -130.238523,
-            },
-        },
-        phone: '+1 (995) 525-3402',
-        isActive: true,
-        age: 34,
-        company: 'ZORROMOP',
-    },
-    {
-        id: 12,
-        firstName: 'Sellers',
-        lastName: 'Walters',
-        email: 'sellerswalters@zorromop.com',
-        dob: '1975-11-12',
-        address: {
-            street: '978 Oakland Place',
-            city: 'Gloucester',
-            zipcode: 3802,
-            geo: {
-                lat: 11.732587,
-                lng: 96.118099,
-            },
-        },
-        phone: '+1 (830) 430-3157',
-        isActive: true,
-        age: 28,
-        company: 'ORBOID',
-    },
-    {
-        id: 13,
-        firstName: 'Wendi',
-        lastName: 'Powers',
-        email: 'wendipowers@orboid.com',
-        dob: '1979-06-02',
-        address: {
-            street: '376 Greenpoint Avenue',
-            city: 'Elliott',
-            zipcode: 9149,
-            geo: {
-                lat: -78.159578,
-                lng: -9.835103,
-            },
-        },
-        phone: '+1 (863) 457-2088',
-        isActive: true,
-        age: 31,
-        company: 'SNORUS',
-    },
-    {
-        id: 14,
-        firstName: 'Sophie',
-        lastName: 'Horn',
-        email: 'sophiehorn@snorus.com',
-        dob: '2018-09-20',
-        address: {
-            street: '343 Doughty Street',
-            city: 'Homestead',
-            zipcode: 330,
-            geo: {
-                lat: 65.484087,
-                lng: 137.413998,
-            },
-        },
-        phone: '+1 (885) 418-3948',
-        isActive: true,
-        age: 22,
-        company: 'XTH',
-    },
-    {
-        id: 15,
-        firstName: 'Levine',
-        lastName: 'Rodriquez',
-        email: 'levinerodriquez@xth.com',
-        dob: '1973-02-08',
-        address: {
-            street: '643 Allen Avenue',
-            city: 'Weedville',
-            zipcode: 8931,
-            geo: {
-                lat: -63.185586,
-                lng: 117.327808,
-            },
-        },
-        phone: '+1 (999) 565-3239',
-        isActive: true,
-        age: 27,
-        company: 'COMTRACT',
-    },
-    {
-        id: 16,
-        firstName: 'Little',
-        lastName: 'Hatfield',
-        email: 'littlehatfield@comtract.com',
-        dob: '2012-01-03',
-        address: {
-            street: '194 Anthony Street',
-            city: 'Williston',
-            zipcode: 7456,
-            geo: {
-                lat: 47.480837,
-                lng: 6.085909,
-            },
-        },
-        phone: '+1 (812) 488-3011',
-        isActive: false,
-        age: 33,
-        company: 'ZIDANT',
-    },
-    {
-        id: 17,
-        firstName: 'Larson',
-        lastName: 'Kelly',
-        email: 'larsonkelly@zidant.com',
-        dob: '2010-06-14',
-        address: {
-            street: '978 Indiana Place',
-            city: 'Innsbrook',
-            zipcode: 639,
-            geo: {
-                lat: -71.766732,
-                lng: 150.854345,
-            },
-        },
-        phone: '+1 (892) 484-2162',
-        isActive: true,
-        age: 20,
-        company: 'SUREPLEX',
-    },
-    {
-        id: 18,
-        firstName: 'Kendra',
-        lastName: 'Molina',
-        email: 'kendramolina@sureplex.com',
-        dob: '2002-07-19',
-        address: {
-            street: '567 Charles Place',
-            city: 'Kimmell',
-            zipcode: 1966,
-            geo: {
-                lat: 50.765816,
-                lng: -117.106499,
-            },
-        },
-        phone: '+1 (920) 528-3330',
-        isActive: false,
-        age: 31,
-        company: 'DANJA',
-    },
-    {
-        id: 19,
-        firstName: 'Ebony',
-        lastName: 'Livingston',
-        email: 'ebonylivingston@danja.com',
-        dob: '1994-10-18',
-        address: {
-            street: '284 Cass Place',
-            city: 'Navarre',
-            zipcode: 948,
-            geo: {
-                lat: 65.271256,
-                lng: -83.064729,
-            },
-        },
-        phone: '+1 (970) 591-3039',
-        isActive: false,
-        age: 33,
-        company: 'EURON',
-    },
-    {
-        id: 20,
-        firstName: 'Kaufman',
-        lastName: 'Rush',
-        email: 'kaufmanrush@euron.com',
-        dob: '2011-07-10',
-        address: {
-            street: '408 Kingsland Avenue',
-            city: 'Beaulieu',
-            zipcode: 7911,
-            geo: {
-                lat: 41.513153,
-                lng: 54.821641,
-            },
-        },
-        phone: '+1 (924) 463-2934',
-        isActive: false,
-        age: 39,
-        company: 'ILLUMITY',
-    },
-    {
-        id: 21,
-        firstName: 'Frank',
-        lastName: 'Hays',
-        email: 'frankhays@illumity.com',
-        dob: '2005-06-15',
-        address: {
-            street: '973 Caton Place',
-            city: 'Dargan',
-            zipcode: 4104,
-            geo: {
-                lat: 63.314988,
-                lng: -138.771323,
-            },
-        },
-        phone: '+1 (930) 577-2670',
-        isActive: false,
-        age: 31,
-        company: 'SYBIXTEX',
-    },
-    {
-        id: 22,
-        firstName: 'Carmella',
-        lastName: 'Mccarty',
-        email: 'carmellamccarty@sybixtex.com',
-        dob: '1980-03-06',
-        address: {
-            street: '919 Judge Street',
-            city: 'Canby',
-            zipcode: 8283,
-            geo: {
-                lat: 9.198597,
-                lng: -138.809971,
-            },
-        },
-        phone: '+1 (876) 456-3218',
-        isActive: true,
-        age: 21,
-        company: 'ZEDALIS',
-    },
-    {
-        id: 23,
-        firstName: 'Massey',
-        lastName: 'Owen',
-        email: 'masseyowen@zedalis.com',
-        dob: '2012-03-01',
-        address: {
-            street: '108 Seaview Avenue',
-            city: 'Slovan',
-            zipcode: 3599,
-            geo: {
-                lat: -74.648318,
-                lng: 99.620699,
-            },
-        },
-        phone: '+1 (917) 567-3786',
-        isActive: false,
-        age: 40,
-        company: 'DYNO',
-    },
-    {
-        id: 24,
-        firstName: 'Lottie',
-        lastName: 'Lowery',
-        email: 'lottielowery@dyno.com',
-        dob: '1982-10-10',
-        address: {
-            street: '557 Meserole Avenue',
-            city: 'Fowlerville',
-            zipcode: 4991,
-            geo: {
-                lat: 54.811546,
-                lng: -20.996515,
-            },
-        },
-        phone: '+1 (912) 539-3498',
-        isActive: true,
-        age: 36,
-        company: 'MULTIFLEX',
-    },
-    {
-        id: 25,
-        firstName: 'Addie',
-        lastName: 'Luna',
-        email: 'addieluna@multiflex.com',
-        dob: '1988-05-01',
-        address: {
-            street: '688 Bulwer Place',
-            city: 'Harmon',
-            zipcode: 7664,
-            geo: {
-                lat: -12.762766,
-                lng: -39.924497,
-            },
-        },
-        phone: '+1 (962) 537-2981',
-        isActive: true,
-        age: 32,
-        company: 'PHARMACON',
-    },
-];
+import { BASE_URL } from '../../config'
+import axios, { AxiosResponse } from 'axios';
+
 
 const Customer = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Order Sorting Table'));
     });
-//     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
-//     const [page, setPage] = useState(1);
-//     const PAGE_SIZES = [10, 20, 30, 50, 100];
-//     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-//     const [initialRecords, setInitialRecords] = useState(sortBy(rowData, 'id'));
-//     const [recordsData, setRecordsData] = useState(initialRecords);
-
-//     const [search, setSearch] = useState('');
-//     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
-
-//     useEffect(() => {
-//         setPage(1);
-//     }, [pageSize]);
-
-//     useEffect(() => {
-//         const from = (page - 1) * pageSize;
-//         const to = from + pageSize;
-//         setRecordsData([...initialRecords.slice(from, to)]);
-//     }, [page, pageSize, initialRecords]);
-
-//     useEffect(() => {
-//         setInitialRecords(() => {
-//             return rowData.filter((item) => {
-//                 return (
-//                     item.id.toString().includes(search.toLowerCase()) ||
-//                     item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-//                     item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-//                     item.email.toLowerCase().includes(search.toLowerCase()) ||
-//                     item.phone.toLowerCase().includes(search.toLowerCase())
-//                 );
-//             });
-//         });
-//         // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, [search]);
-
-//     useEffect(() => {
-//         const data = sortBy(initialRecords, sortStatus.columnAccessor);
-//         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
-//         setPage(1);
-//         // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, [sortStatus]);
-//     return (
-//         <div>
-//             <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 text-primary">
-//                 <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
-//                     <IconBell />
-//                 </div>
-//                 <span className="ltr:mr-3 rtl:ml-3">Documentation: </span>
-//                 <a href="https://www.npmjs.com/package/mantine-datatable" target="_blank" className="block hover:underline">
-//                     https://www.npmjs.com/package/mantine-datatable
-//                 </a>
-//             </div>
-//             <div className="panel mt-6">
-//                 <div className="flex md:items-center md:flex-row flex-col mb-5 gap-5">
-//                     <h5 className="font-semibold text-lg dark:text-white-light">Order Sorting</h5>
-//                     <div className="ltr:ml-auto rtl:mr-auto">
-//                         <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-//                     </div>
-//                 </div>
-//                 <div className="datatables">
-//                     <DataTable
-//                         highlightOnHover
-//                         className={`${isRtl ? 'whitespace-nowrap table-hover' : 'whitespace-nowrap table-hover'}`}
-//                         records={recordsData}
-//                         columns={[
-//                             { accessor: 'id', title: 'ID', sortable: true },
-//                             { accessor: 'firstName', title: 'First Name', sortable: true },
-//                             { accessor: 'lastName', title: 'Last Name', sortable: true },
-//                             { accessor: 'email', sortable: true },
-//                             { accessor: 'phone', title: 'Phone No.', sortable: true },
-//                         ]}
-//                         totalRecords={initialRecords.length}
-//                         recordsPerPage={pageSize}
-//                         page={page}
-//                         onPageChange={(p) => setPage(p)}
-//                         recordsPerPageOptions={PAGE_SIZES}
-//                         onRecordsPerPageChange={setPageSize}
-//                         sortStatus={sortStatus}
-//                         onSortStatusChange={setSortStatus}
-//                         minHeight={200}
-//                         paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
-//                     />
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default OrderSorting;
-// const col = ['id', 'firstName', 'lastName', 'company', 'age', 'dob', 'email', 'phone'];
-// const RangeSearch = () => {
-//     const dispatch = useDispatch();
-//     useEffect(() => {
-//         dispatch(setPageTitle('Range Search Table'));
-//     });
-
-    const col = ['id', 'firstName', 'lastName', 'company', 'age', 'dob', 'email', 'phone'];
+    const col = ['id','ACCOUNTNO','ACCOUNTTYPE','AGENT','AGENTCOMISSION','AGENTID','ANNIVERSARY','AREA','BALANCE','BANKNAME','BRANCHNAME','CADDRESSLINE1', 'CADDRESSLINE2', 'CADDRESSLINE3','CARDNO','CCITY','CCOUNTRY','CDISTRICT','CEMAILID','CHEQUENO','CHEQUEREMARK','CITY','CLUB','CMOBILE','CUSTOMERID','DISCOUNT','DELAYDAYS','DOB','FIRMNAME', 'GSTIN', 'IFSCCODE', 'LRSMS', 'MARITALSTATUS', 'MICRCODE', 'MOBILE2', 'NAME', 'NAME2', 'PADDRESSLINE1', 'PADDRESSLINE2', 'PADDRESSLINE3', 'PAMOUNT', 'PCITY', 'PCOUNTRY', 'PDISTRICT', 'PEARNED', 'PEMAILID','PMOBILE', 'PPINCODE', 'PREDEEMED', 'PSTATE', 'RCONTACTNO', 'REMARK', 'RNAME', 'SALEPRICE', 'STATE', 'STATECODE', 'STATUS', 'TAMOUNT', 'TELEPHONE', 'TELEPHONE1', 'TELEPHONE2', 'TINNO', 'TITLE', 'TPNOBANK', 'TRANSPORT', 'TYPE', 'UPDATEDBY', 'UPDATEDON',
+    ];
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(rowData, 'id'));
+    // const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    const [search, setSearch] = useState('');
+    const [clientdata,setClientData]=useState(''); 
+    const [initialRecords, setInitialRecords] = useState<UserData[]>([]);
     const [recordsData, setRecordsData] = useState(initialRecords);
     const [tempData, setTempData] = useState(initialRecords);
-    const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
+    const [selectedCustomer, setSelectedCustomer] = useState("");
+    const [selectedFirm, setSelectedFirm] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [currentPage, setCurrentPage] = useState<number>(1); // Explicitly specify type as number
+    const [totalPages, setTotalPages] = useState<number>(1); // Explicitly specify type as number
+    const [pageSize, setPageSize] = useState<number>(10); // Explicitly specify type as number
+    const [totalRecords, setTotalRecords] = useState<number>(0);
 
-    const [hideCols, setHideCols] = useState<any>(['age', 'dob', 'isActive']);
+
+
+    const [hideCols, setHideCols] = useState<any>(['ACCOUNTNO','ACCOUNTTYPE','AGENT','AGENTCOMISSION','AGENTID','ANNIVERSARY','AREA','BALANCE','BANKNAME','BRANCHNAME','CADDRESSLINE1', 'CADDRESSLINE2', 'CADDRESSLINE3','CARDNO','CCITY','CCOUNTRY','CDISTRICT','CEMAILID','CHEQUENO','CHEQUEREMARK','CITY','CLUB','CMOBILE','CUSTOMERID','DISCOUNT','DELAYDAYS','DOB','FIRMNAME', 'GSTIN', 'IFSCCODE', 'LRSMS', 'MARITALSTATUS', 'MICRCODE', 'MOBILE2', 'NAME', 'NAME2', 'PADDRESSLINE1', 'PADDRESSLINE2', 'PADDRESSLINE3', 'PAMOUNT', 'PCITY', 'PCOUNTRY', 'PDISTRICT', 'PEARNED', 'PEMAILID','PMOBILE', 'PPINCODE', 'PREDEEMED', 'PSTATE', 'RCONTACTNO', 'REMARK', 'RNAME', 'SALEPRICE', 'STATE', 'STATECODE', 'STATUS', 'TAMOUNT', 'TELEPHONE', 'TELEPHONE1', 'TELEPHONE2', 'TINNO', 'TITLE', 'TPNOBANK', 'TRANSPORT', 'TYPE', 'UPDATEDBY', 'UPDATEDON', ]
+  );
+
+
+
 
     const showHideColumns = (col: any, value: any) => {
         if (hideCols.includes(col)) {
@@ -637,18 +59,189 @@ const Customer = () => {
         }
     };
 
-    const cols = [
-        { accessor: 'id', title: 'ID' },
-        { accessor: 'firstName', title: 'First Name' },
-        { accessor: 'lastName', title: 'Last Name' },
-        { accessor: 'email', title: 'Email' },
-        { accessor: 'phone', title: 'Phone' },
-        { accessor: 'company', title: 'Company' },
-        { accessor: 'address.street', title: 'Address' },
-        { accessor: 'age', title: 'Age' },
-        { accessor: 'dob', title: 'StartDate' },
-        { accessor: 'isActive', title: 'Active' },
+    interface UserData {
+        ACCOUNTHOLDERNAME:"string";
+ACCOUNTNO:"string";
+ACCOUNTTYPE:"string";
+ADDRESS:"string";
+AGENT:"string";
+AGENTCOMISSION:number;
+AGENTID:number;
+ANNIVERSARY:"string";
+AREA:"string";
+BALANCE:number;
+BANKNAME:"string";
+BRANCHNAME:"string";
+CADDRESSLINE1:"string";
+CADDRESSLINE2:"string";
+CADDRESSLINE3:"string";
+CARDNO:"string";
+CCITY:"string";
+CCOUNTRY:"string";
+CDISTRICT:"string";
+CEMAILID:"string";
+CHEQUENO:"string";
+CHEQUEREMARK:"string";
+CITY:"string";
+CLUB:number;
+CMOBILE:"string";
+COMPANYID:number;
+CONSIGNEEID:number;
+COUNTRY:"string";
+CPINCODE:"string";
+CREATEDBY:"string";
+CREATEDON:"string";
+CREDITLIMITS:"string";
+CSTATE:"string";
+CUSTOMERCODE:"string";
+CUSTOMERID:number;
+DELAYDAYS:"string";
+DISCOUNT:"string";
+DOB:"string";
+EMAILID:"string";
+FIRMNAME:"string";
+FNAME:"string";
+GSTIN:"string";
+IFSCCODE:"string";
+LNAME:"string";
+LRSMS:"string";
+MARITALSTATUS:"string";
+MICRCODE:"string";
+MOBILE:"string";
+MOBILE2:"string";
+NAME:"string";
+NAME2:"string";
+PADDRESSLINE1:"string";
+PADDRESSLINE2:"string";
+PADDRESSLINE3:"string";
+PAMOUNT:number;
+PCITY:"string";
+PCOUNTRY:"string";
+PDISTRICT:"string";
+PEARNED:number;
+PEMAILID:"string";
+PMOBILE:"string";
+PPINCODE:"string";
+PREDEEMED:number;
+PSTATE:"string";
+RCONTACTNO:"string";
+REMARK:"string";
+RNAME:"string";
+SALEPRICE:"string";
+STATE:"string";
+STATECODE:"string";
+STATUS:"string";
+TAMOUNT:number;
+TELEPHONE:"string";
+TELEPHONE1:"string";
+TELEPHONE2:"string";
+TINNO:"string";
+TITLE:"string";
+TPNOBANK:"string";
+TRANSPORT:"string";
+TYPE:"string";
+UPDATEDBY:"string";
+UPDATEDON:"string";
+id:number;
+    }
+
+    const cols = [ 
+
+            { accessor: 'ACCOUNTNO', title: 'ACCOUNTNO'},
+            { accessor: 'ACCOUNTTYPE', title: 'ACCOUNTTYPE' },
+            { accessor: 'ADDRESS', title: 'ADDRESS' },
+            { accessor: 'AGENT', title: 'AGENT' },
+            { accessor: 'AGENTCOMISSION', title: 'AGENTCOMISSION' },
+            { accessor: 'AGENTID', title: 'AGENTID' },
+            { accessor: 'ANNIVERSARY', title: 'ANNIVERSARY' },
+            { accessor: 'AREA', title: 'AREA' },
+            { accessor: 'BALANCE', title: 'BALANCE' },
+            { accessor: 'BANKNAME', title: 'BANKNAME' },
+            { accessor: 'BRANCHNMAE', title: 'BRANCHNMAE' },
+            { accessor: 'CADDRESSLINE1', title: 'CADDRESSLINE1' },
+            { accessor: 'CADDRESSLINE2.', title: 'CADDRESSLINE2.' },
+            { accessor: 'CADDRESSLINE3', title: 'CADDRESSLINE3' },
+            { accessor: 'CARDNO', title: 'CARDNO' },
+            { accessor: 'CCITY', title: 'CCITY' },
+            { accessor: 'CCOUNTRY', title: 'CCOUNTRY' },
+            { accessor: 'CDISTRICT', title: 'CDISTRICT' },
+            { accessor: 'CEMAILID', title: 'CEMAILID' },
+            { accessor: 'CHEQUENO', title: 'CHEQUENO' },
+            { accessor: 'CHEQUEREMARK', title: 'CHEQUEREMARK' },
+            { accessor: 'CITY', title: 'CITY' },
+            { accessor: 'CLUB', title: 'CLUB' },
+            { accessor: 'CMOBILE', title: 'CMOBILE' },
+            { accessor: 'COMPANYID', title: 'COMPANYID'},
+        { accessor: 'CUSTOMERID', title: 'CUSTOMERID' },
+        { accessor: 'DELAYDAYS', title: 'DELAYDAYS' },
+        { accessor: 'DISCOUNT', title: 'DISCOUNT' },
+        { accessor: 'DOB', title: 'DOB' },
+            { accessor: 'EMAILID', title: 'EMAILID' },
+            { accessor: 'FIRMNAME', title: 'FIRMNAME' },
+            { accessor: 'FNAME', title: 'FNAME' },
+            { accessor: 'GSTIN', title: 'GSTIN' },
+            { accessor: 'IFSCCODE', title: 'IFSCCODE' },
+            { accessor: 'LNMAE', title: 'LNMAE' },
+            { accessor: 'LRSMS', title: 'LRSMS' },
+            { accessor: 'MARITALSTATUS', title: 'MARITALSTATUS' },
+            { accessor: 'MICRCODE', title: 'MICRCODE' },
+            { accessor: 'MOBILE', title: 'MOBILE' },
+            { accessor: 'MOBILE2', title: 'MOBILE2' },
+            { accessor: 'NAME', title: 'NAME' },
+            { accessor: 'NAME2', title: 'NAME2' },
+            { accessor: 'PADDRESSLINE1', title: 'PADDRESSLINE1' },
+            { accessor: 'PADDRESSLINE2', title: 'PADDRESSLINE2' },
+            { accessor: 'PADDRESSLINE3', title: 'PADDRESSLINE3' },
+            { accessor: 'PAMOUNT', title: 'PAMOUNT' },
+            { accessor: 'PCITY', title: 'PCITY' },
+            { accessor: 'PCOUNTRY', title: 'PCOUNTRY' },
+            { accessor: 'PDISTRICT', title: 'PDISTRICT' },
+            { accessor: 'PEARNED', title: 'PEARNED' },
+            { accessor: 'PEMAILID', title: 'PEMAILID' },
+
+            { accessor: 'PMOBILE', title: 'PMOBILE' },
+            { accessor: 'PPINCODE', title: 'PPINCODE' },
+            { accessor: 'PREDEEMED', title: 'PREDEEMED' },
+            { accessor: 'PSTATE', title: 'PSTATE' },
+            { accessor: 'RCONTACTNO', title: 'RCONTACTNO' },
+            { accessor: 'REMARK', title: 'REMARK' },
+            { accessor: 'RNAME', title: 'RNAME' },
+            { accessor: 'SALEPRICE', title: 'SALEPRICE' },
+            { accessor: 'STATE', title: 'STATE' },
+            { accessor: 'STATECODE', title: 'STATECODE' },
+            { accessor: 'STATUS', title: 'STATUS' },
+            { accessor: 'TAMOUNT', title: 'TAMOUNT' },
+            { accessor: 'TELEPHONE', title: 'TELEPHONE' },
+            { accessor: 'TELEPHONE1', title: 'TELEPHONE1' },
+            { accessor: 'TELEPHONE2', title: 'TELEPHONE2' },
+            { accessor: 'TINNO', title: 'TINNO' },
+            { accessor: 'TITLE', title: 'TITLE' },
+            { accessor: 'TPNOBANK', title: 'TPNOBANK' },
+            { accessor: 'TRANSPORT', title: 'TRANSPORT' },
+            { accessor: 'TYPE', title: 'TYPE' },
+            { accessor: 'UPDATEDBY', title: 'UPDATEDBY' },
+            { accessor: 'UPDATEDON', title: 'UPDATEDON' },
+            { accessor: 'ID', title: 'ID' }
+
     ];
+    useEffect(() => {
+        // Fetch data from API
+        
+        fetch(`${BASE_URL}/getCustomer`)
+            .then(response => response.json())
+            .then(data => {
+                let detail=data;
+                setClientData(detail);
+                setInitialRecords(detail);
+                setRecordsData(detail);
+                setTempData(detail);
+                console.log(detail,'dataaa');
+      })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
@@ -659,18 +252,46 @@ const Customer = () => {
         setRecordsData([...initialRecords.slice(from, to)]);
     }, [page, pageSize, initialRecords]);
 
+    interface ApiResponse {
+        totalRecords: number;
+        totalPages: number;
+        currentPage: number;
+        agents: UserData[];
+    }
+
+    useEffect(() => {
+        // Function to fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
+                console.log(currentPage, 'aaaaaaa')
+                const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
+                setInitialRecords(agents);
+                setRecordsData(agents);
+                setTempData(agents);
+                setTotalPages(totalPages);
+                setCurrentPage(fetchedCurrentPage);
+                setTotalRecords(totalRecords);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData(); // Fetch data when the component mounts or currentPage changes
+    }, [currentPage]);
+
     useEffect(() => {
         setInitialRecords(() => {
             return tempData.filter((item) => {
                 return (
                     item.id.toString().includes(search.toLowerCase()) ||
-                    item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.company.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.dob.toLowerCase().includes(search.toLowerCase()) ||
-                    item.phone.toLowerCase().includes(search.toLowerCase())
+                    item.FNAME.toLowerCase().includes(search.toLowerCase()) ||
+                    item.CITY.toLowerCase().includes(search.toLowerCase()) ||
+                    // item.company.toLowerCase().includes(search.toLowerCase()) ||
+                    item.EMAILID.toLowerCase().includes(search.toLowerCase()) ||
+                    // item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
+                    item.DOB.toLowerCase().includes(search.toLowerCase()) ||
+                    item.MOBILE.toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
@@ -687,19 +308,19 @@ const Customer = () => {
     const [minAge, setMinAge] = useState<any>('');
     const [maxAge, setMaxAge] = useState<any>('');
 
-    useEffect(() => {
-        let dt = rowData;
-        if (minAge !== '' && minAge !== null) {
-            dt = dt.filter((d) => d.age >= Number(minAge));
-        }
-        if (maxAge !== '' && maxAge !== null) {
-            dt = dt.filter((d) => d.age <= Number(maxAge));
-        }
-        if (minAge || maxAge) {
-            setInitialRecords(dt);
-            setTempData(dt);
-        }
-    }, [minAge, maxAge]);
+    // useEffect(() => {
+    //     let dt = rowData;
+    //     if (minAge !== '' && minAge !== null) {
+    //         dt = dt.filter((d) => d.age >= Number(minAge));
+    //     }
+    //     if (maxAge !== '' && maxAge !== null) {
+    //         dt = dt.filter((d) => d.age <= Number(maxAge));
+    //     }
+    //     if (minAge || maxAge) {
+    //         setInitialRecords(dt);
+    //         setTempData(dt);
+    //     }
+    // }, [minAge, maxAge]);
 
     const formatDate = (date: any) => {
         if (date) {
@@ -710,7 +331,7 @@ const Customer = () => {
         }
         return '';
     };
-    const header = ['Id', 'First Name', 'Last Name', 'Email', 'Start Date', 'Phone No.', 'Age', 'Company'];
+    const header = ['Id','ACCOUNTNO','ACCOUNTTYPE','AGENT','AGENTCOMISSION','AGENTID','ANNIVERSARY','AREA','BALANCE','BANKNAME','BRANCHNAME','CADDRESSLINE1', 'CADDRESSLINE2', 'CADDRESSLINE3','CARDNO','CCITY','CCOUNTRY','CDISTRICT','CEMAILID','CHEQUENO','CHEQUEREMARK','CITY','CLUB','CMOBILE','CUSTOMERID','DISCOUNT','DELAYDAYS','DOB','FIRMNAME', 'GSTIN', 'IFSCCODE', 'LRSMS', 'MARITALSTATUS', 'MICRCODE', 'MOBILE2', 'NAME', 'NAME2', 'PADDRESSLINE1', 'PADDRESSLINE2', 'PADDRESSLINE3', 'PAMOUNT', 'PCITY', 'PCOUNTRY', 'PDISTRICT', 'PEARNED', 'PEMAILID','PMOBILE', 'PPINCODE', 'PREDEEMED', 'PSTATE', 'RCONTACTNO', 'REMARK', 'RNAME', 'SALEPRICE', 'STATE', 'STATECODE', 'STATUS', 'TAMOUNT', 'TELEPHONE', 'TELEPHONE1', 'TELEPHONE2', 'TINNO', 'TITLE', 'TPNOBANK', 'TRANSPORT', 'TYPE', 'UPDATEDBY', 'UPDATEDON', ];
     
     interface YourDataType {
         id: number;
@@ -723,20 +344,20 @@ const Customer = () => {
         company: string;
     }
     function handleDownloadExcel() {
-        const col: Array<keyof YourDataType> = ['id', 'firstName', 'lastName', 'email', 'dob', 'phone', 'age', 'company'];   
+        const col: Array<keyof UserData> = ['id','ACCOUNTNO','ACCOUNTTYPE','AGENT','AGENTCOMISSION','AGENTID','ANNIVERSARY','AREA','BALANCE','BANKNAME','BRANCHNAME','CADDRESSLINE1', 'CADDRESSLINE2', 'CADDRESSLINE3','CARDNO','CCITY','CCOUNTRY','CDISTRICT','CEMAILID','CHEQUENO','CHEQUEREMARK','CITY','CLUB','CMOBILE','CUSTOMERID','DISCOUNT','DELAYDAYS','DOB','FIRMNAME', 'GSTIN', 'IFSCCODE', 'LRSMS', 'MARITALSTATUS', 'MICRCODE', 'MOBILE2', 'NAME', 'NAME2', 'PADDRESSLINE1', 'PADDRESSLINE2', 'PADDRESSLINE3', 'PAMOUNT', 'PCITY', 'PCOUNTRY', 'PDISTRICT', 'PEARNED', 'PEMAILID','PMOBILE', 'PPINCODE', 'PREDEEMED', 'PSTATE', 'RCONTACTNO', 'REMARK', 'RNAME', 'SALEPRICE', 'STATE', 'STATECODE', 'STATUS', 'TAMOUNT', 'TELEPHONE', 'TELEPHONE1', 'TELEPHONE2', 'TINNO', 'TITLE', 'TPNOBANK', 'TRANSPORT', 'TYPE', 'UPDATEDBY', 'UPDATEDON',];   
         downloadExcel({
             fileName: 'table',
             sheet: 'react-export-table-to-excel',
             tablePayload: {
                 header,
-                body: rowData.map(row => col.map(key => row[key]))
+                body: recordsData.map(row => col.map(key => row[key]))
             },
         });
     };
 
     const exportTable = (type: any) => {
         let columns: any = col;
-        let records = rowData;
+        let records = initialRecords;
         let filename = 'table';
 
         let newVariable: any;
@@ -853,26 +474,43 @@ const Customer = () => {
             .map((s: any) => s.charAt(0).toUpperCase() + s.substring(1))
             .join(' ');
     };
+    const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        if (name === 'Customer Name') {
+            setSelectedCustomer(value);
+        } else if (name === 'Firm Name') {
+            setSelectedFirm(value);
+        }else if (name === 'City'){
+            setSelectedCity(value);
+        }else if (name === 'State'){
+            setSelectedState(value);
+        }else if (name === 'Status'){
+            setSelectedStatus(value);
+        }
+    }
+    const handleSearch = () => {
+        const filteredData = initialRecords.filter(record => {
+            return (selectedCustomer === "" || record.FNAME === selectedCustomer) && 
+                   (selectedFirm === "" || record.FIRMNAME === selectedFirm) &&
+                   (selectedCity === "" || record.CITY === selectedCity) &&
+                   (selectedState === "" || record.STATE === selectedState) &&
+                   (selectedStatus === "" || record.STATUS === selectedStatus);
+        });
+        setRecordsData(filteredData);
+    }
 
-    // function exportTable(arg0: string): void {
-    //     throw new Error('Function not implemented.');
-    // }
+    const handleReset = () => {
+        setSelectedCustomer("");
+        setSelectedFirm("");
+        setSelectedCity("");
+        setSelectedState("");
+        setSelectedStatus("");
+        setRecordsData(initialRecords.slice(0, 10));   
+    }
 
-    // function handleDownloadExcel(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    //     throw new Error('Function not implemented.');
-    // }
 
     return (
         <div>
-            {/* <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 text-primary"> */}
-                {/* <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
-                    <IconBell />
-                </div>
-                <span className="ltr:mr-3 rtl:ml-3">Documentation: </span>
-                <a href="https://www.npmjs.com/package/mantine-datatable" target="_blank" className="block hover:underline">
-                    https://www.npmjs.com/package/mantine-datatable
-                </a> */}
-            {/* </div> */}
             <div className="panel mt-6">
                 <div className="mb-4.5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-5">
@@ -918,16 +556,27 @@ const Customer = () => {
                             PRINT
                         </button>
 
-                        <button type="button" className="btn btn-primary btn-sm m-1" style={{ padding: '8px 28px' }}>
+                        <button type="button" className="btn btn-primary btn-sm m-1 w-50 h-5 ltr:mr-2 rtl:ml-2"
+                        style={{
+                            width: "11%",
+                            height: "34px"
+                        }}
+                        onClick={handleReset}
+                    >
+                        RESET
+                    </button>
 
-                                OK
+                        <button type="button" className="btn btn-primary btn-sm m-1" style={{ padding: '8px 20px' }}
+                        onClick={handleSearch}>
+                             SEARCH
                             </button>
 
-                            <button type="button" className="btn btn-primary btn-sm m-1" style={{ padding: '8px 28px' }}>
+                            {/* <button type="button" className="btn btn-primary btn-sm m-1" style={{ padding: '8px 28px' }}>
 
                                 CLOSE
-                            </button>
+                            </button> */}
                     </div>
+                    
                     <div className="dropdown">
                                 <Dropdown
                                     placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
@@ -939,35 +588,71 @@ const Customer = () => {
                                         </>
                                     }
                                 >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={!hideCols.includes(col.accessor)}
-                                                                className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                                onChange={(event: any) => {
-                                                                    setHideCols(event.target.value);
-                                                                    showHideColumns(col.accessor, event.target.checked);
-                                                                }}
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
+                                    <div className="overflow-auto max-h-[300px]">
+    <ul className="!min-w-[140px]">
+        {cols.map((col, i) => {
+            if (i % 3 === 0) {
+                return (
+                    <li key={i} className="flex md:flex-row flex-col " onClick={(e) => {
+                        e.stopPropagation();
+                    }}>
+                        <div className="flex items-center px-4 py-1 md:w-1/3">
+                            <label className="cursor-pointer mb-0 flex items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={!hideCols.includes(col.accessor)}
+                                    className="form-checkbox mr-2"
+                                    defaultValue={col.accessor}
+                                    onChange={(event) => {
+                                        setHideCols(event.target.value);
+                                        showHideColumns(col.accessor, event.target.checked);
+                                    }}
+                                />
+                                <span>{col.title}</span>
+                            </label>
+                        </div>
+                        {cols[i + 1] && (
+                            <div className="flex items-center px-4 py-1 md:w-1/3">
+                                <label className="cursor-pointer mb-0 flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={!hideCols.includes(cols[i + 1].accessor)}
+                                        className="form-checkbox mr-2"
+                                        defaultValue={cols[i + 1].accessor}
+                                        onChange={(event) => {
+                                            setHideCols(event.target.value);
+                                            showHideColumns(cols[i + 1].accessor, event.target.checked);
+                                        }}
+                                    />
+                                    <span>{cols[i + 1].title}</span>
+                                </label>
+                            </div>
+                        )}
+                        {cols[i + 2] && (
+                            <div className="flex items-center px-4 py-1 md:w-1/3">
+                                <label className="cursor-pointer mb-0 flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={!hideCols.includes(cols[i + 2].accessor)}
+                                        className="form-checkbox mr-2"
+                                        defaultValue={cols[i + 2].accessor}
+                                        onChange={(event) => {
+                                            setHideCols(event.target.value);
+                                            showHideColumns(cols[i + 2].accessor, event.target.checked);
+                                        }}
+                                    />
+                                    <span>{cols[i + 2].title}</span>
+                                </label>
+                            </div>
+                        )}
+                    </li>
+                );
+            } else {
+                return null;
+            }
+        })}
+    </ul>
+</div>
                                 </Dropdown>
                             </div>
                     </div>
@@ -980,15 +665,32 @@ const Customer = () => {
         <tr>
             <td>
                 <label htmlFor="">Customer Name
-                    <select name="Customer Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}>
+                    <select name="Customer Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}
+                    value={selectedCustomer}
+                    onChange={handleDropdownChange}        
+                   >
                         <option value="">--ALL--</option>
+                        {
+                           initialRecords.map((record,index) =>(
+                                <option key={index} value={record.FNAME} >{record.FNAME} </option>
+                            ))
+                        }
                     </select>
                 </label>
             </td>
             <td>
                 <label htmlFor="">Firm Name
-                    <select name="Firm Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}>
+                    <select name="Firm Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}
+                    value={selectedFirm}
+                    onChange={handleDropdownChange}  
+                      >
                         <option value="">--ALL--</option>
+                        {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.FIRMNAME} >{record.FIRMNAME} </option>
+                            ))
+                        }
+
                     </select>
                 </label>
             </td>
@@ -1005,22 +707,46 @@ const Customer = () => {
         <tr>
             <td>
                 <label htmlFor="">City
-                <select name="City" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'84px', width:'144px'}}>
+                <select name="City" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'84px', width:'144px'}}
+                value={selectedCity}
+                        onChange={handleDropdownChange}
+                             >
                         <option value="">--ALL--</option>
+                        {
+                        initialRecords.map((record,index) =>(
+                                <option key={index} value={record.CITY} >{record.CITY} </option>
+                            ))
+                        }
                     </select>
-                </label>
+               </label>
             </td>
             <td>
                 <label htmlFor="">State
-                <input type="text" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'41px', width:'144px'}}/>
+                <select name="State" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'41px', width:'144px'}}
+                value={selectedState}
+                        onChange={handleDropdownChange}
+                             >
+                              
+                                    <option value="">--ALL--</option>
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.STATE}>{record.STATE}</option>
+                                    ))}
+                                    </select>
+                                    
                 </label>
             </td>
             <td>
                 <label htmlFor="">Status
-                    <select name="Status" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'32px', width:'144px'}}>
-                        <option value="">Active</option>
-                        <option value="">InActive</option>
-                    </select>
+                    <select name="Status" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'32px', width:'144px'}}
+                     value={selectedStatus}
+                     onChange={handleDropdownChange}
+                    >
+                   
+                                    <option value="">--All--</option>
+                                    {initialRecords.map((record, index) => (
+                                        <option key={index} value={record.STATUS}>{record.STATUS}</option>
+                                    ))}
+                                </select>
                 </label>
             </td> 
             {/* <td>
@@ -1037,55 +763,81 @@ const Customer = () => {
                         className="whitespace-nowrap table-hover"
                         records={recordsData}
                         columns={[
-                            { accessor: 'id', title: 'Id', sortable: true, hidden: hideCols.includes('id') },
-                            
-                            {
-                                accessor: 'firstName',
-                                title: 'First Name',
-                                sortable: true,
-                                hidden: hideCols.includes('firstName'),
-                            },
-                            {
-                                accessor: 'lastName',
-                                title: 'Last Name',
-                                sortable: true,
-                                hidden: hideCols.includes('lastName'),
-                            },
-                            { accessor: 'email', title: 'Email', sortable: true, hidden: hideCols.includes('email') },
-                            { accessor: 'phone', title: 'Phone', sortable: true, hidden: hideCols.includes('phone') },
-                            {
-                                accessor: 'company',
-                                title: 'Company',
-                                sortable: true,
-                                hidden: hideCols.includes('company'),
-                            },
-                            {
-                                accessor: 'address.street',
-                                title: 'Address',
-                                sortable: true,
-                                hidden: hideCols.includes('address.street'),
-                            },
-                            {
-                                accessor: 'age',
-                                title: 'Age',
-                                sortable: true,
-                                hidden: hideCols.includes('age'),
-                            },
-                            {
-                                accessor: 'dob',
-                                title: 'StartDate',
-                                sortable: true,
-                                hidden: hideCols.includes('dob'),
-                                render: ({ dob }) => <div>{formatDate(dob)}</div>,
-                            },
-                            {
-                                accessor: 'isActive',
-                                title: 'Active',
-                                sortable: true,
-                                hidden: hideCols.includes('isActive'),
-                                render: ({ isActive }) => <div className={`${isActive ? 'text-success' : 'text-danger'} capitalize`}>{isActive.toString()}</div>,
-                            },
-                        ]}
+                            { accessor: 'id', title: 'id', sortable: true, hidden: hideCols.includes('id') },
+                            { accessor: 'FNAME', title: 'FNAME', sortable: true, hidden: hideCols.includes('FNAME') },
+                            { accessor: 'LNAME', title: 'LNAME', sortable: true, hidden: hideCols.includes('LNAME') },
+                            { accessor: 'EMAILID', title: 'EMAILID', sortable: true, hidden: hideCols.includes('EMAILID') },
+                            { accessor: 'ACCOUNTNO', title: 'ACCOUNTNO', sortable: true, hidden: hideCols.includes('ACCOUNTNO') },
+                            { accessor: 'ACCOUNTTYPE', title: 'ACCOUNTTYPE', sortable: true, hidden: hideCols.includes('ACCOUNTTYPE') },
+                            { accessor: 'ADDRESS', title: 'ADDRESS', sortable: true, hidden: hideCols.includes('ADDRESS')},
+                            {  accessor: 'AGENT',title: 'Agent',sortable: true, hidden: hideCols.includes('AGENT')},
+                            { accessor: 'AGENTID',  title: 'Agent Id',  sortable: true, hidden: hideCols.includes('AGENTID')},
+                            { accessor: 'AGENTCOMISSION',title: 'AgentComission', sortable: true, hidden: hideCols.includes('AGENTCOMISSION')},
+                            { accessor: 'ANNIVERSARY',title: 'ANNIVERSARY',sortable: true, hidden: hideCols.includes('ANNIVERSARY') },
+                            { accessor: 'AREA',title: 'AREA',sortable: true, hidden: hideCols.includes('AREA') },
+                            { accessor: 'BALANCE',title: 'BALANCE',sortable: true, hidden: hideCols.includes('BALANCE') },
+                            { accessor: 'BANKNAME',title: 'BANKNAME',sortable: true, hidden: hideCols.includes('BANKNAME') },
+                            { accessor: 'BRANCHNAME', title: 'BRANCHNAME', sortable: true, hidden: hideCols.includes('BRANCHNAME') },
+                            { accessor: 'CADDRESSLINE1', title: 'CADDRESSLINE1', sortable: true, hidden: hideCols.includes('CADDRESSLINE1') },
+                            { accessor: 'CADDRESSLINE2',title: 'CADDRESSLINE2',sortable: true, hidden: hideCols.includes('CADDRESSLINE2') },
+                            { accessor: 'CADDRESSLINE3',title: 'CADDRESSLINE3',sortable: true, hidden: hideCols.includes('CADDRESSLINE3') },
+                            { accessor: 'CARDNO', title: 'CARDNO', sortable: true, hidden: hideCols.includes('CARDNO') },
+                            { accessor: 'CCITY',title: 'CCITY',sortable: true, hidden: hideCols.includes('CCITY') },
+                            { accessor: 'CCOUNTRY',title: 'CCOUNTRY',sortable: true, hidden: hideCols.includes('CCOUNTRY') },
+                            { accessor: 'CDISTRICT', title: 'CDISTRICT', sortable: true, hidden: hideCols.includes('CDISTRICT') },
+                            { accessor: 'CEMAILID', title: 'CEMAILID', sortable: true, hidden: hideCols.includes('CEMAILID') },
+                            { accessor: 'CHEQUENO',title: 'CHEQUENO',sortable: true, hidden: hideCols.includes('CHEQUENO') },
+                            { accessor: 'CHEQUEREMARK',title: 'CHEQUEREMARK',sortable: true, hidden: hideCols.includes('CHEQUEREMARK') },
+                            { accessor: 'CITY', title: 'CITY', sortable: true, hidden: hideCols.includes('CITY') },
+                            { accessor: 'CLUB', title: 'CLUB', sortable: true, hidden: hideCols.includes('CLUB') },
+                            { accessor: 'CMOBILE', title: 'CMOBILE', sortable: true, hidden: hideCols.includes('CMOBILE') },
+                            { accessor: 'COMPANYID',title: 'COMPANYID',sortable: true, hidden: hideCols.includes('COMPANYID') },
+                            { accessor: 'CUSTOMERID',title: 'CUSTOMERID',sortable: true, hidden: hideCols.includes('CUSTOMERID') },
+                            { accessor: 'DELAYDAYS',title: 'DELAYDAYS',sortable: true, hidden: hideCols.includes('DELAYDAYS') },
+                            { accessor: 'DISCOUNT',title: 'DISCOUNT',sortable: true, hidden: hideCols.includes('DISCOUNT') },
+                            { accessor: 'DOB',title: 'DOB',sortable: true, hidden: hideCols.includes('DOB') },
+                            { accessor: 'FIRMNAME', title: 'FIRMNAME', sortable: true, hidden: hideCols.includes('FIRMNAME') },
+                                { accessor: 'GSTIN', title: 'GSTIN', sortable: true, hidden: hideCols.includes('GSTIN') },
+                                { accessor: 'IFSCCODE', title: 'IFSCCODE', sortable: true, hidden: hideCols.includes('IFSCCODE') },
+                                { accessor: 'LRSMS', title: 'LRSMS', sortable: true, hidden: hideCols.includes('LRSMS') },
+                                { accessor: 'MARITALSTATUS', title: 'MARITALSTATUS', sortable: true, hidden: hideCols.includes('MARITALSTATUS') },
+                                { accessor: 'MICRCODE', title: 'MICRCODE', sortable: true, hidden: hideCols.includes('MICRCODE') },
+                                { accessor: 'MOBILE', title: 'MOBILE', sortable: true, hidden: hideCols.includes('MOBILE') },
+                                { accessor: 'MOBILE2', title: 'MOBILE2', sortable: true, hidden: hideCols.includes('MOBILE2') },
+                                { accessor: 'NAME', title: 'NAME', sortable: true, hidden: hideCols.includes('NAME') },
+                                { accessor: 'NAME2', title: 'NAME2', sortable: true, hidden: hideCols.includes('NAME2') },
+                                { accessor: 'PADDRESSLINE1', title: 'PADDRESSLINE1', sortable: true, hidden: hideCols.includes('PADDRESSLINE1') },
+                                { accessor: 'PADDRESSLINE2', title: 'PADDRESSLINE2', sortable: true, hidden: hideCols.includes('PADDRESSLINE2') },
+                                { accessor: 'PADDRESSLINE3', title: 'PADDRESSLINE3', sortable: true, hidden: hideCols.includes('PADDRESSLINE3') },
+                                { accessor: 'PAMOUNT', title: 'PAMOUNT', sortable: true, hidden: hideCols.includes('PAMOUNT') },
+                                { accessor: 'PCITY', title: 'PCITY', sortable: true, hidden: hideCols.includes('PCITY') },
+                                { accessor: 'PCOUNTRY', title: 'PCOUNTRY', sortable: true, hidden: hideCols.includes('PCOUNTRY') },
+                                { accessor: 'PDISTRICT', title: 'PDISTRICT', sortable: true, hidden: hideCols.includes('PDISTRICT') },
+                                { accessor: 'PEARNED', title: 'PEARNED', sortable: true, hidden: hideCols.includes('PEARNED') },
+                                { accessor: 'PEMAILID', title: 'PEMAILID', sortable: true, hidden: hideCols.includes('PEMAILID') },
+                                { accessor: 'PMOBILE', title: 'PMOBILE', sortable: true, hidden: hideCols.includes('PMOBILE') },
+                                { accessor: 'PPINCODE', title: 'PPINCODE', sortable: true, hidden: hideCols.includes('PPINCODE') },
+                                { accessor: 'PREDEEMED', title: 'PREDEEMED', sortable: true, hidden: hideCols.includes('PREDEEMED') },
+                                { accessor: 'PSTATE', title: 'PSTATE', sortable: true, hidden: hideCols.includes('PSTATE') },
+                                { accessor: 'RCONTACTNO', title: 'RCONTACTNO', sortable: true, hidden: hideCols.includes('RCONTACTNO') },
+                                { accessor: 'REMARK', title: 'REMARK', sortable: true, hidden: hideCols.includes('REMARK') },
+                                { accessor: 'RNAME', title: 'RNAME', sortable: true, hidden: hideCols.includes('RNAME') },
+                                { accessor: 'SALEPRICE', title: 'SALEPRICE', sortable: true, hidden: hideCols.includes('SALEPRICE') },
+                                { accessor: 'STATE', title: 'STATE', sortable: true, hidden: hideCols.includes('STATE') },
+                                { accessor: 'STATECODE', title: 'STATECODE', sortable: true, hidden: hideCols.includes('STATECODE') },
+                                { accessor: 'STATUS', title: 'STATUS', sortable: true, hidden: hideCols.includes('STATUS') },
+                                { accessor: 'TAMOUNT', title: 'TAMOUNT', sortable: true, hidden: hideCols.includes('TAMOUNT')} ,
+                                { accessor: 'TELEPHONE', title: 'TELEPHONE', sortable: true, hidden: hideCols.includes('TELEPHONE') },
+                                { accessor: 'TELEPHONE1', title: 'TELEPHONE1', sortable: true, hidden: hideCols.includes('TELEPHONE1') },
+                                { accessor: 'TELEPHONE2', title: 'TELEPHONE2', sortable: true, hidden: hideCols.includes('TELEPHONE2') },
+                                { accessor: 'TINNO', title: 'TINNO', sortable: true, hidden: hideCols.includes('TINNO') },
+                                { accessor: 'TITLE', title: 'TITLE', sortable: true, hidden: hideCols.includes('TITLE') },
+                                { accessor: 'TPNOBANK', title: 'TPNOBANK', sortable: true, hidden: hideCols.includes('TPNOBANK') },
+                                { accessor: 'TRANSPORT', title: 'TRANSPORT', sortable: true, hidden: hideCols.includes('TRANSPORT') },
+                                { accessor: 'TYPE', title: 'TYPE', sortable: true, hidden: hideCols.includes('TYPE') },
+                                { accessor: 'UPDATEDBY', title: 'UPDATEDBY', sortable: true, hidden: hideCols.includes('UPDATEDBY') },
+                                { accessor: 'UPDATEDON', title: 'UPDATEDON', sortable: true, hidden: hideCols.includes('UPDATEDON') },
+                                 ]}
                     
                         totalRecords={initialRecords.length}
                         recordsPerPage={pageSize}

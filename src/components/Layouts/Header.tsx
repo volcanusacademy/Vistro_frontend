@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation,useNavigate } from 'react-router-dom';
 import { IRootState } from '../../store';
 import { toggleRTL, toggleTheme, toggleSidebar } from '../../store/themeConfigSlice';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,9 @@ import IconMenuDatatables from '../Icon/Menu/IconMenuDatatables';
 import IconMenuForms from '../Icon/Menu/IconMenuForms';
 import IconMenuPages from '../Icon/Menu/IconMenuPages';
 import IconMenuMore from '../Icon/Menu/IconMenuMore';
+import { Button } from 'react-bootstrap';
+import axios from 'axios';
+import {BASE_URL} from '../../config'
 
 const Header = () => {
     const location = useLocation();
@@ -55,6 +58,41 @@ const Header = () => {
             }
         }
     }, [location]);
+
+    // const [user, setUser] = useState(null); // State to hold user information
+    const [user, setUser] = useState<{ name: string, email: string } | null>(null);
+
+
+    useEffect(() => {
+        const userDataString = localStorage.getItem('userData');
+        if (userDataString) {
+            const user = JSON.parse(userDataString);
+            setUser(user);
+        }
+    }, []);
+
+    useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          // Make a request to your login API endpoint to get user information
+          const response = await axios.get(`${BASE_URL}/login`);
+  
+          // Assuming the response contains user data like name and email
+          const userData = response.data;
+          console.log(userData,'user')
+  
+          // Update the state with the user data
+          setUser(userData);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
+  
+      // Call the fetchUserData function when the component mounts
+      fetchUserData();
+    }, []); // Empty dependency array to ensure the effect runs only once after mounting
+  
+
 
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
@@ -125,7 +163,7 @@ const Header = () => {
     };
 
     const [search, setSearch] = useState(false);
-
+   
     const setLocale = (flag: string) => {
         setFlag(flag);
         if (flag.toLowerCase() === 'ae') {
@@ -137,6 +175,12 @@ const Header = () => {
     const [flag, setFlag] = useState(themeConfig.locale);
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        // Perform logout actions here (e.g., clearing authentication token, resetting state)
+       // Then redirect to login page
+       navigate('/', { replace: true }); // Use replace option to prevent going back
+   };
 
     return (
         <header className={`z-40 ${themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''}`}>
@@ -184,17 +228,17 @@ const Header = () => {
                                 onSubmit={() => setSearch(false)}
                             >
                                 <div className="relative">
-                                    <input
+                                    {/* <input
                                         type="text"
                                         className="form-input ltr:pl-9 rtl:pr-9 ltr:sm:pr-4 rtl:sm:pl-4 ltr:pr-9 rtl:pl-9 peer sm:bg-transparent bg-gray-100 placeholder:tracking-widest"
                                         placeholder="Search..."
-                                    />
-                                    <button type="button" className="absolute w-9 h-9 inset-0 ltr:right-auto rtl:left-auto appearance-none peer-focus:text-primary">
+                                    /> */}
+                                    {/* <button type="button" className="absolute w-9 h-9 inset-0 ltr:right-auto rtl:left-auto appearance-none peer-focus:text-primary">
                                         <IconSearch className="mx-auto" />
-                                    </button>
-                                    <button type="button" className="hover:opacity-80 sm:hidden block absolute top-1/2 -translate-y-1/2 ltr:right-2 rtl:left-2" onClick={() => setSearch(false)}>
+                                    </button> */}
+                                    {/* <button type="button" className="hover:opacity-80 sm:hidden block absolute top-1/2 -translate-y-1/2 ltr:right-2 rtl:left-2" onClick={() => setSearch(false)}>
                                         <IconXCircle />
-                                    </button>
+                                    </button> */}
                                 </div>
                             </form>
                             <button
@@ -426,13 +470,27 @@ const Header = () => {
                                         <div className="flex items-center px-4 py-4">
                                             <img className="rounded-md w-10 h-10 object-cover" src="/assets/images/user-profile.jpeg" alt="userProfile" />
                                             <div className="ltr:pl-4 rtl:pr-4 truncate">
-                                                <h4 className="text-base">
+                                            <div>
+      {user && (
+        <div>
+          <h4 className="text-base">
+            {user.name}
+            <span className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
+          </h4>
+          <button type="button" className="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white">
+            {user.email}
+          </button>
+        </div>
+      )}
+    </div>
+                                                {/* <h4 className="text-base">
                                                     John Doe
                                                     <span className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
                                                 </h4>
                                                 <button type="button" className="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white">
                                                     johndoe@gmail.com
-                                                </button>
+                                                </button> */}
+                                                
                                             </div>
                                         </div>
                                     </li>
@@ -448,17 +506,19 @@ const Header = () => {
                                             Inbox
                                         </Link>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <Link to="/auth/boxed-lockscreen" className="dark:hover:text-white">
                                             <IconLockDots className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 shrink-0" />
                                             Lock Screen
                                         </Link>
-                                    </li>
+                                    </li> */}
                                     <li className="border-t border-white-light dark:border-white-light/10">
-                                        <Link to="/auth/boxed-signin" className="text-danger !py-3">
+                                        <a  onClick={handleLogout} className="text-danger !py-3"
+                                        style={{cursor:'pointer'}}
+                                        >
                                             <IconLogout className="w-4.5 h-4.5 ltr:mr-2 rtl:ml-2 rotate-90 shrink-0" />
                                             Sign Out
-                                        </Link>
+                                        </a>
                                     </li>
                                 </ul>
                             </Dropdown>

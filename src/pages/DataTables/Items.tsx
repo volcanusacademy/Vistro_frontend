@@ -10,526 +10,398 @@ import { downloadExcel } from 'react-export-table-to-excel';
 import Dropdown from '../../components/Dropdown';
 import IconCaretDown from '../../components/Icon/IconCaretDown';
 import { IRootState } from '../../store';
+import { BASE_URL } from '../../config';
+import axios, { AxiosResponse } from 'axios';
+import '../../assets/css/tippy.css'
 
-const rowData = [
-    {
-        id: 1,
-        firstName: 'Caroline',
-        lastName: 'Jensen',
-        email: 'carolinejensen@zidant.com',
-        dob: '2004-05-28',
-        address: {
-            street: '529 Scholes Street',
-            city: 'Temperanceville',
-            zipcode: 5235,
-            geo: {
-                lat: 23.806115,
-                lng: 164.677197,
-            },
-        },
-        phone: '+1 (821) 447-3782',
-        isActive: true,
-        age: 39,
-        company: 'POLARAX',
-    },
-    {
-        id: 2,
-        firstName: 'Celeste',
-        lastName: 'Grant',
-        email: 'celestegrant@polarax.com',
-        dob: '1989-11-19',
-        address: {
-            street: '639 Kimball Street',
-            city: 'Bascom',
-            zipcode: 8907,
-            geo: {
-                lat: 65.954483,
-                lng: 98.906478,
-            },
-        },
-        phone: '+1 (838) 515-3408',
-        isActive: false,
-        age: 32,
-        company: 'MANGLO',
-    },
-    {
-        id: 3,
-        firstName: 'Tillman',
-        lastName: 'Forbes',
-        email: 'tillmanforbes@manglo.com',
-        dob: '2016-09-05',
-        address: {
-            street: '240 Vandalia Avenue',
-            city: 'Thynedale',
-            zipcode: 8994,
-            geo: {
-                lat: -34.949388,
-                lng: -82.958111,
-            },
-        },
-        phone: '+1 (969) 496-2892',
-        isActive: false,
-        age: 26,
-        company: 'APPLIDECK',
-    },
-    {
-        id: 4,
-        firstName: 'Daisy',
-        lastName: 'Whitley',
-        email: 'daisywhitley@applideck.com',
-        dob: '1987-03-23',
-        address: {
-            street: '350 Pleasant Place',
-            city: 'Idledale',
-            zipcode: 9369,
-            geo: {
-                lat: -54.458809,
-                lng: -127.476556,
-            },
-        },
-        phone: '+1 (861) 564-2877',
-        isActive: true,
-        age: 21,
-        company: 'VOLAX',
-    },
-    {
-        id: 5,
-        firstName: 'Weber',
-        lastName: 'Bowman',
-        email: 'weberbowman@volax.com',
-        dob: '1983-02-24',
-        address: {
-            street: '154 Conway Street',
-            city: 'Broadlands',
-            zipcode: 8131,
-            geo: {
-                lat: 54.501351,
-                lng: -167.47138,
-            },
-        },
-        phone: '+1 (962) 466-3483',
-        isActive: false,
-        age: 26,
-        company: 'ORBAXTER',
-    },
-    {
-        id: 6,
-        firstName: 'Buckley',
-        lastName: 'Townsend',
-        email: 'buckleytownsend@orbaxter.com',
-        dob: '2011-05-29',
-        address: {
-            street: '131 Guernsey Street',
-            city: 'Vallonia',
-            zipcode: 6779,
-            geo: {
-                lat: -2.681655,
-                lng: 3.528942,
-            },
-        },
-        phone: '+1 (884) 595-2643',
-        isActive: true,
-        age: 40,
-        company: 'OPPORTECH',
-    },
-    {
-        id: 7,
-        firstName: 'Latoya',
-        lastName: 'Bradshaw',
-        email: 'latoyabradshaw@opportech.com',
-        dob: '2010-11-23',
-        address: {
-            street: '668 Lenox Road',
-            city: 'Lowgap',
-            zipcode: 992,
-            geo: {
-                lat: 36.026423,
-                lng: 130.412198,
-            },
-        },
-        phone: '+1 (906) 474-3155',
-        isActive: true,
-        age: 24,
-        company: 'GORGANIC',
-    },
-    {
-        id: 8,
-        firstName: 'Kate',
-        lastName: 'Lindsay',
-        email: 'katelindsay@gorganic.com',
-        dob: '1987-07-02',
-        address: {
-            street: '773 Harrison Avenue',
-            city: 'Carlton',
-            zipcode: 5909,
-            geo: {
-                lat: 42.464724,
-                lng: -12.948403,
-            },
-        },
-        phone: '+1 (930) 546-2952',
-        isActive: true,
-        age: 24,
-        company: 'AVIT',
-    },
-    {
-        id: 9,
-        firstName: 'Marva',
-        lastName: 'Sandoval',
-        email: 'marvasandoval@avit.com',
-        dob: '2010-11-02',
-        address: {
-            street: '200 Malta Street',
-            city: 'Tuskahoma',
-            zipcode: 1292,
-            geo: {
-                lat: -52.206169,
-                lng: 74.19452,
-            },
-        },
-        phone: '+1 (927) 566-3600',
-        isActive: false,
-        age: 28,
-        company: 'QUILCH',
-    },
-    {
-        id: 10,
-        firstName: 'Decker',
-        lastName: 'Russell',
-        email: 'deckerrussell@quilch.com',
-        dob: '1994-04-21',
-        address: {
-            street: '708 Bath Avenue',
-            city: 'Coultervillle',
-            zipcode: 1268,
-            geo: {
-                lat: -41.550295,
-                lng: -146.598075,
-            },
-        },
-        phone: '+1 (846) 535-3283',
-        isActive: false,
-        age: 27,
-        company: 'MEMORA',
-    },
-    {
-        id: 11,
-        firstName: 'Odom',
-        lastName: 'Mills',
-        email: 'odommills@memora.com',
-        dob: '2010-01-24',
-        address: {
-            street: '907 Blake Avenue',
-            city: 'Churchill',
-            zipcode: 4400,
-            geo: {
-                lat: -56.061694,
-                lng: -130.238523,
-            },
-        },
-        phone: '+1 (995) 525-3402',
-        isActive: true,
-        age: 34,
-        company: 'ZORROMOP',
-    },
-    {
-        id: 12,
-        firstName: 'Sellers',
-        lastName: 'Walters',
-        email: 'sellerswalters@zorromop.com',
-        dob: '1975-11-12',
-        address: {
-            street: '978 Oakland Place',
-            city: 'Gloucester',
-            zipcode: 3802,
-            geo: {
-                lat: 11.732587,
-                lng: 96.118099,
-            },
-        },
-        phone: '+1 (830) 430-3157',
-        isActive: true,
-        age: 28,
-        company: 'ORBOID',
-    },
-    {
-        id: 13,
-        firstName: 'Wendi',
-        lastName: 'Powers',
-        email: 'wendipowers@orboid.com',
-        dob: '1979-06-02',
-        address: {
-            street: '376 Greenpoint Avenue',
-            city: 'Elliott',
-            zipcode: 9149,
-            geo: {
-                lat: -78.159578,
-                lng: -9.835103,
-            },
-        },
-        phone: '+1 (863) 457-2088',
-        isActive: true,
-        age: 31,
-        company: 'SNORUS',
-    },
-    {
-        id: 14,
-        firstName: 'Sophie',
-        lastName: 'Horn',
-        email: 'sophiehorn@snorus.com',
-        dob: '2018-09-20',
-        address: {
-            street: '343 Doughty Street',
-            city: 'Homestead',
-            zipcode: 330,
-            geo: {
-                lat: 65.484087,
-                lng: 137.413998,
-            },
-        },
-        phone: '+1 (885) 418-3948',
-        isActive: true,
-        age: 22,
-        company: 'XTH',
-    },
-    {
-        id: 15,
-        firstName: 'Levine',
-        lastName: 'Rodriquez',
-        email: 'levinerodriquez@xth.com',
-        dob: '1973-02-08',
-        address: {
-            street: '643 Allen Avenue',
-            city: 'Weedville',
-            zipcode: 8931,
-            geo: {
-                lat: -63.185586,
-                lng: 117.327808,
-            },
-        },
-        phone: '+1 (999) 565-3239',
-        isActive: true,
-        age: 27,
-        company: 'COMTRACT',
-    },
-    {
-        id: 16,
-        firstName: 'Little',
-        lastName: 'Hatfield',
-        email: 'littlehatfield@comtract.com',
-        dob: '2012-01-03',
-        address: {
-            street: '194 Anthony Street',
-            city: 'Williston',
-            zipcode: 7456,
-            geo: {
-                lat: 47.480837,
-                lng: 6.085909,
-            },
-        },
-        phone: '+1 (812) 488-3011',
-        isActive: false,
-        age: 33,
-        company: 'ZIDANT',
-    },
-    {
-        id: 17,
-        firstName: 'Larson',
-        lastName: 'Kelly',
-        email: 'larsonkelly@zidant.com',
-        dob: '2010-06-14',
-        address: {
-            street: '978 Indiana Place',
-            city: 'Innsbrook',
-            zipcode: 639,
-            geo: {
-                lat: -71.766732,
-                lng: 150.854345,
-            },
-        },
-        phone: '+1 (892) 484-2162',
-        isActive: true,
-        age: 20,
-        company: 'SUREPLEX',
-    },
-    {
-        id: 18,
-        firstName: 'Kendra',
-        lastName: 'Molina',
-        email: 'kendramolina@sureplex.com',
-        dob: '2002-07-19',
-        address: {
-            street: '567 Charles Place',
-            city: 'Kimmell',
-            zipcode: 1966,
-            geo: {
-                lat: 50.765816,
-                lng: -117.106499,
-            },
-        },
-        phone: '+1 (920) 528-3330',
-        isActive: false,
-        age: 31,
-        company: 'DANJA',
-    },
-    {
-        id: 19,
-        firstName: 'Ebony',
-        lastName: 'Livingston',
-        email: 'ebonylivingston@danja.com',
-        dob: '1994-10-18',
-        address: {
-            street: '284 Cass Place',
-            city: 'Navarre',
-            zipcode: 948,
-            geo: {
-                lat: 65.271256,
-                lng: -83.064729,
-            },
-        },
-        phone: '+1 (970) 591-3039',
-        isActive: false,
-        age: 33,
-        company: 'EURON',
-    },
-    {
-        id: 20,
-        firstName: 'Kaufman',
-        lastName: 'Rush',
-        email: 'kaufmanrush@euron.com',
-        dob: '2011-07-10',
-        address: {
-            street: '408 Kingsland Avenue',
-            city: 'Beaulieu',
-            zipcode: 7911,
-            geo: {
-                lat: 41.513153,
-                lng: 54.821641,
-            },
-        },
-        phone: '+1 (924) 463-2934',
-        isActive: false,
-        age: 39,
-        company: 'ILLUMITY',
-    },
-    {
-        id: 21,
-        firstName: 'Frank',
-        lastName: 'Hays',
-        email: 'frankhays@illumity.com',
-        dob: '2005-06-15',
-        address: {
-            street: '973 Caton Place',
-            city: 'Dargan',
-            zipcode: 4104,
-            geo: {
-                lat: 63.314988,
-                lng: -138.771323,
-            },
-        },
-        phone: '+1 (930) 577-2670',
-        isActive: false,
-        age: 31,
-        company: 'SYBIXTEX',
-    },
-    {
-        id: 22,
-        firstName: 'Carmella',
-        lastName: 'Mccarty',
-        email: 'carmellamccarty@sybixtex.com',
-        dob: '1980-03-06',
-        address: {
-            street: '919 Judge Street',
-            city: 'Canby',
-            zipcode: 8283,
-            geo: {
-                lat: 9.198597,
-                lng: -138.809971,
-            },
-        },
-        phone: '+1 (876) 456-3218',
-        isActive: true,
-        age: 21,
-        company: 'ZEDALIS',
-    },
-    {
-        id: 23,
-        firstName: 'Massey',
-        lastName: 'Owen',
-        email: 'masseyowen@zedalis.com',
-        dob: '2012-03-01',
-        address: {
-            street: '108 Seaview Avenue',
-            city: 'Slovan',
-            zipcode: 3599,
-            geo: {
-                lat: -74.648318,
-                lng: 99.620699,
-            },
-        },
-        phone: '+1 (917) 567-3786',
-        isActive: false,
-        age: 40,
-        company: 'DYNO',
-    },
-    {
-        id: 24,
-        firstName: 'Lottie',
-        lastName: 'Lowery',
-        email: 'lottielowery@dyno.com',
-        dob: '1982-10-10',
-        address: {
-            street: '557 Meserole Avenue',
-            city: 'Fowlerville',
-            zipcode: 4991,
-            geo: {
-                lat: 54.811546,
-                lng: -20.996515,
-            },
-        },
-        phone: '+1 (912) 539-3498',
-        isActive: true,
-        age: 36,
-        company: 'MULTIFLEX',
-    },
-    {
-        id: 25,
-        firstName: 'Addie',
-        lastName: 'Luna',
-        email: 'addieluna@multiflex.com',
-        dob: '1988-05-01',
-        address: {
-            street: '688 Bulwer Place',
-            city: 'Harmon',
-            zipcode: 7664,
-            geo: {
-                lat: -12.762766,
-                lng: -39.924497,
-            },
-        },
-        phone: '+1 (962) 537-2981',
-        isActive: true,
-        age: 32,
-        company: 'PHARMACON',
-    },
-];
+
 const Items = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Range Search Table'));
     });
+
+    const [clientData, setClientData] = useState<UserData[]>([]);
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(rowData, 'id'));
+    // const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    const [initialRecords, setInitialRecords] = useState<UserData[]>([]);
     const [recordsData, setRecordsData] = useState(initialRecords);
     const [tempData, setTempData] = useState(initialRecords);
     const [search, setSearch] = useState('');
+    const [currentPage, setCurrentPage] = useState<number>(1); // Explicitly specify type as number
+    const [totalPages, setTotalPages] = useState<number>(1); // Explicitly specify type as number
+    const [pageSize, setPageSize] = useState<number>(10); // Explicitly specify type as number
+    const [totalRecords, setTotalRecords] = useState<number>(0);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
+    const [selectedItem, setSelectedItem] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState("");
+    const [selectedBrand, setSelectedBrand] = useState("");
+    const [selectedSize, setSelectedSize] = useState("");
+    const [selectedColor, setSelectedColor] = useState("");
+    const [selectedStyle, setSelectedStyle] = useState("");
+    const [selectedMaterial, setSelectedMaterial] = useState("");
+    const [selectedDealer, setSelectedDealer] = useState("");
+    const [selectedBuyer, setSelectedBuyer] = useState("");
+    const [selectedSeason, setSelectedSeason] = useState("");
+    const [selectedCompany, setSelectedCompany] = useState("");
+    const [selectedPacking, setSelectedPacking] = useState("");
+    const [selectedSection, setSelectedSection] = useState("");
+    const [selectedGroup, setSelectedGroup] = useState("");
+    const [selectedBarcode, setSelectedBarcode] = useState("");
+    const [selectedSubGroup, setSelectedSubGroup] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedSubCategory, setSelectedSubCategory] = useState("");
+    const [selectedUnit, setSelectedUnit] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
+
+
+    interface UserData {
+        BARCODE: string;
+        BOXSIZE: string;
+        BRAND: string;
+        BUYER: string;
+        CATEGORY: string;
+        CESS: number;
+        COLOR: string;
+        COMPANY: string;
+        COMPANYID: number;
+        CREATEDBY: string;
+        CREATEDON: string;
+        CUSTOME: string;
+        DEALERCODE: string;
+        DEALERID: number;
+        DEALERNAME: string;
+        DISCOUNT: number;
+        ESAMOUNT: number;
+        ESID: number;
+        ESTAG: string;
+        EXPIRYDAYS: number;
+        FLAG: string;
+        GENDER: string;
+        HSNCODE: string;
+        ITEMID: number;
+        ITEMNAME: string;
+        ITEMTYPE: string;
+        I_GROUP: string;
+        I_SIZE: string;
+        LOOKUP: string;
+        MARGIN: number;
+        MARKDOWN: string;
+        MARKUP: string;
+        MATERIAL: string;
+        MAXQTY: number;
+        MINQTY: number;
+        MORP: string;
+        MRP: number;
+        OMRP: number;
+        OTAX: number;
+        PACKING: string;
+        PHOTO: string;
+        PRODUCT: string;
+        PURPRICE: number;
+        RATE: number;
+        REMARK: string;
+        REORDERQTY: number;
+        SALEPRICE: number;
+        SCOLOR: string;
+        SEASON: string;
+        SECTION: string;
+        SHELFNO: string;
+        SP1: number;
+        SP2: number;
+        SP3: number;
+        SP4: number;
+        STATUS: string;
+        STYLE: string;
+        SUBCATEGORY: string;
+        SUBGROUP: string;
+        SUP_COLOR: string;
+        TAX: number;
+        UNIT: string;
+        UPDATEDBY: string;
+        UPDATEDON: string;
+        WSP: number;
+    }
+
+    // interface FormData {
+    //     BARCODE: string;
+    //     BOXSIZE: string;
+    //     BRAND: string;
+    //     BUYER: string;
+    //     CATEGORY: string;
+    //     CESS: number;
+    //     COLOR: string;
+    //     COMPANY: string;
+    //     COMPANYID: number;
+    //     CREATEDBY: string;
+    //     CREATEDON: string;
+    //     CUSTOME: string;
+    //     DEALERCODE: string;
+    //     DEALERID: number;
+    //     DEALERNAME: string;
+    //     DISCOUNT: number;
+    //     ESAMOUNT: number;
+    //     ESID: number;
+    //     ESTAG: string;
+    //     EXPIRYDAYS: number;
+    //     FLAG: string;
+    //     GENDER: string;
+    //     HSNCODE: string;
+    //     ITEMID: number;
+    //     ITEMNAME: string;
+    //     ITEMTYPE: string;
+    //     I_GROUP: string;
+    //     I_SIZE: string;
+    //     LOOKUP: string;
+    //     MARGIN: number;
+    //     MARKDOWN: string;
+    //     MARKUP: string;
+    //     MATERIAL: string;
+    //     MAXQTY: number;
+    //     MINQTY: number;
+    //     MORP: string;
+    //     MRP: number;
+    //     OMRP: number;
+    //     OTAX: number;
+    //     PACKING: string;
+    //     PHOTO: string;
+    //     PRODUCT: string;
+    //     PURPRICE: number;
+    //     RATE: number;
+    //     REMARK: string;
+    //     REORDERQTY: number;
+    //     SALEPRICE: number;
+    //     SCOLOR: string;
+    //     SEASON: string;
+    //     SECTION: string;
+    //     SHELFNO: string;
+    //     SP1: number;
+    //     SP2: number;
+    //     SP3: number;
+    //     SP4: number;
+    //     STATUS: string;
+    //     STYLE: string;
+    //     SUBCATEGORY: string;
+    //     SUBGROUP: string;
+    //     SUP_COLOR: string;
+    //     TAX: number;
+    //     UNIT: string;
+    //     UPDATEDBY: string;
+    //     UPDATEDON: string;
+    //     WSP: number;
+    // }
+
+    // const [formData, setFormData] = useState<FormData>({
+    //     COMPANYID: '',
+    //     AGENTID: '',
+    //     AFIRMNAME: '',
+    //     ACTELEPHONENO: '',
+    //     ACMOBILENO: '',
+    //     ACADDRESSLINE1: '',
+    //     ACADDRESSLINE2: '',
+    //     ACADDRESSLINE3: '',
+    //     STATUS: '',
+    //     AGENTNAME: '',
+    //     ADOB: '',
+    //     APERSONALIDTYPE: '',
+    //     APERSONALID: '',
+    //     APMOBILENO: '',
+    //     APEMAILID: '',
+    //     APADDRESSLINE1: '',
+    //     APADDRESSLINE2: '',
+    //     APADDRESSLINE3: '',
+    //     APCITY: '',
+    //     APSTATE: '',
+    //     APCOUNTRY: '',
+    //     APDISTRICT: '',
+    //     APPINCODE: '',
+    //     ABANKNAME: '',
+    //     AACCOUNTTYPE: '',
+    //     AACCOUNTNO: '',
+    //     AACCOUNTHOLDERNAME: '',
+    //     ABRANCHNAME: '',
+    //     AIFSCCODE: '',
+    //     ACHEQUENO: '',
+    //     ACHEQUEREMARK: '',
+    //     AMICRCODE: '',
+    //     ATPNOBANK: '',
+    //     CREATEDBY: '',
+    //     CREATEDON: '',
+    //     UPDATEDBY: '',
+    //     UPDATEDON: '',
+    //     ACCITY: '',
+    //     ACSTATE: '',
+    //     ACCOUNTRY: '',
+    //     ACDISTRICT: '',
+    //     ACPINCODE: '',
+    //     REMARK: '',
+    // });
+
+
+    const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        if (name === 'Item Name') {
+            setSelectedItem(value);
+        } else if (name === 'Product') {
+            setSelectedProduct(value);
+        } else if (name === 'Brand') {
+            setSelectedBrand(value);
+        } else if (name === 'Color') {
+            setSelectedColor(value);
+        } else if (name === 'Size') {
+            setSelectedSize(value);
+        }
+        else if (name === 'Style') {
+            setSelectedStyle(value);
+        }
+        else if (name === 'Material') {
+            setSelectedMaterial(value);
+        }
+        else if (name === 'Dealer') {
+            setSelectedDealer(value);
+        }
+        else if (name === 'Buyer') {
+            setSelectedBuyer(value);
+        }
+        else if (name === 'Season') {
+            setSelectedSeason(value);
+        }
+        else if (name === 'Company') {
+            setSelectedCompany(value);
+        }
+
+        else if (name === 'Packing') {
+            setSelectedPacking(value);
+        }
+        else if (name === 'Section') {
+            setSelectedSection(value);
+        }
+        else if (name === 'Group') {
+            setSelectedGroup(value);
+        }
+        else if (name === 'Barcode') {
+            setSelectedBarcode(value);
+        }
+        else if (name === 'Sub-Group') {
+            setSelectedSubGroup(value);
+        }
+        else if (name === 'Category') {
+            setSelectedCategory(value);
+        }
+        else if (name === 'Sub-Category') {
+            setSelectedSubCategory(value);
+        }
+        else if (name === 'Unit') {
+            setSelectedUnit(value);
+        }
+        else if (name === 'Status') {
+            setSelectedStatus(value);
+        }
+    }
+    const handleSearch = () => {
+        const filteredData = initialRecords.filter(record => {
+            return(selectedStatus === "" || record.STATUS === selectedStatus) &&
+            (selectedItem === "" || record.ITEMNAME === selectedItem) &&
+            (selectedProduct === "" || record.PRODUCT === selectedProduct) &&
+            (selectedBrand === "" || record.BRAND === selectedBrand) &&
+            (selectedSize === "" || record.I_SIZE === selectedSize) &&
+            (selectedStyle === "" || record.STYLE === selectedStyle) &&
+            (selectedMaterial === "" || record.MATERIAL === selectedMaterial) &&
+            (selectedDealer === "" || record.DEALERNAME === selectedDealer) &&
+            (selectedBuyer === "" || record.BUYER === selectedBuyer) &&
+            (selectedSeason === "" || record.SEASON === selectedSeason) &&
+            (selectedPacking === "" || record.PACKING === selectedPacking) &&
+            (selectedSection === "" || record.SECTION === selectedSection) &&
+            (selectedGroup === "" || record.I_GROUP === selectedGroup) &&
+            (selectedBarcode === "" || record.BARCODE === selectedBarcode) &&
+            (selectedSubGroup === "" || record.SUBGROUP === selectedSubGroup) &&
+            (selectedCategory === "" || record.CATEGORY === selectedCategory) &&
+            (selectedSubCategory === "" || record.SUBCATEGORY === selectedSubCategory) &&
+            (selectedUnit === "" || record.UNIT === selectedUnit)&&
+            (selectedColor === "" || record.COLOR === selectedColor)&&
+            (selectedCompany === "" || record.COMPANY === selectedCompany); 
+        });
+        setRecordsData(filteredData);
+    }
+
+    const handleReset = () => {
+        setSelectedItem("");
+        setSelectedProduct("");
+        setSelectedBrand("");
+        setSelectedSize("");
+        setSelectedColor("");
+        setSelectedStyle("");
+        setSelectedMaterial("");
+        setSelectedDealer("");
+        setSelectedBuyer("");
+        setSelectedSeason("");
+        setSelectedCompany("");
+        setSelectedPacking("");
+        setSelectedSection("");
+        setSelectedGroup("");
+        setSelectedBarcode("");
+        setSelectedSubGroup("");
+        setSelectedCategory("");
+        setSelectedSubCategory("");
+        setSelectedUnit("");
+        setSelectedStatus("");
+        
+        setRecordsData(initialRecords.slice(0, 10));
+    }
 
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
+
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/getItem`)
+            .then(response => response.json())
+            .then(data => {
+                let detail = data;
+                setClientData(detail);
+                setInitialRecords(data);
+                setRecordsData(data)
+                setTempData(data)
+                console.log(detail, 'dataaaaaa');
+
+
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
+    interface ApiResponse {
+        totalRecords: number;
+        totalPages: number;
+        currentPage: number;
+        agents: UserData[];
+    }
+
+
+    useEffect(() => {
+        // Function to fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
+                console.log(currentPage, 'aaaaaaa')
+                const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
+                setInitialRecords(agents);
+                setRecordsData(agents);
+                setTempData(agents);
+                setTotalPages(totalPages);
+                setCurrentPage(fetchedCurrentPage);
+                setTotalRecords(totalRecords);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData(); // Fetch data when the component mounts or currentPage changes
+    }, [currentPage]);
+
 
     useEffect(() => {
         const from = (page - 1) * pageSize;
@@ -541,25 +413,27 @@ const Items = () => {
         setInitialRecords(() => {
             return tempData.filter((item) => {
                 return (
-                    item.id.toString().includes(search.toLowerCase()) ||
-                    item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.company.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.dob.toLowerCase().includes(search.toLowerCase()) ||
-                    item.phone.toLowerCase().includes(search.toLowerCase())
+                    item.COMPANY.toString().includes(search.toLowerCase()) ||
+                    item.ITEMNAME.toLowerCase().includes(search.toLowerCase()) ||
+                    item.DEALERNAME.toLowerCase().includes(search.toLowerCase()) ||
+                    item.PRODUCT.toLowerCase().includes(search.toLowerCase()) ||
+                    item.COLOR.toLowerCase().includes(search.toLowerCase()) ||
+                    item.ITEMTYPE.toString().toLowerCase().includes(search.toLowerCase()) ||
+                    item.GENDER.toLowerCase().includes(search.toLowerCase()) ||
+                    item.CATEGORY.toLowerCase().includes(search.toLowerCase())||
+                    item.BRAND.toLowerCase().includes(search.toLowerCase())||
+                    item.MATERIAL.toLowerCase().includes(search.toLowerCase())||
+                    item.PACKING.toLowerCase().includes(search.toLowerCase())||
+                    item.STATUS.toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     useEffect(() => {
         const data = sortBy(initialRecords, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
         setPage(1);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortStatus]);
 
     // const [minAge, setMinAge] = useState<any>('');
@@ -589,11 +463,12 @@ const Items = () => {
         return '';
     };
 
-    const col = ['id', 'firstName', 'lastName', 'company', 'age', 'dob', 'email', 'phone'];
+    const col = ['id', 'agentName', 'agentFirmName', 'company', 'age', 'dob', 'email', 'phone'];
+    const header = ['id', 'COMPANYID', 'AGENTID', 'AFIRMNAME', 'ACTELEPHONENO', 'ACMOBILENO', 'ACADDRESSLINE1', 'STATUS', 'AGENTNAME', 'ADOB', 'APERSONALIDTYPE', 'APERSONALID', 'APMOBILENO', 'APEMAILID', 'APADDRESSLINE1', 'APCITY', 'APSTATE', 'APCOUNTRY', 'APDISTRICT', 'APPINCODE', 'ABANKNAME', 'AACCOUNTTYPE', 'AACCOUNTNO', 'AACCOUNTHOLDERNAME', 'ABRANCHNAME', 'AIFSCCODE', 'ACHEQUENO', 'ACHEQUEREMARK', 'AMICRCODE', 'ATPNOBANK', 'CREATEDBY', 'CREATEDON', 'UPDATEDBY', 'UPDATEDBY', 'UPDATEDON', 'ACCITY', 'ACCOUNTRY', 'ACDISTRICT', 'ACPINCODE', 'Remark'];
 
     const exportTable = (type: any) => {
-        let columns: any = col;
-        let records = rowData;
+        let columns: any = header;
+        let records = initialRecords;
         let filename = 'table';
 
         let newVariable: any;
@@ -700,29 +575,21 @@ const Items = () => {
             }
         }
     };
-    const header = ['Id', 'First Name', 'Last Name', 'Email', 'Start Date', 'Phone No.', 'Age', 'Company'];
-    interface YourDataType {
-        id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-        dob: string;
-        phone: string;
-        age: number;
-        company: string;
-    }
+
+
     function handleDownloadExcel() {
-        const col: Array<keyof YourDataType> = ['id', 'firstName', 'lastName', 'email', 'dob', 'phone', 'age', 'company'];
+        const col: Array<keyof UserData> = [
+             "BARCODE","BOXSIZE","BRAND","BUYER","CATEGORY","CESS","COLOR","COMPANY","COMPANYID","CREATEDBY","CREATEDON","CUSTOME","DEALERCODE","DEALERID","DEALERNAME","DISCOUNT","ESAMOUNT","ESID","ESTAG","EXPIRYDAYS","FLAG","GENDER","HSNCODE","ITEMID","ITEMNAME","ITEMTYPE","I_GROUP","I_SIZE","LOOKUP","MARGIN","MARKDOWN","MARKUP","MATERIAL","MAXQTY","MINQTY","MORP","MRP","OMRP","OTAX","PACKING","PHOTO","PRODUCT","PURPRICE","RATE","REMARK","REORDERQTY","SALEPRICE","SCOLOR","SEASON","SECTION","SHELFNO","SP1","SP2","SP3","SP4","STATUS","STYLE","SUBCATEGORY","SUBGROUP","SUP_COLOR","TAX","UNIT","UPDATEDBY","UPDATEDON","WSP"];
         downloadExcel({
             fileName: 'table',
             sheet: 'react-export-table-to-excel',
             tablePayload: {
                 header,
-                body: rowData.map(row => col.map(key => row[key]))
+                body: recordsData.map(row => col.map(key => row[key]))
             },
         });
     };
-    
+
 
     const capitalize = (text: any) => {
         return text
@@ -741,8 +608,7 @@ const Items = () => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     // show/hide
-
-    const [hideCols, setHideCols] = useState<any>(['age', 'dob', 'isActive']);
+    const [hideCols, setHideCols] = useState<any>(["BARCODE", "BOXSIZE", "CESS", "COMPANYID", "CREATEDBY", "CREATEDON", "CUSTOME", "DEALERCODE", "DEALERID", "DISCOUNT", "ESAMOUNT", "ESID", "ESTAG", "EXPIRYDAYS", "FLAG", "GENDER", "HSNCODE", "ITEMID", "LOOKUP", "MARGIN", "MARKDOWN", "MARKUP", "MAXQTY", "MINQTY", "MORP", "MRP", "OMRP", "OTAX", "PHOTO","PURPRICE", "RATE", "REMARK", "REORDERQTY", "SALEPRICE", "SCOLOR", "SECTION", "SHELFNO", "SP1", "SP2", "SP3", "SP4", "SUP_COLOR", "TAX", "UNIT", "UPDATEDBY", "UPDATEDON", "WSP"]);
 
 
 
@@ -755,14 +621,71 @@ const Items = () => {
     };
 
     const cols = [
-        { accessor: 'id', title: 'ID' },
-        { accessor: 'firstName', title: 'First Name' },
-        { accessor: 'lastName', title: 'Last Name' },
-        { accessor: 'email', title: 'Email' },
-        { accessor: 'dob', title: 'Startdate' },
-        { accessor: 'phone', title: 'Phone' },
-        { accessor: 'age', title: 'Age' },
-        { accessor: 'company', title: 'Company' }
+        { accessor: 'id', title: '#',},
+        { accessor: 'ITEMNAME', title: 'Item Name'},
+        { accessor: 'ITEMTYPE', title: 'Item Type'},
+        { accessor: 'BARCODE', title: 'Barcode' },
+        { accessor: 'BOXSIZE', title: 'Box Size' },
+        { accessor: 'BRAND', title: 'Brand'},
+        { accessor: 'BUYER', title: 'Buyer'},
+        { accessor: 'CATEGORY', title: 'Category' },
+        { accessor: 'CESS', title: 'Cess' },
+        { accessor: 'COMPANY', title: 'Company' },
+        { accessor: 'COLOR', title: 'Color' },
+        { accessor: 'COMPANYID', title: 'Company ID'},
+        { accessor: 'CUSTOME', title: 'Custome'},
+        { accessor: 'DEALERCODE', title: 'Dealer Code' },
+        { accessor: 'DEALERNAME', title: 'Dealer Name' },
+        { accessor: 'DEALERID', title: 'Dealer ID' },
+        { accessor: 'DISCOUNT', title: 'Discount' },
+        { accessor: 'ESAMOUNT', title: 'ES Amount' },
+        { accessor: 'ESID', title: 'ES ID' },
+        { accessor: 'ESTAG', title: 'ES Tag' },
+        { accessor: 'EXPIRYDAYS', title: 'Expiry Days'},
+        { accessor: 'FLAG', title: 'Flag'},
+        { accessor: 'GENDER', title: 'Gender'},
+        { accessor: 'HSNCODE', title: 'HSN Code'},
+        { accessor: 'ITEMID', title: 'Item ID'},
+        { accessor: 'I_GROUP', title: 'Group'},
+        { accessor: 'I_SIZE', title: 'Size'},
+        { accessor: 'LOOKUP', title: 'Lookup'},
+        { accessor: 'MARGIN', title: 'Margin'},
+        { accessor: 'MARKDOWN', title: 'Markdown'},
+        { accessor: 'MARKUP', title: 'Markup'},
+        { accessor: 'MATERIAL', title: 'Material'},
+        { accessor: 'MAXQTY', title: 'Max Quantity' },
+        { accessor: 'MINQTY', title: 'Min Quantity'},
+        { accessor: 'MORP', title: 'MORP'},
+        { accessor: 'MRP', title: 'MRP'},
+        { accessor: 'OMRP', title: 'OMRP'},
+        { accessor: 'OTAX', title: 'OTAX'},
+        { accessor: 'PACKING', title: 'Packing'},
+        { accessor: 'PHOTO', title: 'Photo' },
+        { accessor: 'PRODUCT', title: 'Product'},
+        { accessor: 'PURPRICE', title: 'Purchase Price'},
+        { accessor: 'RATE', title: 'Rate' },
+        { accessor: 'REMARK', title: 'Remark'},
+        { accessor: 'REORDERQTY', title: 'Reorder Quantity'},
+        { accessor: 'SALEPRICE', title: 'Sale Price'},
+        { accessor: 'SCOLOR', title: 'Color'},
+        { accessor: 'SEASON', title: 'Season'},
+        { accessor: 'SECTION', title: 'Section'},
+        { accessor: 'SHELFNO', title: 'Shelf No'},
+        { accessor: 'SP1', title: 'SP1'},
+        { accessor: 'SP2', title: 'SP2'},
+        { accessor: 'SP3', title: 'SP3'},
+        { accessor: 'SP4', title: 'SP4'},
+        { accessor: 'STATUS', title: 'Status'},
+        { accessor: 'STYLE', title: 'Style'},
+        { accessor: 'SUBCATEGORY', title: 'Subcategory'},
+        { accessor: 'SUBGROUP', title: 'Subgroup'},
+        { accessor: 'SUP_COLOR', title: 'Supplier Color' },
+        { accessor: 'TAX', title: 'Tax'},
+        { accessor: 'UNIT', title: 'Unit' },
+        { accessor: 'UPDATEDBY', title: 'Updated By'},
+        { accessor: 'UPDATEDON', title: 'Updated On'},
+        { accessor: 'WSP', title: 'WSP'}
+
     ];
 
     useEffect(() => {
@@ -775,23 +698,23 @@ const Items = () => {
         setRecordsData([...initialRecords.slice(from, to)]);
     }, [page, pageSize, initialRecords]);
 
-    useEffect(() => {
-        setInitialRecords(() => {
-            return rowData.filter((item) => {
-                return (
-                    item.id.toString().includes(search.toLowerCase()) ||
-                    item.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                    item.company.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.dob.toLowerCase().includes(search.toLowerCase()) ||
-                    item.phone.toLowerCase().includes(search.toLowerCase())
-                );
-            });
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search]);
+    // useEffect(() => {
+    //     setInitialRecords(() => {
+    //         return rowData.filter((item) => {
+    //             return (
+    //                 item.id.toString().includes(search.toLowerCase()) ||
+    //                 item.agentName.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.agentFirmName.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.company.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.email.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.age.toString().toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.dob.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.phone.toLowerCase().includes(search.toLowerCase())
+    //             );
+    //         });
+    //     });
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [search]);
 
     useEffect(() => {
         const data = sortBy(initialRecords, sortStatus.columnAccessor);
@@ -799,6 +722,7 @@ const Items = () => {
         setPage(1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortStatus]);
+
     return (
         <div>
             <div className="panel mt-6">
@@ -823,39 +747,27 @@ const Items = () => {
                             PRINT
                         </button>
 
-                        <button type="button" className="btn btn-primary btn-sm m-1" style={{ padding: '8px 28px' }}>
 
-OK
-</button>
-<button type="button" className="btn btn-primary btn-sm m-1" style={{ padding: '8px 23px' }}>
-
-CLOSE
-</button>
                     </div>
-                    {/* <div className="">
-                        <input
-                            type="text"
-                            value={minAge}
-                            onChange={(e) => {
-                                setMinAge(e.target.value);
-                            }}
-                            className="form-input"
-                            placeholder="Minimum age..."
-                        />
-                    </div> */}
-                     
-                        
-                    {/* <div className=" ">
-                        <input
-                            type="text"
-                            value={maxAge}
-                            onChange={(e) => {
-                                setMaxAge(e.target.value);
-                            }}
-                            className="form-input"
-                            placeholder="Maximum age..."
-                        />
-                    </div> */}
+                    <button type="button" className="btn btn-primary btn-sm m-1 w-50 h-5 ltr:mr-2 rtl:ml-2"
+                        style={{
+                            width: "8%",
+                            height: "33px"
+                        }}
+                        onClick={handleReset}
+                    >
+                        Reset
+                    </button>
+                    <button type="button" className="btn btn-primary btn-sm m-1 w-50 h-5 ltr:mr-2 rtl:ml-2"
+                        style={{
+                            width: "8%",
+                            height: "33px"
+                        }}
+                        onClick={handleSearch}
+                    >
+
+                        Search
+                    </button>
                     <div className="flex md:items-center md:flex-row flex-col  gap-1">
                         <div className="flex items-center gap-5 ltr:ml-auto rtl:mr-auto">
                             <div className="flex md:items-center md:flex-row flex-col gap-1">
@@ -870,35 +782,76 @@ CLOSE
                                             </>
                                         }
                                     >
-                                        <ul className="!min-w-[140px]">
-                                            {cols.map((col, i) => {
-                                                return (
-                                                    <li
-                                                        key={i}
-                                                        className="flex flex-col"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                        }}
-                                                    >
-                                                        <div className="flex items-center px-4 py-1">
-                                                            <label className="cursor-pointer mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={!hideCols.includes(col.accessor)}
-                                                                    className="form-checkbox"
-                                                                    defaultValue={col.accessor}
-                                                                    onChange={(event: any) => {
-                                                                        setHideCols(event.target.value);
-                                                                        showHideColumns(col.accessor, event.target.checked);
-                                                                    }}
-                                                                />
-                                                                <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
+
+                                        <div className="overflow-auto max-h-[300px]">
+                                            <ul className="!min-w-[140px]">
+                                                {cols.map((col, i) => {
+                                                    if (i % 3 === 0) {
+                                                        return (
+                                                            <li key={i} className="flex md:flex-row flex-col " onClick={(e) => {
+                                                                e.stopPropagation();
+                                                            }}>
+                                                                <div className="flex items-center px-4 py-1 md:w-1/3">
+                                                                    <label className="cursor-pointer mb-0 flex items-center">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={!hideCols.includes(col.accessor)}
+                                                                            className="form-checkbox mr-2"
+                                                                            defaultValue={col.accessor}
+                                                                            onChange={(event) => {
+                                                                                setHideCols(event.target.value);
+                                                                                showHideColumns(col.accessor, event.target.checked);
+                                                                            }}
+                                                                        />
+                                                                        <span>{col.title}</span>
+                                                                    </label>
+                                                                </div>
+                                                                {cols[i + 1] && (
+                                                                    <div className="flex items-center px-4 py-1 md:w-1/3">
+                                                                        <label className="cursor-pointer mb-0 flex items-center">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checked={!hideCols.includes(cols[i + 1].accessor)}
+                                                                                className="form-checkbox mr-2"
+                                                                                defaultValue={cols[i + 1].accessor}
+                                                                                onChange={(event) => {
+                                                                                    setHideCols(event.target.value);
+                                                                                    showHideColumns(cols[i + 1].accessor, event.target.checked);
+                                                                                }}
+                                                                            />
+                                                                            <span>{cols[i + 1].title}</span>
+                                                                        </label>
+                                                                    </div>
+                                                                )}
+                                                                {cols[i + 2] && (
+                                                                    <div className="flex items-center px-4 py-1 md:w-1/3">
+                                                                        <label className="cursor-pointer mb-0 flex items-center">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checked={!hideCols.includes(cols[i + 2].accessor)}
+                                                                                className="form-checkbox mr-2"
+                                                                                defaultValue={cols[i + 2].accessor}
+                                                                                onChange={(event) => {
+                                                                                    setHideCols(event.target.value);
+                                                                                    showHideColumns(cols[i + 2].accessor, event.target.checked);
+                                                                                }}
+                                                                            />
+                                                                            <span>{cols[i + 2].title}</span>
+                                                                        </label>
+                                                                    </div>
+                                                                )}
+                                                            </li>
+                                                        );
+                                                    } else {
+                                                        return null;
+                                                    }
+                                                })}
+                                            </ul>
+                                        </div>
+
+
+
+
                                     </Dropdown>
                                 </div>
                             </div>
@@ -907,333 +860,381 @@ CLOSE
 
                     <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
-                {/* <div className="mb-4.5 flex md:items-center md:flex-row flex-col gap-5">
-                    <div className="flex items-center gap-5">
-                        <div className="md:flex-auto flex-1">
-                            <input
-                                type="text"
-                                value={minAge}
-                                onChange={(e) => {
-                                    setMinAge(e.target.value);
-                                }}
-                                className="form-input"
-                                placeholder="Minimum age..."
-                            />
-                        </div>
-                        <div className="md:flex-auto flex-1">
-                            <input
-                                type="text"
-                                value={maxAge}
-                                onChange={(e) => {
-                                    setMaxAge(e.target.value);
-                                }}
-                                className="form-input"
-                                placeholder="Maximum age..."
-                            />
-                        </div>
-                    </div>
-                </div> */}
-                {/* <div className="flex md:items-center md:flex-row flex-col  gap-1">
-                    <div >
-                        <div style={{display: "ruby"}} >
-                        <label>Agent Name </label>&nbsp;&nbsp;&nbsp;
-                            <div className="dropdown">
-                           
-                                <Dropdown
-                                    placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
-                                    btnClassName="!flex items-center border font-semibold border-white-light dark:border-[#253b5c] rounded-md px-4 py-2 text-sm dark:bg-[#1b2e4b] dark:text-white-dark"
-                                    button={
-                                        <>
-                                        
-                                            <span className="ltr:mr-1 rtl:ml-1">--All--</span>
-                                            <IconCaretDown className="w-5 h-5" />
-                                        </>
-                                    }
-                                >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <option     
-                                                                // className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                               
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                    </div>
-                      
-                <label>Mobile No.</label>
-                <input type="text" className="form-input w-auto" placeholder=""  onChange={(e) => setSearch(e.target.value)} />
-                                        <button className="form-input w-auto" style={{width:"25%"}}>OK</button>
-                </div> */}
-
-
-                {/* <div >
-                        <div style={{display: "ruby"}} >
-                        <label>Agent Name </label>&nbsp;&nbsp;&nbsp;
-                            <div className="dropdown">
-                           
-                                <Dropdown
-                                    placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
-                                    btnClassName="!flex items-center border font-semibold border-white-light dark:border-[#253b5c] rounded-md px-4 py-2 text-sm dark:bg-[#1b2e4b] dark:text-white-dark"
-                                    button={
-                                        <>
-                                        
-                                            <span className="ltr:mr-1 rtl:ml-1">--All--</span>
-                                            <IconCaretDown className="w-5 h-5" />
-                                        </>
-                                    }
-                                >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <option     
-                                                                // className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                               
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                            <div >
-                        <div style={{display: "ruby"}} >
-                        <label>Agent Name </label>&nbsp;&nbsp;&nbsp;
-                            <div className="dropdown">
-                           
-                                <Dropdown
-                                    placement={`${isRtl ? 'bottom-end' : 'bottom-start'}`}
-                                    btnClassName="!flex items-center border font-semibold border-white-light dark:border-[#253b5c] rounded-md px-4 py-2 text-sm dark:bg-[#1b2e4b] dark:text-white-dark"
-                                    button={
-                                        <>
-                                        
-                                            <span className="ltr:mr-1 rtl:ml-1">--All--</span>
-                                            <IconCaretDown className="w-5 h-5" />
-                                        </>
-                                    }
-                                >
-                                    <ul className="!min-w-[140px]">
-                                        {cols.map((col, i) => {
-                                            return (
-                                                <li
-                                                    key={i}
-                                                    className="flex flex-col"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    }}
-                                                >
-                                                    <div className="flex items-center px-4 py-1">
-                                                        <label className="cursor-pointer mb-0">
-                                                            <option     
-                                                                // className="form-checkbox"
-                                                                defaultValue={col.accessor}
-                                                               
-                                                            />
-                                                            <span className="ltr:ml-2 rtl:mr-2">{col.title}</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                    </div>
-                        </div>
-                        
-                    </div> */}
-                
                 <table>
-        <tr style={{display:'flex', flexDirection:'row'}}>
-            
-                <label htmlFor="">Item Name
-                <input type="text" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}/>
-                </label>
-            
-            <label htmlFor="" style={{marginLeft:'2%'}}>Product
-                    <select name="FirmName" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-           
-                
-                <label htmlFor="" style={{marginLeft:'2.6%'}}>Brand
-                <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-            
-                <label htmlFor="" style={{marginLeft:'2%'}}>Size
-                <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-                <label htmlFor="" style={{marginLeft:'2%'}}>Color
-                <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-            
-        </tr>
-        <tr style={{display:'flex', flexDirection:'row'}}>
-            
-                <label htmlFor="" style={{marginLeft:'3.2%'}}>Style
-                <input type="text" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 12px', width: "110px"}}/>
-                </label>
-            
-            <label htmlFor="" >Material
-                    <select name="FirmName" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 11px', width: "110px"}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-           
-                
-                <label htmlFor="" style={{marginLeft:'1.4%'}}>Dealer
-                <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', width:'110px', margin:'0px 4px'}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-            
-                <label htmlFor="" style={{marginLeft:'1%'}}>Buyer
-                <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', width:'110px', margin:'0px 4px'}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-                <label htmlFor="" style={{marginLeft:'1%'}}>Season
-                <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width:'110px'}}>
-                        <option value="">--ALL--</option>
-                    </select>
-                </label>
-            
-        </tr>
-        <tr style={{display:'flex', flexDirection:'row'}}>
-            
-        <label htmlFor="" style={{marginLeft:'1.5%'}}>Barcode
-            <input type="text" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}/>
-            </label>
+                    <tr style={{ display: 'flex', flexDirection: 'row' }}>
 
-        <label htmlFor="" style={{marginLeft:'2%'}}>Packing
-                <select name="FirmName" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-       
-            
-            <label htmlFor="" style={{marginLeft:'2%'}}>Section
-            <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', width: "110px", margin:'0px 4px'}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-        
-            <label htmlFor="" style={{marginLeft:'1%'}}>Group
-            <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', width: "110px", margin:'0px 4px'}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-            <label htmlFor="" style={{marginLeft:'0.5%'}}>Company
-                <select name="FirmName" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-            
-    </tr>
-    <tr style={{display:'flex', flexDirection:'row'}}>
-            
-    <label htmlFor="" style={{marginLeft:'0%'}}>Sub Group
-                <select name="FirmName" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-        <label htmlFor="" style={{marginLeft:'1.3%'}}>Category
-                <select name="FirmName" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-       
-            
-            <label htmlFor="" style={{marginLeft:'0.5%'}}>Sub Category
-            <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', width: "110px", margin:'0px 4px'}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-        
-            <label htmlFor="" style={{marginLeft:'2.2%'}}>Unit
-            <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', width: "110px", margin:'0px 4px'}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-            <label htmlFor="" style={{marginLeft:'2%'}}>Status
-            <select name="SalePrice" style={{border:'1px solid black',borderRadius:'5px', margin:'0px 4px', width: "110px"}}>
-                    <option value="">--ALL--</option>
-                </select>
-            </label>
-        
-    </tr>
-    </table>
+
+                        <label htmlFor="">Item Name
+                            <input type="text" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '5px', width: '144px', marginTop: '10px' }} />
+                        </label>
+
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Product
+                            <select name="Product" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width: '144px', marginTop: '10px' }}
+                            value={selectedProduct}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.PRODUCT} >{record.PRODUCT} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Brand
+                            <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '80px', width: '144px', marginTop: '10px' }}
+                            value={selectedBrand}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.BRAND} >{record.BRAND} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Size
+                            <select name="Size" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '80px', width: '144px', marginTop: '10px' }}
+                            value={selectedSize}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.I_SIZE} >{record.I_SIZE} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Color
+                            <select name="Color" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '5px', width: '144px', marginTop: '10px' }} 
+                            value={selectedColor}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.COLOR} >{record.COLOR} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+                    </tr>
+
+                    <tr style={{ display: 'flex', flexDirection: 'row' }}>
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Style
+                            <select name="Style" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '4px', width: '144px', marginTop: '10px' }}
+                            value={selectedStyle}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.STYLE} >{record.STYLE} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+                        <label htmlFor="" style={{ marginLeft: '0px' }}>Material
+                            <select name="Material" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '13px', width: '144px' }}
+                            value={selectedMaterial}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.MATERIAL} >{record.MATERIAL} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Dealer
+                            <select name="Dealer" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedDealer}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.DEALERNAME} >{record.DEALERNAME} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Buyer
+                            <select name="Buyer" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedBuyer}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.BUYER} >{record.BUYER} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Season
+                            <select name="Season" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedSeason}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.SEASON} >{record.SEASON} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+
+                    </tr>
+
+                    <tr style={{ display: 'flex', flexDirection: 'row' }}>
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Company
+                            <select name="Company" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '4px', width: '144px', marginTop: '10px' }}
+                            value={selectedCompany}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.COMPANY} >{record.COMPANY} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+                        <label htmlFor="" style={{ marginLeft: '0px' }}>Packing
+                            <select name="Packing" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '13px', width: '144px' }}
+                            value={selectedPacking}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.PACKING} >{record.PACKING} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Section
+                            <select name="Section" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedSection}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.SECTION} >{record.SECTION} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Group
+                            <select name="Group" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedGroup}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.I_GROUP} >{record.I_GROUP} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Barcode
+                            <input type="text" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '17px', width: '144px' }} />
+                        </label>
+
+
+                    </tr>
+
+                    <tr style={{ display: 'flex', flexDirection: 'row' }}>
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Sub Group
+                            <select name="Sub-Group" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '4px', width: '144px', marginTop: '10px' }}
+                            value={selectedSubGroup}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.SUBGROUP} >{record.SUBGROUP} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+                        <label htmlFor="" style={{ marginLeft: '0px' }}>Category
+                            <select name="Category" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '13px', width: '144px' }}
+                            value={selectedCategory}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.CATEGORY} >{record.CATEGORY} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Sub Category
+                            <select name="Sub-Category" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedSubCategory}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.SUBCATEGORY} >{record.SUBCATEGORY} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Unit
+                            <select name="Unit" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedUnit}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.UNIT} >{record.UNIT} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+
+                        <label htmlFor="" style={{ marginLeft: '2%' }}>Status
+                            <select name="Status" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
+                            value={selectedStatus}
+                            onChange={handleDropdownChange}
+                            >
+                                <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.STATUS} >{record.STATUS} </option>
+                            ))
+                        }
+                            </select>
+                        </label>
+                    </tr>
+                </table>
 
                 <div className="datatables">
                     <DataTable
                         highlightOnHover
                         className="whitespace-nowrap table-hover"
                         records={recordsData}
+                        style={{
+                            position: "relative",
+                            zIndex: 0
+                        }}
                         columns={[
                             { accessor: 'id', title: '#', sortable: true, hidden: hideCols.includes('id') },
-                            { accessor: 'firstName', sortable: true, hidden: hideCols.includes('firstName') },
-                            { accessor: 'lastName', sortable: true, hidden: hideCols.includes('lastName') },
-                            { accessor: 'company', title: 'Company', sortable: true, hidden: hideCols.includes('company') },
-                            { accessor: 'age', title: 'Age', sortable: true, hidden: hideCols.includes('age') },
-                            {
-                                accessor: 'dob',
-                                title: 'Start Date',
-                                sortable: true,
-                                hidden: hideCols.includes('dob'),
-                                render: ({ dob }) => <div>{formatDate(dob)}</div>,
-                            },
-                            { accessor: 'email', sortable: true, hidden: hideCols.includes('email') },
-                            { accessor: 'phone', sortable: true, hidden: hideCols.includes('phone') }
+                            { accessor: 'ITEMNAME', title: 'Item Name', sortable: true, hidden: hideCols.includes('ITEMNAME') },
+                            { accessor: 'ITEMTYPE', title: 'Item Type', sortable: true, hidden: hideCols.includes('ITEMTYPE') },
+                            { accessor: 'BARCODE', title: 'Barcode', sortable: true, hidden: hideCols.includes('BARCODE') },
+                            { accessor: 'BOXSIZE', title: 'Box Size', sortable: true, hidden: hideCols.includes('BOXSIZE') },
+                            { accessor: 'BRAND', title: 'Brand', sortable: true, hidden: hideCols.includes('BRAND') },
+                            { accessor: 'BUYER', title: 'Buyer', sortable: true, hidden: hideCols.includes('BUYER') },
+                            { accessor: 'CATEGORY', title: 'Category', sortable: true, hidden: hideCols.includes('CATEGORY') },
+                            { accessor: 'CESS', title: 'Cess', sortable: true, hidden: hideCols.includes('CESS') },
+                            { accessor: 'COMPANY', title: 'Company', sortable: true, hidden: hideCols.includes('COMPANY') },
+                            { accessor: 'COLOR', title: 'Color', sortable: true, hidden: hideCols.includes('COLOR') },
+                            { accessor: 'COMPANYID', title: 'Company ID', sortable: true, hidden: hideCols.includes('COMPANYID') },
+                            { accessor: 'CUSTOME', title: 'Custome', sortable: true, hidden: hideCols.includes('CUSTOME') },
+                            { accessor: 'DEALERCODE', title: 'Dealer Code', sortable: true, hidden: hideCols.includes('DEALERCODE') },
+                            { accessor: 'DEALERNAME', title: 'Dealer Name', sortable: true, hidden: hideCols.includes('DEALERNAME') },
+                            { accessor: 'DEALERID', title: 'Dealer ID', sortable: true, hidden: hideCols.includes('DEALERID') },
+                            { accessor: 'DISCOUNT', title: 'Discount', sortable: true, hidden: hideCols.includes('DISCOUNT') },
+                            { accessor: 'ESAMOUNT', title: 'ES Amount', sortable: true, hidden: hideCols.includes('ESAMOUNT') },
+                            { accessor: 'ESID', title: 'ES ID', sortable: true, hidden: hideCols.includes('ESID') },
+                            { accessor: 'ESTAG', title: 'ES Tag', sortable: true, hidden: hideCols.includes('ESTAG') },
+                            { accessor: 'EXPIRYDAYS', title: 'Expiry Days', sortable: true, hidden: hideCols.includes('EXPIRYDAYS') },
+                            { accessor: 'FLAG', title: 'Flag', sortable: true, hidden: hideCols.includes('FLAG') },
+                            { accessor: 'GENDER', title: 'Gender', sortable: true, hidden: hideCols.includes('GENDER') },
+                            { accessor: 'HSNCODE', title: 'HSN Code', sortable: true, hidden: hideCols.includes('HSNCODE') },
+                            { accessor: 'ITEMID', title: 'Item ID', sortable: true, hidden: hideCols.includes('ITEMID') },
+                            { accessor: 'ITEMNAME', title: 'Item Name', sortable: true, hidden: hideCols.includes('ITEMNAME') },
+                            { accessor: 'ITEMTYPE', title: 'Item Type', sortable: true, hidden: hideCols.includes('ITEMTYPE') },
+                            { accessor: 'I_GROUP', title: 'Group', sortable: true, hidden: hideCols.includes('I_GROUP') },
+                            { accessor: 'I_SIZE', title: 'Size', sortable: true, hidden: hideCols.includes('I_SIZE') },
+                            { accessor: 'LOOKUP', title: 'Lookup', sortable: true, hidden: hideCols.includes('LOOKUP') },
+                            { accessor: 'MARGIN', title: 'Margin', sortable: true, hidden: hideCols.includes('MARGIN') },
+                            { accessor: 'MARKDOWN', title: 'Markdown', sortable: true, hidden: hideCols.includes('MARKDOWN') },
+                            { accessor: 'MARKUP', title: 'Markup', sortable: true, hidden: hideCols.includes('MARKUP') },
+                            { accessor: 'MATERIAL', title: 'Material', sortable: true, hidden: hideCols.includes('MATERIAL') },
+                            { accessor: 'MAXQTY', title: 'Max Quantity', sortable: true, hidden: hideCols.includes('MAXQTY') },
+                            { accessor: 'MINQTY', title: 'Min Quantity', sortable: true, hidden: hideCols.includes('MINQTY') },
+                            { accessor: 'MORP', title: 'MORP', sortable: true, hidden: hideCols.includes('MORP') },
+                            { accessor: 'MRP', title: 'MRP', sortable: true, hidden: hideCols.includes('MRP') },
+                            { accessor: 'OMRP', title: 'OMRP', sortable: true, hidden: hideCols.includes('OMRP') },
+                            { accessor: 'OTAX', title: 'OTAX', sortable: true, hidden: hideCols.includes('OTAX') },
+                            { accessor: 'PACKING', title: 'Packing', sortable: true, hidden: hideCols.includes('PACKING') },
+                            { accessor: 'PHOTO', title: 'Photo', sortable: true, hidden: hideCols.includes('PHOTO') },
+                            { accessor: 'PRODUCT', title: 'Product', sortable: true, hidden: hideCols.includes('PRODUCT') },
+                            { accessor: 'PURPRICE', title: 'Purchase Price', sortable: true, hidden: hideCols.includes('PURPRICE') },
+                            { accessor: 'RATE', title: 'Rate', sortable: true, hidden: hideCols.includes('RATE') },
+                            { accessor: 'REMARK', title: 'Remark', sortable: true, hidden: hideCols.includes('REMARK') },
+                            { accessor: 'REORDERQTY', title: 'Reorder Quantity', sortable: true, hidden: hideCols.includes('REORDERQTY') },
+                            { accessor: 'SALEPRICE', title: 'Sale Price', sortable: true, hidden: hideCols.includes('SALEPRICE') },
+                            { accessor: 'SCOLOR', title: 'Color', sortable: true, hidden: hideCols.includes('SCOLOR') },
+                            { accessor: 'SEASON', title: 'Season', sortable: true, hidden: hideCols.includes('SEASON') },
+                            { accessor: 'SECTION', title: 'Section', sortable: true, hidden: hideCols.includes('SECTION') },
+                            { accessor: 'SHELFNO', title: 'Shelf No', sortable: true, hidden: hideCols.includes('SHELFNO') },
+                            { accessor: 'SP1', title: 'SP1', sortable: true, hidden: hideCols.includes('SP1') },
+                            { accessor: 'SP2', title: 'SP2', sortable: true, hidden: hideCols.includes('SP2') },
+                            { accessor: 'SP3', title: 'SP3', sortable: true, hidden: hideCols.includes('SP3') },
+                            { accessor: 'SP4', title: 'SP4', sortable: true, hidden: hideCols.includes('SP4') },
+                            { accessor: 'STATUS', title: 'Status', sortable: true, hidden: hideCols.includes('STATUS') },
+                            { accessor: 'STYLE', title: 'Style', sortable: true, hidden: hideCols.includes('STYLE') },
+                            { accessor: 'SUBCATEGORY', title: 'Subcategory', sortable: true, hidden: hideCols.includes('SUBCATEGORY') },
+                            { accessor: 'SUBGROUP', title: 'Subgroup', sortable: true, hidden: hideCols.includes('SUBGROUP') },
+                            { accessor: 'SUP_COLOR', title: 'Supplier Color', sortable: true, hidden: hideCols.includes('SUP_COLOR') },
+                            { accessor: 'TAX', title: 'Tax', sortable: true, hidden: hideCols.includes('TAX') },
+                            { accessor: 'UNIT', title: 'Unit', sortable: true, hidden: hideCols.includes('UNIT') },
+                            { accessor: 'UPDATEDBY', title: 'Updated By', sortable: true, hidden: hideCols.includes('UPDATEDBY') },
+                            { accessor: 'UPDATEDON', title: 'Updated On', sortable: true, hidden: hideCols.includes('UPDATEDON') },
+                            { accessor: 'WSP', title: 'WSP', sortable: true, hidden: hideCols.includes('WSP') }
+
                         ]}
-                        totalRecords={initialRecords.length}
+                        // totalRecords={initialRecords.length}
+                        totalRecords={totalRecords}
                         recordsPerPage={pageSize}
-                        page={page}
-                        onPageChange={(p) => setPage(p)}
+                        page={currentPage}
+                        onPageChange={(p) => setCurrentPage(p)}
                         recordsPerPageOptions={PAGE_SIZES}
                         onRecordsPerPageChange={setPageSize}
                         sortStatus={sortStatus}
                         onSortStatusChange={setSortStatus}
                         minHeight={200}
                         paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
+
                     />
                 </div>
             </div>
@@ -1246,77 +1247,8 @@ CLOSE
                     https://www.npmjs.com/package/mantine-datatable
                 </a> */}
             </div>
-
-            {/* <div className="panel mt-6">
-                <div className="mb-4.5 flex md:items-center md:flex-row flex-col gap-5">
-                    <div className="flex items-center gap-5">
-                        <div className="md:flex-auto flex-1">
-                            <input
-                                type="text"
-                                value={minAge}
-                                onChange={(e) => {
-                                    setMinAge(e.target.value);
-                                }}
-                                className="form-input"
-                                placeholder="Minimum age..."
-                            />
-                        </div>
-                        <div className="md:flex-auto flex-1">
-                            <input
-                                type="text"
-                                value={maxAge}
-                                onChange={(e) => {
-                                    setMaxAge(e.target.value);
-                                }}
-                                className="form-input"
-                                placeholder="Maximum age..."
-                            />
-                        </div>
-                    </div>
-                    <div className="ltr:ml-auto rtl:mr-auto">
-                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                    </div>
-                </div>
-                <div className="datatables">
-                    <DataTable
-                        highlightOnHover
-                        className="whitespace-nowrap table-hover"
-                        records={recordsData}
-                        columns={[
-                            { accessor: 'id', title: 'Id', sortable: true },
-                            {
-                                accessor: 'firstName',
-                                title: 'Name',
-                                sortable: true,
-                                render: ({ firstName, lastName }) => <div>{firstName + ' ' + lastName}</div>,
-                            },
-                            { accessor: 'company', title: 'Company', sortable: true },
-                            { accessor: 'age', title: 'Age', sortable: true },
-                            {
-                                accessor: 'dob',
-                                title: 'Start Date',
-                                sortable: true,
-                                render: ({ dob }) => <div>{formatDate(dob)}</div>,
-                            },
-                            { accessor: 'email', title: 'Email', sortable: true },
-                            { accessor: 'phone', title: 'Phone No.', sortable: true },
-                        ]}
-                        totalRecords={initialRecords.length}
-                        recordsPerPage={pageSize}
-                        page={page}
-                        onPageChange={(p) => setPage(p)}
-                        recordsPerPageOptions={PAGE_SIZES}
-                        onRecordsPerPageChange={setPageSize}
-                        sortStatus={sortStatus}
-                        onSortStatusChange={setSortStatus}
-                        minHeight={200}
-                        paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
-                    />
-                </div>
-            </div> */}
         </div>
     );
 };
 
 export default Items;
-

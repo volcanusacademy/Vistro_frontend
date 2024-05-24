@@ -63,9 +63,16 @@ const AltPagination = lazy(() => import('../pages/DataTables/AltPagination'));
 const Checkbox = lazy(() => import('../pages/DataTables/Checkbox'));
 const RangeSearch = lazy(() => import('../pages/DataTables/RangeSearch'));
 const Customer = lazy(() => import('../pages/DataTables/Customer'));
+const CustomerEnv = lazy(() => import('../pages/DataTables/CustomerEnv'));
 const Dealers = lazy(() => import('../pages/DataTables/Dealers'));
 const Export = lazy(() => import('../pages/DataTables/Export'));
 const ColumnChooser = lazy(() => import('../pages/DataTables/ColumnChooser'));
+const Lable = lazy(() => import('../pages/DataTables/Lable'));
+const BrandItem = lazy(() => import('../pages/StockTables/BrandItem'));
+const ItemBrand = lazy(() => import('../pages/StockTables/ItemBrand'));
+const ItemSize = lazy(() => import('../pages/StockTables/ItemSize'));
+const StockReport = lazy(() => import('../pages/StockTables/StockReport'));
+const StockSummary = lazy(() => import('../pages/StockTables/StockSummary'));
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
 const KnowledgeBase = lazy(() => import('../pages/Pages/KnowledgeBase'));
@@ -357,6 +364,10 @@ const routes = [
             path: '/datatables/items',
                 element: <Items />,
             },
+            {
+                path: '/datatables/customer_env',
+                    element: <CustomerEnv /> ,
+                },
     {
         path: '/datatables/advanced',
         element: <Advanced />,
@@ -396,6 +407,32 @@ const routes = [
     {
         path: '/datatables/column-chooser',
         element: <ColumnChooser />,
+    },
+    {
+        path: '/datatables/lable',
+        element: <Lable />,
+    },
+
+    //StockTables
+    {
+        path: '/stockTables/brandItem',
+        element: <BrandItem />,
+    },
+    {
+        path: '/stockTables/itemBrand',
+        element: <ItemBrand /> ,
+    },
+    {
+        path: '/stockTables/itemSize',
+        element: <ItemSize /> ,
+    },
+    {
+        path: '/stockTables/stockReport',
+        element: <StockReport /> ,
+    },
+    {
+        path: '/stockTables/stockSummary',
+        element: <StockSummary /> ,
     },
     // Users page
     {

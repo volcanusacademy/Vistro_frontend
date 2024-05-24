@@ -46,37 +46,333 @@ const Sidebar = () => {
     const [currentMenu, setCurrentMenu] = useState(null);
     const [basicSubMenuOpen, setBasicSubMenuOpen] = useState(false);
     const [userSubMenuOpen, setUserSubMenuOpen] = useState(false);
+    const [purchaseSubMenuOpen, setPurchaseSubMenuOpen] = useState(false);
+    const [stockSubMenuOpen, setStockSubMenuOpen] = useState(false);
+    const [salesSubMenuOpen, setSalesSubMenuOpen] = useState(false);
+    const [chartsSubMenuOpen, setChartsSubMenuOpen] = useState(false);
+    const [accountSubMenuOpen, setAccountSubMenuOpen] = useState(false);
+    const [stransferSubMenuOpen, setStransferSubMenuOpen] = useState(false);
+    const [gstSubMenuOpen, setGstSubMenuOpen] = useState(false);
+    const [gstReturnSubMenuOpen, setGstReturnSubMenuOpen] = useState(false);
+    const [empSubMenuOpen, setEmpSubMenuOpen] = useState(false);
+    const [pivotSubMenuOpen, setPivotSubMenuOpen] = useState(false);
+    const [orderSubMenuOpen, setOrderSubMenuOpen] = useState(false);
+    const[innPurchaseSubMenuOpen, setInnPurchaseSubMenuOpen]= useState(false);
+    const[purReturnSubMenuOpen, setPurReturnSubMenuOpen]= useState(false);
+    const[deliverySubMenuOpen, setDeliverySubMenuOpen]= useState(false);
 
+    
+    deliverySubMenuOpen
     
     const toggleMenu = (menu:any) => {
         if (menu === 'basic') {
             setBasicSubMenuOpen(!basicSubMenuOpen);
             setUserSubMenuOpen(false); 
-        } else if (menu === 'advanced') {
-            setUserSubMenuOpen(!userSubMenuOpen);
-            setBasicSubMenuOpen(false); 
-        } else {
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        } 
+        // else if (menu === 'advanced') {
+        //     setUserSubMenuOpen(!userSubMenuOpen);
+        //     setBasicSubMenuOpen(false); 
+        //     setPurchaseSubMenuOpen(false);
+        // } 
+        else if( menu === 'purchase'){
+            setPurchaseSubMenuOpen(!purchaseSubMenuOpen);
+            setUserSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setInnPurchaseSubMenuOpen(false);
+            setPurReturnSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'stock'){
+            setStockSubMenuOpen(!stockSubMenuOpen);
+            setUserSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPurchaseSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'sales'){
+            setSalesSubMenuOpen(!salesSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'charts'){
+            setChartsSubMenuOpen(!chartsSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'account'){
+            setAccountSubMenuOpen(!accountSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'stock_transfer'){
+            setStransferSubMenuOpen(!stransferSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'gst'){
+            setGstSubMenuOpen(!gstSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'gst_return'){
+            setGstReturnSubMenuOpen(!gstReturnSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'emp_sch'){
+            setEmpSubMenuOpen(!empSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setPivotSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'pivot_rep'){
+            setPivotSubMenuOpen(!pivotSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'order'){
+            setOrderSubMenuOpen(!orderSubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setDeliverySubMenuOpen(false);
+        }
+        else if( menu === 'inn_purchase'){
+            setInnPurchaseSubMenuOpen(!innPurchaseSubMenuOpen);
+            setPurchaseSubMenuOpen(true);
+            // setPurReturnSubMenuOpen{false};
+            setPurReturnSubMenuOpen(false);
+        }
+        else if( menu === 'pur_return'){
+            setPurReturnSubMenuOpen(!purReturnSubMenuOpen);
+            setPurchaseSubMenuOpen(true);
+            setInnPurchaseSubMenuOpen(false);
+        }
+        else if( menu === 'del_challan'){
+            setDeliverySubMenuOpen(!deliverySubMenuOpen);
+            setUserSubMenuOpen(false); 
+            setPurchaseSubMenuOpen(false);
+            setStockSubMenuOpen(false);
+            setSalesSubMenuOpen(false);
+            setChartsSubMenuOpen(false);
+            setAccountSubMenuOpen(false);
+            setStransferSubMenuOpen(false);
+            setGstSubMenuOpen(false);
+            setGstReturnSubMenuOpen(false);
+            setEmpSubMenuOpen(false);
+            setOrderSubMenuOpen(false);
+        }
+        else {
                     setCurrentMenu(currentMenu === menu ? null : menu);
                     setUserSubMenuOpen(false); 
                     setBasicSubMenuOpen(false); 
+                    setPurchaseSubMenuOpen(false);
+                    setStockSubMenuOpen(false);
+                    setSalesSubMenuOpen(false);
+                    setChartsSubMenuOpen(false);
+                    setAccountSubMenuOpen(false)
+                    setStransferSubMenuOpen(false);
+                    setGstSubMenuOpen(false);
+                    setGstReturnSubMenuOpen(false);
+                    setEmpSubMenuOpen(false);
+                    setPivotSubMenuOpen(false);
+                    setOrderSubMenuOpen(false);
+                    setInnPurchaseSubMenuOpen(false);
+                    setPurReturnSubMenuOpen(false);
+                    setDeliverySubMenuOpen(false);
                 }
     };
    
     useEffect(() => {
         const storedBasicSubMenuState = localStorage.getItem('basicSubMenuOpen');
         const storedUserSubMenuState = localStorage.getItem('userSubMenuOpen');
+        const storedPurchaseSubMenuState = localStorage.getItem('purchaseSubMenuOpen');
+        const storedStockSubMenuState = localStorage.getItem('stockSubMenuOpen');
+        const storedSalesSubMenuState = localStorage.getItem('salesSubMenuOpen');
+        const storedChartsSubMenuState = localStorage.getItem('chartsSubMenuOpen');
+        const storedAccountSubMenuState = localStorage.getItem('accountSubMenuOpen');
+        const storedsTransferSubMenuState = localStorage.getItem('stransferSubMenuOpen');
+        const storedsGstSubMenuState = localStorage.getItem('gstSubMenuOpen');
+        const storedsGstReturnSubMenuState = localStorage.getItem('gstReturnSubMenuOpen');
+        const storedsEmpSubMenuState = localStorage.getItem('empSubMenuOpen');
+        const storedsPivotSubMenuState = localStorage.getItem('pivotSubMenuOpen');
+        const storedsinnPurchaseSubMenuState = localStorage.getItem('innPurchaseSubMenuOpen');
+        const storedsPurReturnSubMenuState = localStorage.getItem('purReturnSubMenuOpen');
         if (storedBasicSubMenuState) {
             setBasicSubMenuOpen(storedBasicSubMenuState === 'true');
         }
         if (storedUserSubMenuState) {
             setUserSubMenuOpen(storedUserSubMenuState === 'true');
         }
+        if (storedPurchaseSubMenuState) {
+            setPurchaseSubMenuOpen(storedPurchaseSubMenuState === 'true');
+        }
+        if (storedStockSubMenuState) {
+            setStockSubMenuOpen(storedStockSubMenuState === 'true');
+        }
+        if (storedSalesSubMenuState) {
+            setSalesSubMenuOpen(storedSalesSubMenuState === 'true');
+        }
+        if (storedChartsSubMenuState) {
+            setChartsSubMenuOpen(storedChartsSubMenuState === 'true');
+        }
+        if (storedAccountSubMenuState) {
+            setAccountSubMenuOpen(storedAccountSubMenuState === 'true');
+        }
+        if (storedsTransferSubMenuState) {
+            setStransferSubMenuOpen(storedsTransferSubMenuState === 'true');
+        }
+        if (storedsGstSubMenuState) {
+            setGstSubMenuOpen(storedsGstSubMenuState === 'true');
+        }
+        if (storedsGstReturnSubMenuState) {
+        setGstReturnSubMenuOpen(storedsGstReturnSubMenuState === 'true');
+        }
+        if (storedsEmpSubMenuState) {
+            setEmpSubMenuOpen(storedsEmpSubMenuState === 'true');
+            }
+            if (storedsPivotSubMenuState) {
+                setPivotSubMenuOpen(storedsPivotSubMenuState === 'true');
+                }
+                if (storedsinnPurchaseSubMenuState) {
+                    setInnPurchaseSubMenuOpen(storedsinnPurchaseSubMenuState === 'true');
+                    }
+                    if (storedsPurReturnSubMenuState) {
+                        setPurReturnSubMenuOpen(storedsPurReturnSubMenuState === 'true');
+                        }
     }, []);
 
     useEffect(() => {
         localStorage.setItem('basicSubMenuOpen', basicSubMenuOpen.toString());
         localStorage.setItem('userSubMenuOpen', userSubMenuOpen.toString());
-    }, [basicSubMenuOpen, userSubMenuOpen]);
+        localStorage.setItem('purchaseSubMenuOpen', purchaseSubMenuOpen.toString());
+        localStorage.setItem('stockSubMenuOpen', stockSubMenuOpen.toString());
+        localStorage.setItem('salesSubMenuOpen', salesSubMenuOpen.toString());
+        localStorage.setItem('chartsSubMenuOpen', chartsSubMenuOpen.toString());
+        localStorage.setItem('accountSubMenuOpen', accountSubMenuOpen.toString());
+        localStorage.setItem('stransferSubMenuOpen', stransferSubMenuOpen.toString());
+        localStorage.setItem('gstSubMenuOpen', gstSubMenuOpen.toString());
+        localStorage.setItem('gstReturnSubMenuOpen', gstReturnSubMenuOpen.toString());
+        localStorage.setItem('empSubMenuOpen', empSubMenuOpen.toString());
+        localStorage.setItem('pivotSubMenuOpen', pivotSubMenuOpen.toString());
+        localStorage.setItem('innPurchaseSubMenuOpen', innPurchaseSubMenuOpen.toString());
+        localStorage.setItem('purReturnSubMenuOpen', purReturnSubMenuOpen.toString());
+    }, [basicSubMenuOpen, userSubMenuOpen, purchaseSubMenuOpen, stockSubMenuOpen, salesSubMenuOpen,chartsSubMenuOpen, accountSubMenuOpen, stransferSubMenuOpen, gstSubMenuOpen, gstReturnSubMenuOpen,empSubMenuOpen, pivotSubMenuOpen, innPurchaseSubMenuOpen, purReturnSubMenuOpen]);
     // useEffect(() => {
     //     setBasicSubMenuOpen(false);
     //     setUserSubMenuOpen(false);
@@ -119,7 +415,7 @@ const Sidebar = () => {
             >
                 <div className="bg-white dark:bg-black h-full">
                     <div className="flex justify-between items-center px-4 py-3">
-                        <NavLink to="/" className="main-logo flex items-center shrink-0">
+                        <NavLink to="" className="main-logo flex items-center shrink-0">
                             <img className="w-8 ml-[5px] flex-none" src="/assets/images/auth/logo-white1.png" alt="logo" />
                             <span className="text-2xl ltr:ml-1.5 rtl:mr-1.5 font-semibold align-middle lg:inline dark:text-white-light">{t('i-SOFTZONE')}</span>
                         </NavLink>
@@ -439,8 +735,56 @@ const Sidebar = () => {
                                 <IconMinus className="w-4 h-5 flex-none hidden" />
                                 <span>{t('tables_and_forms')}</span>
                             </h2>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('System')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Masters')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Purchase')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Stock')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Sales')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Account')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
 
-                            {/* <li className="menu nav-item">
+                           {/* <li className="menu nav-item">
                                 <NavLink to="/tables" className="group">
                                     <div className="flex items-center">
                                         <IconMenuTables className="group-hover:!text-primary shrink-0" />
@@ -551,48 +895,449 @@ const Sidebar = () => {
                                 <li>
                                     <NavLink to="/datatables/customer">Customers</NavLink>
                                 </li>
-                                {/* <li>
+                                <li>
                                     <NavLink to="/datatables/customer_env">Customer Envelope</NavLink>
-                                </li> */}
+                                </li>
                                 <li>
                                     <NavLink to="/datatables/dealers">Dealers</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/datatables/employees">Employees</NavLink>
                                 </li>
-                                {/* <li>
+                                <li>
                                     <NavLink to="/datatables/items">Items</NavLink>
-                                </li> */}
+                                </li>
                                 <li>
                                     <NavLink to="/datatables/transport">Transport</NavLink>
                                 </li>
-                                {/* <li>
-                                    <NavLink to="/datatables/lable">Lable</NavLink>
-                                </li> */}
                                 <li>
-                                    {/* <NavLink to="">Setting</NavLink> */}
+                                    <NavLink to="/datatables/lable">Lable</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="">Setting</NavLink>
                                 </li>   
                             </ul>
                         </AnimateHeight>
                     </li>
                     <li>
-                        <button type="button" className={`${userSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('advanced')}>
+                        <button type="button" className={`${purchaseSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('purchase')}>
                             <div className="flex items-center">
                                 <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
-                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Sales</span>
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Purchase</span>
                             </div>
-                            <div className={userSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                            <div className={purchaseSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
                                 <IconCaretDown />
                             </div>
                         </button>
 
-                        <AnimateHeight duration={300} height={userSubMenuOpen ? 'auto' : 0}>
+                        <AnimateHeight duration={300} height={purchaseSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                            <li>
+                        <button type="button" className={`${innPurchaseSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('inn_purchase')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Purchase Report</span>
+                            </div>
+                            <div className={innPurchaseSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={innPurchaseSubMenuOpen ? 'auto' : 0}>
                             <ul className="sub-menu text-gray-500">
                                 <li>
-                                    <NavLink to="#">Sub-Menu 1</NavLink>
+                                    <NavLink to="#">Purchase</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="#">Sub-Menu 2</NavLink>
+                                    <NavLink to="#">Purchase Register</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Purchase</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Purchase Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Purchase Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Best Purchase Brand</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Best Purchase Product Brand Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Best Purchase Iteam Name Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Date Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Daily Purchase Group Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Item Wise Purchase Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Item Wise Purchase Tax</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${purReturnSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('pur_return')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Purchase Return</span>
+                            </div>
+                            <div className={purReturnSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={purReturnSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Purchase Return Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Return report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Return Detail Report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Return Register </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Purchase Return</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Purchase Return Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Purchase Return Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase return date Wise</NavLink>
+                                </li>
+                               
+                                <li>
+                                    <NavLink to="#">Purchase Date Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Daily Purchase Return Group Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Item Wise Purchase  Return Summary</NavLink>
+                                </li>
+                            
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+
+                    
+                                {/* <li>
+                                    <NavLink to="#">Purchase Master</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Detail</NavLink>
+                                </li> */}
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${stockSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('stock')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Stock</span>
+                            </div>
+                            <div className={stockSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={stockSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Stock Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/stockTables/brandItem">Brand Item Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/stockTables/itemBrand">Item Brand Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/stockTables/itemSize">Item Size Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Stock Movement</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/stockTables/stockReport">Stock Report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Stock Aging</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/stockTables/stockSummary">Stock Summary Item Name Wise</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${salesSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('sales')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Sales</span>
+                            </div>
+                            <div className={salesSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={salesSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Sales Master</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sale Detail</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${chartsSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('charts')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Charts</span>
+                            </div>
+                            <div className={chartsSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={chartsSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Best Selling Brands</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Best Selling Items</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Employee Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Date Wise Sales</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${accountSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('account')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Account</span>
+                            </div>
+                            <div className={accountSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={accountSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Account Master</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Account Detail</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${stransferSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('stock_transfer')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Stock Transfer</span>
+                            </div>
+                            <div className={stransferSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={stransferSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">STI Details</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">STI Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">STO Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">STO Summary</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${gstSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('gst')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">GST</span>
+                            </div>
+                            <div className={gstSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={gstSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">GST Master</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">GST Detail</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${gstReturnSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('gst_return')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">GST Return</span>
+                            </div>
+                            <div className={gstReturnSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={gstReturnSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">GST Return Master</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">GST Return Detail</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${empSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('emp_sch')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Employee Schemes</span>
+                            </div>
+                            <div className={empSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={empSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">In Percentage</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">In Rupees</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${pivotSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('pivot_rep')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Pivot Report</span>
+                            </div>
+                            <div className={pivotSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={pivotSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Sale</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sale Return</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Return</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Stock</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${orderSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('order')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Order</span>
+                            </div>
+                            <div className={orderSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={orderSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Pending Order</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Order Report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Order Sales Detail Customer Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Order Detail Design Wise</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${deliverySubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('del_challan')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Delivery Challan</span>
+                            </div>
+                            <div className={deliverySubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={deliverySubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Delivery Challan Register</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Delivery Detail</NavLink>
                                 </li>
                             </ul>
                         </AnimateHeight>
@@ -630,6 +1375,46 @@ const Sidebar = () => {
                 </ul>
             </AnimateHeight>
         </li>
+        <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Tools')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Help')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Production')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Job')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li className="menu nav-item">
+                                <NavLink to="" className="group">
+                                    <div className="flex items-center">
+                                        <IconMenuTables className="group-hover:!text-primary shrink-0" />
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Job Data')}</span>
+                                    </div>
+                                </NavLink>
+                            </li>
     
 
                            

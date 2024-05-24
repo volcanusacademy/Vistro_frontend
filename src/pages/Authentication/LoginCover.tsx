@@ -14,6 +14,7 @@ import IconTwitter from '../../components/Icon/IconTwitter';
 import IconGoogle from '../../components/Icon/IconGoogle';
 import {BASE_URL} from '../../config'
 import axios from 'axios';
+import { json } from 'stream/consumers';
 const LoginCover = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -45,10 +46,12 @@ const LoginCover = () => {
                 },
             });
             if (response) {
-                console.log("login submit")
+                // console.log(response,'res');
+                let userData:any = response.data.user
                 // Redirect or perform any action after successful login
                 // alert("Login Successfull")
-                navigate('/index', { replace: true }); // Use replace option to prevent going back
+                localStorage.setItem('userData', JSON.stringify(userData));
+                navigate('/index', { replace: false}); // Use replace option to prevent going back
             } else {
                 // Handle login error
                 console.error('Login failed');

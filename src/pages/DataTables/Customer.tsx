@@ -45,7 +45,7 @@ const Customer = () => {
 
 
 
-    const [hideCols, setHideCols] = useState<any>(['ACCOUNTNO','ACCOUNTTYPE','AGENT','AGENTCOMISSION','AGENTID','ANNIVERSARY','AREA','BALANCE','BANKNAME','BRANCHNAME','CADDRESSLINE1', 'CADDRESSLINE2', 'CADDRESSLINE3','CARDNO','CCITY','CCOUNTRY','CDISTRICT','CEMAILID','CHEQUENO','CHEQUEREMARK','CITY','CLUB','CMOBILE','CUSTOMERID','DISCOUNT','DELAYDAYS','DOB','FIRMNAME', 'GSTIN', 'IFSCCODE', 'LRSMS', 'MARITALSTATUS', 'MICRCODE', 'MOBILE2', 'NAME', 'NAME2', 'PADDRESSLINE1', 'PADDRESSLINE2', 'PADDRESSLINE3', 'PAMOUNT', 'PCITY', 'PCOUNTRY', 'PDISTRICT', 'PEARNED', 'PEMAILID','PMOBILE', 'PPINCODE', 'PREDEEMED', 'PSTATE', 'RCONTACTNO', 'REMARK', 'RNAME', 'SALEPRICE', 'STATE', 'STATECODE', 'STATUS', 'TAMOUNT', 'TELEPHONE', 'TELEPHONE1', 'TELEPHONE2', 'TINNO', 'TITLE', 'TPNOBANK', 'TRANSPORT', 'TYPE', 'UPDATEDBY', 'UPDATEDON', ]
+    const [hideCols, setHideCols] = useState<any>(['ACCOUNTNO','ACCOUNTTYPE','AGENT','AGENTCOMISSION','AGENTID','ANNIVERSARY','AREA','BALANCE','BANKNAME','BRANCHNAME','CADDRESSLINE1', 'CADDRESSLINE2', 'CADDRESSLINE3','CARDNO','CCITY','CCOUNTRY','CDISTRICT','CEMAILID','CHEQUENO','CHEQUEREMARK','CITY','CLUB','CMOBILE','CUSTOMERID','DISCOUNT','DELAYDAYS','DOB','FIRMNAME', 'GSTIN', 'IFSCCODE', 'LRSMS', 'MARITALSTATUS', 'MICRCODE', 'MOBILE2', 'NAME', 'NAME2', 'PADDRESSLINE1', 'PADDRESSLINE2', 'PADDRESSLINE3', 'PAMOUNT', 'PCITY', 'PCOUNTRY', 'PDISTRICT', 'PEARNED', 'PEMAILID','PMOBILE', 'PPINCODE', 'PREDEEMED', 'PSTATE', 'RCONTACTNO', 'REMARK', 'RNAME', 'STATE', 'STATECODE', 'STATUS', 'TAMOUNT', 'TELEPHONE', 'TELEPHONE1', 'TELEPHONE2', 'TINNO', 'TITLE', 'TPNOBANK', 'TRANSPORT', 'TYPE', 'UPDATEDBY', 'UPDATEDON', ]
   );
 
 
@@ -198,7 +198,6 @@ id:number;
             { accessor: 'PDISTRICT', title: 'PDISTRICT' },
             { accessor: 'PEARNED', title: 'PEARNED' },
             { accessor: 'PEMAILID', title: 'PEMAILID' },
-
             { accessor: 'PMOBILE', title: 'PMOBILE' },
             { accessor: 'PPINCODE', title: 'PPINCODE' },
             { accessor: 'PREDEEMED', title: 'PREDEEMED' },
@@ -484,7 +483,7 @@ id:number;
             setSelectedCity(value);
         }else if (name === 'State'){
             setSelectedState(value);
-        }else if (name === 'Status'){
+        }else if (name === 'Sale_price'){
             setSelectedStatus(value);
         }
     }
@@ -494,7 +493,7 @@ id:number;
                    (selectedFirm === "" || record.FIRMNAME === selectedFirm) &&
                    (selectedCity === "" || record.CITY === selectedCity) &&
                    (selectedState === "" || record.STATE === selectedState) &&
-                   (selectedStatus === "" || record.STATUS === selectedStatus);
+                   (selectedStatus === "" || record.SALEPRICE === selectedStatus);
         });
         setRecordsData(filteredData);
     }
@@ -665,7 +664,7 @@ id:number;
         <tr>
             <td>
                 <label htmlFor="">Customer Name
-                    <select name="Customer Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}
+                    <select name="Customer Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'130px'}}
                     value={selectedCustomer}
                     onChange={handleDropdownChange}        
                    >
@@ -680,7 +679,7 @@ id:number;
             </td>
             <td>
                 <label htmlFor="">Firm Name
-                    <select name="Firm Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}
+                    <select name="Firm Name" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'130px'}}
                     value={selectedFirm}
                     onChange={handleDropdownChange}  
                       >
@@ -696,8 +695,13 @@ id:number;
             </td>
             <td>
                 <label htmlFor="">Mobile No.
-                <input type="text" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'144px'}}/>
+                <input type="text" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'130px'}}/>
                 
+                </label>
+            </td>
+            <td>
+            <label htmlFor="">GST No.
+                <input type="text" style={{border:'1px solid #e5e7eb',borderRadius:'5px', margin:'0px 6px', width:'130px'}}/>
                 </label>
             </td>
             {/* <td>
@@ -736,15 +740,15 @@ id:number;
                 </label>
             </td>
             <td>
-                <label htmlFor="">Status
-                    <select name="Status" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'32px', width:'144px'}}
+                <label htmlFor="">Sale Price
+                    <select name="Sale_price" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'32px', width:'144px'}}
                      value={selectedStatus}
                      onChange={handleDropdownChange}
                     >
                    
                                     <option value="">--All--</option>
                                     {initialRecords.map((record, index) => (
-                                        <option key={index} value={record.STATUS}>{record.STATUS}</option>
+                                        <option key={index} value={record.SALEPRICE}>{record.SALEPRICE}</option>
                                     ))}
                                 </select>
                 </label>

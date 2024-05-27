@@ -58,12 +58,13 @@ const Sidebar = () => {
     const [pivotSubMenuOpen, setPivotSubMenuOpen] = useState(false);
     const [orderSubMenuOpen, setOrderSubMenuOpen] = useState(false);
     const[innPurchaseSubMenuOpen, setInnPurchaseSubMenuOpen]= useState(false);
+    const[salesReportSubMenuOpen, setSalesReportSubMenuOpen]= useState(false);
     const[purReturnSubMenuOpen, setPurReturnSubMenuOpen]= useState(false);
+    const[salesReturnSubMenuOpen, setSalesReturnSubMenuOpen]= useState(false);
+    const[bestInSubMenuOpen, setBestInSubMenuOpen]= useState(false);
+    const[comparisionSubMenuOpen, setComparisionSubMenuOpen]= useState(false);
     const[deliverySubMenuOpen, setDeliverySubMenuOpen]= useState(false);
 
-    
-    deliverySubMenuOpen
-    
     const toggleMenu = (menu:any) => {
         if (menu === 'basic') {
             setBasicSubMenuOpen(!basicSubMenuOpen);
@@ -105,6 +106,7 @@ const Sidebar = () => {
         }
         else if( menu === 'stock'){
             setStockSubMenuOpen(!stockSubMenuOpen);
+            setBasicSubMenuOpen(false);
             setUserSubMenuOpen(false);
             setSalesSubMenuOpen(false);
             setChartsSubMenuOpen(false);
@@ -120,6 +122,7 @@ const Sidebar = () => {
         }
         else if( menu === 'sales'){
             setSalesSubMenuOpen(!salesSubMenuOpen);
+            setBasicSubMenuOpen(false);
             setUserSubMenuOpen(false); 
             setPurchaseSubMenuOpen(false);
             setStockSubMenuOpen(false);
@@ -132,6 +135,7 @@ const Sidebar = () => {
             setPivotSubMenuOpen(false);
             setOrderSubMenuOpen(false);
             setDeliverySubMenuOpen(false);
+            setSalesReportSubMenuOpen(false);
         }
         else if( menu === 'charts'){
             setChartsSubMenuOpen(!chartsSubMenuOpen);
@@ -263,6 +267,40 @@ const Sidebar = () => {
             setPurchaseSubMenuOpen(true);
             setInnPurchaseSubMenuOpen(false);
         }
+        else if( menu === 'inn_sales'){
+            setSalesReportSubMenuOpen(!salesReportSubMenuOpen);
+            setSalesSubMenuOpen(true);
+            // setPurReturnSubMenuOpen{false};
+            setPurReturnSubMenuOpen(false);
+            setSalesReturnSubMenuOpen(false);
+            setBestInSubMenuOpen(false);
+        }
+        else if( menu === 'sales_return'){
+            setSalesReturnSubMenuOpen(!salesReturnSubMenuOpen);
+            setSalesReportSubMenuOpen(false);
+            setSalesSubMenuOpen(true);
+            // setPurReturnSubMenuOpen{false};
+            setPurReturnSubMenuOpen(false);
+            setBestInSubMenuOpen(false);
+        }
+        else if( menu === 'best_in'){
+            setBestInSubMenuOpen(!bestInSubMenuOpen);
+            setSalesReportSubMenuOpen(false);
+            setSalesReturnSubMenuOpen(false);
+            setSalesSubMenuOpen(true);
+            // setPurReturnSubMenuOpen{false};
+            setPurReturnSubMenuOpen(false);
+            setComparisionSubMenuOpen(false);
+        }
+        else if( menu === 'comparision'){
+            setComparisionSubMenuOpen(!comparisionSubMenuOpen);
+            setSalesReportSubMenuOpen(false);
+            setSalesReturnSubMenuOpen(false);
+            setSalesSubMenuOpen(true);
+            setBestInSubMenuOpen(false);
+            // setPurReturnSubMenuOpen{false};
+            setPurReturnSubMenuOpen(false);
+        }
         else if( menu === 'del_challan'){
             setDeliverySubMenuOpen(!deliverySubMenuOpen);
             setUserSubMenuOpen(false); 
@@ -295,6 +333,7 @@ const Sidebar = () => {
                     setInnPurchaseSubMenuOpen(false);
                     setPurReturnSubMenuOpen(false);
                     setDeliverySubMenuOpen(false);
+                    setSalesReportSubMenuOpen(false);
                 }
     };
    
@@ -313,6 +352,10 @@ const Sidebar = () => {
         const storedsPivotSubMenuState = localStorage.getItem('pivotSubMenuOpen');
         const storedsinnPurchaseSubMenuState = localStorage.getItem('innPurchaseSubMenuOpen');
         const storedsPurReturnSubMenuState = localStorage.getItem('purReturnSubMenuOpen');
+        const storedsSalesReturnSubMenuState = localStorage.getItem('salesReturnSubMenuOpen');
+        const storedsBestInSubMenuState = localStorage.getItem('bestInSubMenuOpen');
+        const storedsComparisionSubMenuState = localStorage.getItem('comparisionSubMenuOpen');
+        const storedsSalesReportSubMenuState = localStorage.getItem('salesReportSubMenuOpen');
         if (storedBasicSubMenuState) {
             setBasicSubMenuOpen(storedBasicSubMenuState === 'true');
         }
@@ -355,6 +398,18 @@ const Sidebar = () => {
                     if (storedsPurReturnSubMenuState) {
                         setPurReturnSubMenuOpen(storedsPurReturnSubMenuState === 'true');
                         }
+                        if (storedsSalesReportSubMenuState) {
+                            setSalesReportSubMenuOpen(storedsSalesReportSubMenuState === 'true');
+                            }
+                            if (storedsSalesReturnSubMenuState) {
+                                setSalesReturnSubMenuOpen(storedsSalesReturnSubMenuState === 'true');
+                                }
+                                if (storedsBestInSubMenuState) {
+                                    setBestInSubMenuOpen(storedsBestInSubMenuState === 'true');
+                                    }
+                                    if (storedsComparisionSubMenuState) {
+                                        setComparisionSubMenuOpen(storedsComparisionSubMenuState === 'true');
+                                        }
     }, []);
 
     useEffect(() => {
@@ -372,7 +427,11 @@ const Sidebar = () => {
         localStorage.setItem('pivotSubMenuOpen', pivotSubMenuOpen.toString());
         localStorage.setItem('innPurchaseSubMenuOpen', innPurchaseSubMenuOpen.toString());
         localStorage.setItem('purReturnSubMenuOpen', purReturnSubMenuOpen.toString());
-    }, [basicSubMenuOpen, userSubMenuOpen, purchaseSubMenuOpen, stockSubMenuOpen, salesSubMenuOpen,chartsSubMenuOpen, accountSubMenuOpen, stransferSubMenuOpen, gstSubMenuOpen, gstReturnSubMenuOpen,empSubMenuOpen, pivotSubMenuOpen, innPurchaseSubMenuOpen, purReturnSubMenuOpen]);
+        localStorage.setItem('salesReturnSubMenuOpen', salesReturnSubMenuOpen.toString());
+        localStorage.setItem('bestInSubMenuOpen', bestInSubMenuOpen.toString());
+        localStorage.setItem('comparisionSubMenuOpen', comparisionSubMenuOpen.toString());
+        localStorage.setItem('salesReportSubMenuOpen', salesReportSubMenuOpen.toString());
+    }, [basicSubMenuOpen, userSubMenuOpen, purchaseSubMenuOpen, stockSubMenuOpen, salesSubMenuOpen,chartsSubMenuOpen, accountSubMenuOpen, stransferSubMenuOpen, gstSubMenuOpen, gstReturnSubMenuOpen,empSubMenuOpen, pivotSubMenuOpen, innPurchaseSubMenuOpen, purReturnSubMenuOpen,salesReportSubMenuOpen,salesReturnSubMenuOpen,bestInSubMenuOpen,comparisionSubMenuOpen]);
     // useEffect(() => {
     //     setBasicSubMenuOpen(false);
     //     setUserSubMenuOpen(false);
@@ -1066,7 +1125,7 @@ const Sidebar = () => {
                         <AnimateHeight duration={300} height={stockSubMenuOpen ? 'auto' : 0}>
                             <ul className="sub-menu text-gray-500">
                                 <li>
-                                    <NavLink to="#">Stock Detail</NavLink>
+                                    <NavLink to="/stockTables/stockDetail">Stock Detail</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/stockTables/brandItem">Brand Item Wise</NavLink>
@@ -1078,13 +1137,13 @@ const Sidebar = () => {
                                     <NavLink to="/stockTables/itemSize">Item Size Wise</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="#">Stock Movement</NavLink>
+                                    <NavLink to="/stockTables/stockMovement">Stock Movement</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/stockTables/stockReport">Stock Report</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="#">Stock Aging</NavLink>
+                                    <NavLink to="/stockTables/stockAging">Stock Aging</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/stockTables/stockSummary">Stock Summary Item Name Wise</NavLink>
@@ -1105,6 +1164,242 @@ const Sidebar = () => {
 
                         <AnimateHeight duration={300} height={salesSubMenuOpen ? 'auto' : 0}>
                             <ul className="sub-menu text-gray-500">
+                            <li>
+                        <button type="button" className={`${salesReportSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('inn_sales')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Sales</span>
+                   
+                            </div>
+                            <div className={salesReportSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={salesReportSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Sales Report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Register</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Detail Report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Profit</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Outstanding</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Profit MR</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Discount Sale</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${salesReturnSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('sales_return')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Sales Return</span>
+                            </div>
+                            <div className={salesReturnSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={salesReturnSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="#">Sales Return Report</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Return Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Return Register </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Return Detail Report</NavLink>
+                                </li>
+                               
+                                <li>
+                                    <NavLink to="#">Customer Wise Sales Return</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Customer Wise Sales Return Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Employee Wise Sales Return</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Employee Wise Sales Return Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Employee Wise Sales Return Comparison(Qty)</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Sales Return</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Dealer Wise Sales Return Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Return Profit</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Sales Return Outstanding</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Daily Sales Return Group Wise</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${bestInSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('best_in')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Best In</span>
+                            </div>
+                            <div className={bestInSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={bestInSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="/salesTables/sellingBrand">Best Selling Brand</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/sellingProduct">Best Selling Product Brand Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Best Selling Product Gender Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/sellingItem">Best Selling Item Name Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/sellingCustomer">Best Selling Customer</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/salesComparison">Sales Tax Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/itemWiseSale">Item Wise Sale Tax</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                        <button type="button" className={`${comparisionSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('comparision')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Comparison</span>
+                            </div>
+                            <div className={comparisionSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={comparisionSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="/salesTables/comparison/customerWiseSale">Customer Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/customerWiseDetail">Customer Wise Sales Detail</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/employeeSale">Employee Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/empCompare">Employee Wise Sales Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/empCompareQty">Employee Wise Sales Comparison(Qty)</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/dealerSales">Dealer Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/dealerCompare">Dealer Wise Sales Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/salesDate">Sales Date Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/itemSales">Item Wise Sales Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/agentSales">Agent Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/agentSummary">Agent Wise Sales Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/consigneeSummary">Consignee Wise Sales Summary</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/dailySales">Daily Sales Group Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/itemTax">Item Wise Sale Tax</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/helperSales">Helper Wise Sales</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/helperCompare">Helper Wise Sales Compariosn</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/comparison/helperCompareQty">Helper Wise Sales Compariosn(Qty)</NavLink>
+                                </li>
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    <li>
+                                    <NavLink to="/salesTables/delChallan">Delivery Challan</NavLink>
+                                </li>
+                    
+                                {/* <li>
+                                    <NavLink to="#">Purchase Master</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="#">Purchase Detail</NavLink>
+                                </li> */}
+                            </ul>
+                        </AnimateHeight>
+                    </li>
+                    {/* <li>
+                        <button type="button" className={`${salesSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('sales')}>
+                            <div className="flex items-center">
+                                <IconMenuDatatables className="group-hover:!text-primary shrink-0" />
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Sales</span>
+                            </div>
+                            <div className={salesSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={salesSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
                                 <li>
                                     <NavLink to="#">Sales Master</NavLink>
                                 </li>
@@ -1113,7 +1408,7 @@ const Sidebar = () => {
                                 </li>
                             </ul>
                         </AnimateHeight>
-                    </li>
+                    </li> */}
                     <li>
                         <button type="button" className={`${chartsSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('charts')}>
                             <div className="flex items-center">

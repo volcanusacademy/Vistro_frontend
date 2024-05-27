@@ -69,10 +69,40 @@ const Export = lazy(() => import('../pages/DataTables/Export'));
 const ColumnChooser = lazy(() => import('../pages/DataTables/ColumnChooser'));
 const Lable = lazy(() => import('../pages/DataTables/Lable'));
 const BrandItem = lazy(() => import('../pages/StockTables/BrandItem'));
+const StockDetail = lazy(() => import('../pages/StockTables/StockDetail'));
 const ItemBrand = lazy(() => import('../pages/StockTables/ItemBrand'));
 const ItemSize = lazy(() => import('../pages/StockTables/ItemSize'));
 const StockReport = lazy(() => import('../pages/StockTables/StockReport'));
 const StockSummary = lazy(() => import('../pages/StockTables/StockSummary'));
+const StockMovement = lazy(() => import('../pages/StockTables/StockMovement'));
+const StockAging = lazy(() => import('../pages/StockTables/StockAging'));
+const SellingBrand = lazy(() => import('../pages/SalesTables/BestIn/SellingBrand'));
+const SellingProduct = lazy(() => import('../pages/SalesTables/BestIn/SellingProduct'));
+const SellingItem = lazy(() => import('../pages/SalesTables/BestIn/SellingItem'));
+const SellingCustomer = lazy(() => import('../pages/SalesTables/BestIn/SellingCustomer'));
+const SalesComparison = lazy(() => import('../pages/SalesTables/BestIn/SalesComparison'));
+const ItemWiseSale = lazy(() => import('../pages/SalesTables/BestIn/ItemWiseSale'));
+const CustomerWiseSale = lazy(() => import('../pages/SalesTables/Comparison/CustomerWiseSale'));
+const CustomerWiseDetail = lazy(() => import('../pages/SalesTables/Comparison/CustomerWiseDetail'));
+const EmployeeSale = lazy(() => import('../pages/SalesTables/Comparison/EmployeeSale'));
+const EmpCompare = lazy(() => import('../pages/SalesTables/Comparison/EmpCompare'));
+const EmpCompareQty = lazy(() => import('../pages/SalesTables/Comparison/EmpCompareQty'));
+const DealerSales = lazy(() => import('../pages/SalesTables/Comparison/DealerSales'));
+const DealerCompare = lazy(() => import('../pages/SalesTables/Comparison/DealerCompare'));
+const SalesDate = lazy(() => import('../pages/SalesTables/Comparison/SalesDate'));
+const ItemSales = lazy(() => import('../pages/SalesTables/Comparison/ItemSales'));
+const AgentSales = lazy(() => import('../pages/SalesTables/Comparison/AgentSales'));
+const AgentSummary = lazy(() => import('../pages/SalesTables/Comparison/AgentSummary'));
+const ConsigneeSummary = lazy(() => import('../pages/SalesTables/Comparison/ConsigneeSummary'));
+const DailySales = lazy(() => import('../pages/SalesTables/Comparison/DailySales'));
+const ItemTax = lazy(() => import('../pages/SalesTables/Comparison/ItemTax'));
+const HelperSales = lazy(() => import('../pages/SalesTables/Comparison/HelperSales'));
+const HelperCompare = lazy(() => import('../pages/SalesTables/Comparison/HelperCompare'));
+const HelperCompareQty = lazy(() => import('../pages/SalesTables/Comparison/HelperCompareQty'));
+const DelChallan = lazy(() => import('../pages/SalesTables/DelChallan'));
+
+
+
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
 const KnowledgeBase = lazy(() => import('../pages/Pages/KnowledgeBase'));
@@ -415,6 +445,10 @@ const routes = [
 
     //StockTables
     {
+        path: '/stockTables/stockDetail',
+        element: <StockDetail />,
+    },
+    {
         path: '/stockTables/brandItem',
         element: <BrandItem />,
     },
@@ -434,6 +468,118 @@ const routes = [
         path: '/stockTables/stockSummary',
         element: <StockSummary /> ,
     },
+    {
+        path: '/stockTables/stockMovement',
+        element: <StockMovement />,
+    },
+    {
+        path: '/stockTables/stockAging',
+        element: <StockAging />,
+    },
+
+    //Sales Table
+    {
+        path:'/salesTables/sellingBrand',
+        element: <SellingBrand />
+    },
+    {
+        path:'/salesTables/sellingProduct',
+        element: <SellingProduct />
+    },
+    {
+        path:'/salesTables/sellingItem',
+        element: <SellingItem />
+    },
+    {
+        path:'/salesTables/sellingCustomer',
+        element: <SellingCustomer />
+    },
+    {
+        path:'/salesTables/salesComparison',
+        element: <SalesComparison />
+    },
+    {
+        path:'/salesTables/itemWiseSale',
+        element: <ItemWiseSale />
+    },
+    
+    //Sales Table/ Comparison
+    {
+        path:'/salesTables/comparison/customerWiseSale',
+        element: <CustomerWiseSale />
+    },
+    {
+        path:'/salesTables/comparison/customerWiseDetail',
+        element: <CustomerWiseDetail />
+    },
+    {
+        path:'/salesTables/comparison/employeeSale',
+        element: <EmployeeSale />
+    },
+    {
+        path:'/salesTables/comparison/empCompare',
+        element: <EmpCompare />
+    },
+    {
+        path:'/salesTables/comparison/empCompareQty',
+        element: <EmpCompareQty />
+    },
+    {
+        path:'/salesTables/comparison/dealerSales',
+        element: <DealerSales />
+    },
+    {
+        path:'/salesTables/comparison/dealerCompare',
+        element: <DealerCompare />
+    },
+    {
+        path:'/salesTables/comparison/salesDate',
+        element: <SalesDate />
+    },
+    {
+        path:'/salesTables/comparison/itemSales',
+        element: <ItemSales />
+    },
+    {
+        path:'/salesTables/comparison/agentSales',
+        element: <AgentSales />
+    },
+    {
+        path:'/salesTables/comparison/agentSummary',
+        element: <AgentSummary />
+    },
+    {
+        path:'/salesTables/comparison/consigneeSummary',
+        element: <ConsigneeSummary />
+    },
+    {
+        path:'/salesTables/comparison/dailySales',
+        element: <DailySales />
+    },
+    {
+        path:'/salesTables/comparison/itemTax',
+        element: <ItemTax />
+    },
+    {
+        path:'/salesTables/comparison/helperSales',
+        element: <HelperSales />
+    },
+    {
+        path:'/salesTables/comparison/helperCompare',
+        element: <HelperCompare />
+    },
+    {
+        path:'/salesTables/comparison/helperCompareQty',
+        element: <HelperCompareQty />
+    },
+
+    {
+        path:'/salesTables/delChallan',
+        element: <DelChallan />
+    },
+   
+    
+    
     // Users page
     {
         path: '/users/profile',

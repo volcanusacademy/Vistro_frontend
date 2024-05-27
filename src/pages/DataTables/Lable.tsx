@@ -34,183 +34,245 @@ const Lable = () => {
     const [pageSize, setPageSize] = useState<number>(10); // Explicitly specify type as number
     const [totalRecords, setTotalRecords] = useState<number>(0);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
-    const [selectedAgent, setSelectedAgent] = useState("");
-    const [selectedFirm, setSelectedFirm] = useState("");
-    const [selectedCity, setSelectedCity] = useState("");
-    const [selectedState, setSelectedState] = useState("");
+    const [selectedItem, setSelectedItem] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState("");
+    const [selectedBrand, setSelectedBrand] = useState("");
+    const [selectedColor, setSelectedColor] = useState("");
+    const [selectedPacking, setSelectedPacking] = useState("");
+    const [selectedGroup, setSelectedGroup] = useState("");
+    const [selectedDealer, setSelectedDealer] = useState("");
+    const [selectedUnit, setSelectedUnit] = useState("");
     const [selectedStatus, setSelectedStatus] = useState("");
+    const [selectedBarcode, setSelectedBarcode] = useState("");
+    const [selectedSize, setSelectedSize] = useState("");
+    const [selectedCompany, setSelectedCompany] = useState("");
 
     interface UserData {
-        id: number;
-        COMPANYID: string;
-        AGENTID: string;
-        AFIRMNAME: string;
-        ACTELEPHONENO: string;
-        ACMOBILENO: string;
-        ACADDRESSLINE1: string;
-        ACADDRESSLINE2: string;
-        ACADDRESSLINE3: string;
-        STATUS: string;
-        AGENTNAME: string;
-        ADOB: number;
-        APERSONALIDTYPE: string;
-        APERSONALID: string;
-        APMOBILENO: string;
-        APEMAILID: string;
-        APADDRESSLINE1: string;
-        APADDRESSLINE2: string;
-        APADDRESSLINE3: string;
-        APCITY: string;
-        APSTATE: string;
-        APCOUNTRY: string;
-        APDISTRICT: string;
-        APPINCODE: string;
-        ABANKNAME: string;
-        AACCOUNTTYPE: string;
-        AACCOUNTNO: string;
-        AACCOUNTHOLDERNAME: string;
-        ABRANCHNAME: string;
-        AIFSCCODE: string;
-        ACHEQUENO: string;
-        ACHEQUEREMARK: string;
-        AMICRCODE: string;
-        ATPNOBANK: string;
+        BARCODE: string;
+        BARCODEID: any;
+        BARCODE_BS: string;
+        BOXSIZE: string;
+        BRAND: string;
+        BUYER: string;
+        CATEGORY: string;
+        COLOR: string;
+        COMPANY: string;
+        COMPANYID: number;
         CREATEDBY: string;
         CREATEDON: string;
-        UPDATEDBY: string;
-        UPDATEDON: string;
-        ACCITY: string;
-        ACSTATE: string;
-        ACCOUNTRY: string;
-        ACDISTRICT: string;
-        ACPINCODE: string;
+        CUSTOME: string;
+        DEALERCODE: string;
+        DEALERID: number;
+        ESTAG: string;
+        EXPIRYDAYS: number;
+        GENDER: string;
+        HSNCODE: string;
+        ITEMDESC: string;
+        ITEMID: number;
+        ITEMNAME: string;
+        I_GROUP: string;
+        I_SIZE: string;
+        MARKDOWN: string;
+        MARKUP: string;
+        MATERIAL: string;
+        MAXQTY: number;
+        MINQTY: number;
+        MRP: string;
+        MRPDISC: number;
+        PACKING: string;
+        PCODE: string;
+        PDATE: string;
+        PHOTO: string;
+        PRODUCT: string;
+        PURPRICE: number;
+        QTY: number;
+        RATE: number;
         REMARK: string;
-    }
-
-    interface FormData {
-        COMPANYID: any;
-        AGENTID: any;
-        AFIRMNAME: string;
-        ACTELEPHONENO: string;
-        ACMOBILENO: string;
-        ACADDRESSLINE1: string;
-        ACADDRESSLINE2: string;
-        ACADDRESSLINE3: string;
+        REORDERQTY: number;
+        SALEPRICE: number;
+        SCOLOR: string;
+        SEASON: string;
+        SECTION: string;
+        SHELFNO: string;
         STATUS: string;
-        AGENTNAME: string;
-        ADOB: any;
-        APERSONALIDTYPE: string;
-        APERSONALID: string;
-        APMOBILENO: string;
-        APEMAILID: string;
-        APADDRESSLINE1: string;
-        APADDRESSLINE2: string;
-        APADDRESSLINE3: string;
-        APCITY: string;
-        APSTATE: string;
-        APCOUNTRY: string;
-        APDISTRICT: string;
-        APPINCODE: string;
-        ABANKNAME: string;
-        AACCOUNTTYPE: string;
-        AACCOUNTNO: string;
-        AACCOUNTHOLDERNAME: string;
-        ABRANCHNAME: string;
-        AIFSCCODE: string;
-        ACHEQUENO: string;
-        ACHEQUEREMARK: string;
-        AMICRCODE: string;
-        ATPNOBANK: string;
-        CREATEDBY: string;
-        CREATEDON: string;
+        STYLE: string;
+        SUBCATEGORY: string;
+        SUBGROUP: string;
+        TAG: string;
+        TAX: number;
+        UNIT: string;
         UPDATEDBY: string;
-        UPDATEDON: string;
-        ACCITY: string;
-        ACSTATE: string;
-        ACCOUNTRY: string;
-        ACDISTRICT: string;
-        ACPINCODE: string;
-        REMARK: string;
+        UPDATEDON: string;        
     }
 
-    const [formData, setFormData] = useState<FormData>({
-        COMPANYID: '',
-        AGENTID: '',
-        AFIRMNAME: '',
-        ACTELEPHONENO: '',
-        ACMOBILENO: '',
-        ACADDRESSLINE1: '',
-        ACADDRESSLINE2: '',
-        ACADDRESSLINE3: '',
-        STATUS: '',
-        AGENTNAME: '',
-        ADOB: '',
-        APERSONALIDTYPE: '',
-        APERSONALID: '',
-        APMOBILENO: '',
-        APEMAILID: '',
-        APADDRESSLINE1: '',
-        APADDRESSLINE2: '',
-        APADDRESSLINE3: '',
-        APCITY: '',
-        APSTATE: '',
-        APCOUNTRY: '',
-        APDISTRICT: '',
-        APPINCODE: '',
-        ABANKNAME: '',
-        AACCOUNTTYPE: '',
-        AACCOUNTNO: '',
-        AACCOUNTHOLDERNAME: '',
-        ABRANCHNAME: '',
-        AIFSCCODE: '',
-        ACHEQUENO: '',
-        ACHEQUEREMARK: '',
-        AMICRCODE: '',
-        ATPNOBANK: '',
-        CREATEDBY: '',
-        CREATEDON: '',
-        UPDATEDBY: '',
-        UPDATEDON: '',
-        ACCITY: '',
-        ACSTATE: '',
-        ACCOUNTRY: '',
-        ACDISTRICT: '',
-        ACPINCODE: '',
-        REMARK: '',
-    });
+//     interface FormData {
+//         BARCODE: string;
+// BARCODEID: any;
+// BARCODE_BS: string;
+// BOXSIZE: string;
+// BRAND: string;
+// BUYER: string;
+// CATEGORY: string;
+// COLOR: string;
+// COMPANY: string;
+// COMPANYID: number;
+// CREATEDBY: string;
+// CREATEDON: string;
+// CUSTOME: string;
+// DEALERCODE: string;
+// DEALERID: number;
+// ESTAG: string;
+// EXPIRYDAYS: number;
+// GENDER: string;
+// HSNCODE: string;
+// ITEMDESC: string;
+// ITEMID: number;
+// ITEMNAME: string;
+// I_GROUP: string;
+// I_SIZE: string;
+// MARKDOWN: string;
+// MARKUP: string;
+// MATERIAL: string;
+// MAXQTY: number;
+// MINQTY: number;
+// MRP: string;
+// MRPDISC: number;
+// PACKING: string;
+// PCODE: string;
+// PDATE: string;
+// PHOTO: string;
+// PRODUCT: string;
+// PURPRICE: number;
+// QTY: number;
+// RATE: number;
+// REMARK: string;
+// REORDERQTY: number;
+// SALEPRICE: number;
+// SCOLOR: string;
+// SEASON: string;
+// SECTION: string;
+// SHELFNO: string;
+// STATUS: string;
+// STYLE: string;
+// SUBCATEGORY: string;
+// SUBGROUP: string;
+// TAG: string;
+// TAX: number;
+// UNIT: string;
+// UPDATEDBY: string;
+// UPDATEDON: string;
+//     }
+
+    // const [formData, setFormData] = useState<FormData>({
+    //     BARCODE : '',
+    //     BARCODEID : '',
+    //     BARCODE_BS : '',
+    //     BOXSIZE : '',
+    //     BRAND : '',
+    //     BUYER : '',
+    //     CATEGORY : '',
+    //     COLOR : '',
+    //     COMPANY : '',
+    //     COMPANYID : '',
+    //     CREATEDBY : '',
+    //     CREATEDON : '',
+    //     CUSTOME : '',
+    //     DEALERCODE : '',
+    //     DEALERID : '',
+    //     ESTAG : '',
+    //     EXPIRYDAYS : '',
+    //     GENDER : '',
+    //     HSNCODE : '',
+    //     ITEMDESC : '',
+    //     ITEMID : '',
+    //     ITEMNAME : '',
+    //     I_GROUP : '',
+    //     I_SIZE : '',
+    //     MARKDOWN : '',
+    //     MARKUP : '',
+    //     MATERIAL : '',
+    //     MAXQTY : '',
+    //     MINQTY : '',
+    //     MRP : '',
+    //     MRPDISC : '',
+    //     PACKING : '',
+    //     PCODE : '',
+    //     PDATE : '',
+    //     PHOTO : '',
+    //     PRODUCT : '',
+    //     PURPRICE : '',
+    //     QTY : '',
+    //     RATE : '',
+    //     REMARK : '',
+    //     REORDERQTY : '',
+    //     SALEPRICE : '',
+    //     SCOLOR : '',
+    //     SEASON : '',
+    //     SECTION : '',
+    //     SHELFNO : '',
+    //     STATUS : '',
+    //     STYLE : '',
+    //     SUBCATEGORY : '',
+    //     SUBGROUP : '',
+    //     TAG : '',
+    //     TAX : '',
+    //     UNIT : '',
+    //     UPDATEDBY : '',
+    //     UPDATEDON : ''
+        
+    // });
 
 
     const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
-        if (name === 'Agent Name') {
-            setSelectedAgent(value);
-        } else if (name === 'Agent Firm Name') {
-            setSelectedFirm(value);
-        } else if (name === 'City') {
-            setSelectedCity(value);
-        } else if (name === 'State') {
-            setSelectedState(value);
-        } else if (name === 'Status') {
+        if (name === 'Item name') {
+            setSelectedItem(value);
+        } else if (name === 'Product') {
+            setSelectedProduct(value);
+        } else if (name === 'Brand') {
+            setSelectedBrand(value);
+        } else if (name === 'Color') {
+            setSelectedColor(value);
+        } else if (name === 'Packing') {
+            setSelectedPacking(value);
+        }else if (name === 'Group') {
+            setSelectedGroup(value);
+        }else if (name === 'Dealer') {
+            setSelectedDealer(value);
+        }else if (name === 'Unit') {
+            setSelectedUnit(value);
+        }else if (name === 'Status') {
             setSelectedStatus(value);
+        }else if (name === 'Barcode') {
+            setSelectedBarcode(value);
+        }else if (name === 'Size') {
+            setSelectedSize(value);
         }
     }
     const handleSearch = () => {
         const filteredData = initialRecords.filter(record => {
-            return (selectedAgent === "" || record.AGENTNAME === selectedAgent) &&
-                (selectedFirm === "" || record.AFIRMNAME === selectedFirm) &&
-                (selectedCity === "" || record.APCITY === selectedCity) &&
-                (selectedState === "" || record.APSTATE === selectedState) &&
-                (selectedStatus === "" || record.STATUS === selectedStatus);
+            return (selectedItem === "" || record.ITEMNAME === selectedItem) &&
+                (selectedCompany === "" || record.COMPANY === selectedCompany) &&
+                (selectedBrand === "" || record.BRAND === selectedBrand) &&
+                (selectedColor === "" || record.COLOR === selectedColor) &&
+                (selectedProduct === "" || record.PRODUCT === selectedProduct);
         });
         setRecordsData(filteredData);
     }
 
     const handleReset = () => {
-        setSelectedAgent("");
-        setSelectedFirm("");
-        setSelectedCity("");
-        setSelectedState("");
+        setSelectedItem("");
+        setSelectedProduct("");
+        setSelectedBrand("");
+        setSelectedColor("");
+        setSelectedPacking("");
+        setSelectedGroup("");
+        setSelectedDealer("");
+        setSelectedUnit("");
         setSelectedStatus("");
+        setSelectedBarcode("");
+        setSelectedSize("");
+        
         setRecordsData(initialRecords.slice(0, 10));
     }
 
@@ -220,7 +282,7 @@ const Lable = () => {
 
 
     useEffect(() => {
-        fetch(`${BASE_URL}/getMaster`)
+        fetch(`${BASE_URL}/getLable`)
             .then(response => response.json())
             .then(data => {
                 let detail = data;
@@ -277,14 +339,14 @@ const Lable = () => {
         setInitialRecords(() => {
             return tempData.filter((item) => {
                 return (
-                    item.id.toString().includes(search.toLowerCase()) ||
-                    item.AGENTNAME.toLowerCase().includes(search.toLowerCase()) ||
-                    item.AFIRMNAME.toLowerCase().includes(search.toLowerCase()) ||
-                    item.APCOUNTRY.toLowerCase().includes(search.toLowerCase()) ||
-                    item.APEMAILID.toLowerCase().includes(search.toLowerCase()) ||
-                    item.ACADDRESSLINE1.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    item.APCITY.toLowerCase().includes(search.toLowerCase()) ||
-                    item.APMOBILENO.toLowerCase().includes(search.toLowerCase())
+                    // item.id.toString().includes(search.toLowerCase()) ||
+                    item.ITEMNAME.toLowerCase().includes(search.toLowerCase()) ||
+                    item.COMPANY.toLowerCase().includes(search.toLowerCase()) ||
+                    item.BRAND.toLowerCase().includes(search.toLowerCase()) ||
+                    item.COLOR.toLowerCase().includes(search.toLowerCase()) ||
+                    item.PRODUCT.toString().toLowerCase().includes(search.toLowerCase())
+                    // item.APCITY.toLowerCase().includes(search.toLowerCase()) ||
+                    // item.APMOBILENO.toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
@@ -438,7 +500,7 @@ const Lable = () => {
 
 
     function handleDownloadExcel() {
-        const col: Array<keyof UserData> = ['id', 'COMPANYID', 'AGENTID', 'AFIRMNAME', 'ACTELEPHONENO', 'ACMOBILENO', 'ACADDRESSLINE1', 'STATUS', 'AGENTNAME', 'ADOB', 'APERSONALIDTYPE', 'APERSONALID', 'APMOBILENO', 'APEMAILID', 'APADDRESSLINE1', 'APCITY', 'APSTATE', 'APCOUNTRY', 'APDISTRICT', 'APPINCODE', 'ABANKNAME', 'AACCOUNTTYPE', 'AACCOUNTNO', 'AACCOUNTHOLDERNAME', 'ABRANCHNAME', 'AIFSCCODE', 'ACHEQUENO', 'ACHEQUEREMARK', 'AMICRCODE', 'ATPNOBANK', 'CREATEDBY', 'CREATEDON', 'UPDATEDBY', 'UPDATEDBY', 'UPDATEDON', 'ACCITY', 'ACCOUNTRY', 'ACDISTRICT', 'ACPINCODE', 'REMARK'];
+        const col: Array<keyof UserData> = ['BARCODE','BARCODEID','BARCODE_BS','BOXSIZE','BRAND','BUYER','CATEGORY','COLOR','COMPANY','COMPANYID','CREATEDBY','CREATEDON','CUSTOME','DEALERCODE','DEALERID','ESTAG','EXPIRYDAYS','GENDER','HSNCODE','ITEMDESC','ITEMID','ITEMNAME','I_GROUP','I_SIZE','MARKDOWN','MARKUP','MATERIAL','MAXQTY','MINQTY','MRP','MRPDISC','PACKING','PCODE','PDATE','PHOTO','PRODUCT','PURPRICE','QTY','RATE','REMARK','REORDERQTY','SALEPRICE','SCOLOR','SEASON','SECTION','SHELFNO','STATUS','STYLE','SUBCATEGORY','SUBGROUP','TAG','TAX','UNIT','UPDATEDBY','UPDATEDON'];
         downloadExcel({
             fileName: 'table',
             sheet: 'react-export-table-to-excel',
@@ -467,7 +529,7 @@ const Lable = () => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     // show/hide
-    const [hideCols, setHideCols] = useState<any>(['age', 'dob', 'COMPANYID', 'AGENTID', 'ACTELEPHONENO', 'ACMOBILENO', 'ACADDRESSLINE1', 'STATUS', 'ADOB', 'APERSONALIDTYPE', 'APERSONALID', 'APMOBILENO', 'APADDRESSLINE1', 'APCITY', 'APSTATE', 'APCOUNTRY', 'APDISTRICT', 'APPINCODE', 'ABANKNAME', 'AACCOUNTTYPE', 'AACCOUNTNO', 'AACCOUNTHOLDERNAME', 'ABRANCHNAME', 'AIFSCCODE', 'ACHEQUENO', 'ACHEQUEREMARK', 'AMICRCODE', 'ATPNOBANK', 'CREATEDBY', 'CREATEDON', 'UPDATEDBY', 'UPDATEDBY', 'UPDATEDON', 'ACCITY', 'ACCOUNTRY', 'ACDISTRICT', 'ACPINCODE', 'ACSTATE', 'Remark', 'isActive']);
+    const [hideCols, setHideCols] = useState<any>(['BARCODE','BARCODEID','BARCODE_BS','BOXSIZE','BUYER','CATEGORY','COMPANYID','CREATEDBY','CREATEDON','CUSTOME','DEALERCODE','DEALERID','ESTAG','EXPIRYDAYS','GENDER','HSNCODE','ITEMDESC','ITEMID','I_GROUP','MARKDOWN','MARKUP','MATERIAL','MAXQTY','MINQTY','MRP','MRPDISC','PCODE','PDATE','PHOTO','PRODUCT','PURPRICE','QTY','RATE','REMARK','REORDERQTY','SALEPRICE','SCOLOR','SEASON','SECTION','SHELFNO','STYLE','SUBCATEGORY','SUBGROUP','TAG','TAX','UPDATEDBY','UPDATEDON']);
 
 
 
@@ -478,43 +540,63 @@ const Lable = () => {
             setHideCols([...hideCols, col]);
         }
     };
-
     const cols = [
-        { accessor: 'id', title: 'ID' },
-        { accessor: 'agentName', title: 'Agent Name' },
-        { accessor: 'agentFirmName', title: 'Agent Firm Name' },
-        { accessor: 'email', title: 'Email' },
-        { accessor: 'dob', title: 'Startdate' },
-        { accessor: 'phone', title: 'Phone' },
-        { accessor: 'age', title: 'Status' },
-        { accessor: 'Remark', title: 'Remark' },
-        { accessor: 'AACCOUNTHOLDERNAME', title: 'Account Holder Name' },
-        { accessor: 'AACCOUNTNO', title: 'Account No' },
-        { accessor: 'AACCOUNTTYPE', title: 'Account Type' },
-        { accessor: 'ABANKNAME', title: 'Bank Name' },
-        { accessor: 'ABRANCHNAME', title: 'Branch Name' },
-        { accessor: 'ACADDRESSLINE1', title: 'Company Address' },
-        { accessor: 'ACCITY', title: 'Company City' },
-        { accessor: 'ACCOUNTRY', title: 'Company Country' },
-        { accessor: 'ACDISTRICT', title: 'Company District' },
-        { accessor: 'ACHEQUENO', title: 'Cheque No' },
-        { accessor: 'ACHEQUEREMARK', title: 'Cheque Mark' },
-        { accessor: 'ACMOBILENO', title: 'Company Contact No' },
-        { accessor: 'ACPINCODE', title: 'Company Pincode' },
-        { accessor: 'ACSTATE', title: 'Company State' },
-        { accessor: 'ACTELEPHONENO', title: 'Company Telephone' },
-        { accessor: 'AIFSCCODE', title: 'IFSC Code' },
-        { accessor: 'AMICRCODE', title: 'MICR Code' },
-        { accessor: 'APADDRESSLINE1', title: 'Agent Address' },
-        { accessor: 'APCITY', title: 'City' },
-        { accessor: 'APDISTRICT', title: 'District' },
-        { accessor: 'APERSONALIDTYPE', title: 'Agent ID Type' },
-        { accessor: 'APERSONALID', title: 'Agent ID No' },
-        { accessor: 'APMOBILENO', title: 'Personal Contact No' },
-        { accessor: 'APPINCODE', title: 'Agent Pincode' },
-        { accessor: 'APSTATE', title: 'Agent State' },
-        { accessor: 'ATPNOBANK', title: 'Bank ATP No' },
-    ];
+        { accessor: 'BARCODE', title: 'Barcode',sortable: true, hidden: hideCols.includes('agentName') },
+        { accessor: 'BARCODEID', title: 'Barcode ID' },
+        { accessor: 'BARCODE_BS', title: 'Barcode BS' },
+        { accessor: 'BOXSIZE', title: 'Box Size' },
+        { accessor: 'BRAND', title: 'Brand' },
+        { accessor: 'BUYER', title: 'Buyer' },
+        { accessor: 'CATEGORY', title: 'Category' },
+        { accessor: 'COLOR', title: 'Color' },
+        { accessor: 'COMPANY', title: 'Company' },
+        { accessor: 'COMPANYID', title: 'Company ID' },
+        { accessor: 'CREATEDBY', title: 'Created By' },
+        { accessor: 'CREATEDON', title: 'Created On' },
+        { accessor: 'CUSTOME', title: 'Custome' },
+        { accessor: 'DEALERCODE', title: 'Dealer Code' },
+        { accessor: 'DEALERID', title: 'Dealer ID' },
+        { accessor: 'ESTAG', title: 'Estag' },
+        { accessor: 'EXPIRYDAYS', title: 'Expiry Days' },
+        { accessor: 'GENDER', title: 'Gender' },
+        { accessor: 'HSNCODE', title: 'HSN Code' },
+        { accessor: 'ITEMDESC', title: 'Item Description' },
+        { accessor: 'ITEMID', title: 'Item ID' },
+        { accessor: 'ITEMNAME', title: 'Item Name' },
+        { accessor: 'I_GROUP', title: 'Group' },
+        { accessor: 'I_SIZE', title: 'Size' },
+        { accessor: 'MARKDOWN', title: 'Markdown' },
+        { accessor: 'MARKUP', title: 'Markup' },
+        { accessor: 'MATERIAL', title: 'Material' },
+        { accessor: 'MAXQTY', title: 'Max Quantity' },
+        { accessor: 'MINQTY', title: 'Min Quantity' },
+        { accessor: 'MRP', title: 'MRP' },
+        { accessor: 'MRPDISC', title: 'MRP Discount' },
+        { accessor: 'PACKING', title: 'Packing' },
+        { accessor: 'PCODE', title: 'PCode' },
+        { accessor: 'PDATE', title: 'PDate' },
+        { accessor: 'PHOTO', title: 'Photo' },
+        { accessor: 'PRODUCT', title: 'Product' },
+        { accessor: 'PURPRICE', title: 'Purchase Price' },
+        { accessor: 'QTY', title: 'Quantity' },
+        { accessor: 'RATE', title: 'Rate' },
+        { accessor: 'REMARK', title: 'Remark' },
+        { accessor: 'REORDERQTY', title: 'Reorder Quantity' },
+        { accessor: 'SALEPRICE', title: 'Sale Price' },
+        { accessor: 'SCOLOR', title: 'Secondary Color' },
+        { accessor: 'SEASON', title: 'Season' },
+        { accessor: 'SECTION', title: 'Section' },
+        { accessor: 'SHELFNO', title: 'Shelf Number' },
+        { accessor: 'STATUS', title: 'Status' },
+        { accessor: 'STYLE', title: 'Style' },
+        { accessor: 'SUBCATEGORY', title: 'Subcategory' },
+        { accessor: 'SUBGROUP', title: 'Subgroup' },
+        { accessor: 'TAG', title: 'Tag' },
+        { accessor: 'TAX', title: 'Tax' },
+        { accessor: 'UNIT', title: 'Unit' },
+        { accessor: 'UPDATEDBY', title: 'Updated By' },
+        { accessor: 'UPDATEDON', title: 'Updated On' }
+    ];    
 
     useEffect(() => {
         setPage(1);
@@ -846,6 +928,11 @@ const Lable = () => {
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Product
                             <select name="Item Type" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width:'144px',marginTop:'10px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.PRODUCT} >{record.PRODUCT} </option>
+                            ))
+                        }
                             </select>
                         </label>
 
@@ -853,6 +940,11 @@ const Lable = () => {
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Brand
                             <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '80px',width:'144px',marginTop:'10px'}}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.BRAND} >{record.BRAND} </option>
+                            ))
+                        }
                             </select>
                         </label>
 
@@ -860,6 +952,11 @@ const Lable = () => {
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Color
                             <select name="Size" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '5px', width:'144px',marginTop:'10px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.COLOR} >{record.COLOR} </option>
+                            ))
+                        }
                             </select>
                         </label>
 
@@ -867,6 +964,11 @@ const Lable = () => {
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Packing
                             <select name="Color" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '4px', width:'144px',marginTop:'10px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.PACKING} >{record.PACKING} </option>
+                            ))
+                        }
                             </select>
                         </label>
 
@@ -877,6 +979,11 @@ const Lable = () => {
                         <label htmlFor="" style={{ marginLeft: '0px' }}>Group
                             <select name="Unit" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '13px', width:'144px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.I_GROUP} >{record.I_GROUP} </option>
+                            ))
+                        }
                             </select>
                         </label>
 
@@ -884,16 +991,31 @@ const Lable = () => {
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Dealer
                             <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px',width:'144px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.DEALERCODE} >{record.DEALERCODE} </option>
+                            ))
+                        }
                             </select>
                         </label>
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Unit
                             <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px',width:'144px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.UNIT} >{record.UNIT} </option>
+                            ))
+                        }
                             </select>
                         </label>
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Status
                             <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px',width:'144px' }}>
                                 <option value="">--ALL--</option>
+                                {
+                            initialRecords.map((record,index) =>(
+                                <option key={index} value={record.STATUS} >{record.STATUS} </option>
+                            ))
+                        }
                             </select>
                         </label>
 
@@ -920,47 +1042,62 @@ const Lable = () => {
                         }}
                         columns={[
                             { accessor: 'id', title: '#', sortable: true, hidden: hideCols.includes('id') },
-                            { accessor: 'AGENTNAME', title: 'Agent Name', sortable: true, hidden: hideCols.includes('agentName') },
-                            { accessor: 'AFIRMNAME', title: 'Agent Firm Name', sortable: true, hidden: hideCols.includes('agentFirmName') },
-                            { accessor: 'APEMAILID', title: 'Email', sortable: true, hidden: hideCols.includes('email') },
-                            { accessor: 'APMOBILENO', title: 'Phone', sortable: true, hidden: hideCols.includes('phone') },
-                            { accessor: 'APCOUNTRY', title: 'Country', sortable: true, hidden: hideCols.includes('APCOUNTRY') },
-                            { accessor: 'APCITY', title: 'City', sortable: true, hidden: hideCols.includes('APCITY') },
-                            { accessor: 'APSTATE', title: 'State', sortable: true, hidden: hideCols.includes('APSTATE') },
-                            { accessor: 'APDISTRICT', title: 'District', sortable: true, hidden: hideCols.includes('APDISTRICT') },
-                            { accessor: 'APADDRESSLINE1', title: 'Agent Address', sortable: true, hidden: hideCols.includes('APADDRESSLINE1') },
-                            { accessor: 'APERSONALIDTYPE', title: 'Agent ID Type', sortable: true, hidden: hideCols.includes('APERSONALIDTYPE') },
-                            { accessor: 'APERSONALID', title: 'Agent ID No', sortable: true, hidden: hideCols.includes('APERSONALID') },
-                            { accessor: 'AACCOUNTHOLDERNAME', title: 'Account Holder Name', sortable: true, hidden: hideCols.includes('AACCOUNTHOLDERNAME') },
-                            { accessor: 'AACCOUNTTYPE', title: 'Account Type', sortable: true, hidden: hideCols.includes('AACCOUNTTYPE') },
-                            { accessor: 'AACCOUNTNO', title: 'Account Number', sortable: true, hidden: hideCols.includes('AACCOUNTNO') },
-                            { accessor: 'ABANKNAME', title: 'Bank Name', sortable: true, hidden: hideCols.includes('ABANKNAME') },
-                            { accessor: 'ABRANCHNAME', title: 'Branch Name', sortable: true, hidden: hideCols.includes('ABRANCHNAME') },
-                            { accessor: 'AIFSCCODE', title: 'IFSC Code', sortable: true, hidden: hideCols.includes('AIFSCCODE') },
-                            { accessor: 'AMICRCODE', title: 'MICR Code', sortable: true, hidden: hideCols.includes('AMICRCODE') },
-                            { accessor: 'ACHEQUENO', title: 'Cheque No', sortable: true, hidden: hideCols.includes('ACHEQUENO') },
-                            { accessor: 'ACHEQUEREMARK', title: 'Cheque Remark', sortable: true, hidden: hideCols.includes('ACHEQUEREMARK') },
-                            { accessor: 'ACADDRESSLINE1', title: 'Company Address', sortable: true, hidden: hideCols.includes('ACADDRESSLINE1') },
-                            { accessor: 'ACCITY', title: 'Company City', sortable: true, hidden: hideCols.includes('ACCITY') },
-                            { accessor: 'ACCOUNTRY', title: 'Company Country', sortable: true, hidden: hideCols.includes('ACCOUNTRY') },
-                            { accessor: 'ACDISTRICT', title: 'Company District', sortable: true, hidden: hideCols.includes('ACDISTRICT') },
-                            { accessor: 'ACSTATE', title: 'Company State', sortable: true, hidden: hideCols.includes('ACSTATE') },
-                            { accessor: 'ACMOBILENO', title: 'Company Contact No', sortable: true, hidden: hideCols.includes('ACMOBILENO') },
-                            { accessor: 'ACTELEPHONENO', title: 'Company Telephone', sortable: true, hidden: hideCols.includes('ACTELEPHONENO') },
-                            { accessor: 'ACPINCODE', title: 'Company Pincode', sortable: true, hidden: hideCols.includes('ACPINCODE') },
+                            { accessor: 'ITEMNAME', title: 'Item Name', sortable: true, hidden: hideCols.includes('ITEMNAME') },
+                            { accessor: 'BARCODE', title: 'Barcode', sortable: true, hidden: hideCols.includes('BARCODE') },
+                            { accessor: 'BARCODEID', title: 'Barcode ID', sortable: true, hidden: hideCols.includes('BARCODEID') },
+                            { accessor: 'BARCODE_BS', title: 'Barcode BS', sortable: true, hidden: hideCols.includes('BARCODE_BS') },
+                            { accessor: 'BOXSIZE', title: 'Box Size', sortable: true, hidden: hideCols.includes('BOXSIZE') },
+                            { accessor: 'BRAND', title: 'Brand', sortable: true, hidden: hideCols.includes('BRAND') },
+                            { accessor: 'BUYER', title: 'Buyer', sortable: true, hidden: hideCols.includes('BUYER') },
+                            { accessor: 'CATEGORY', title: 'Category', sortable: true, hidden: hideCols.includes('CATEGORY') },
+                            { accessor: 'COLOR', title: 'Color', sortable: true, hidden: hideCols.includes('COLOR') },
+                            { accessor: 'COMPANY', title: 'Company', sortable: true, hidden: hideCols.includes('COMPANY') },
+                            { accessor: 'COMPANYID', title: 'Company ID', sortable: true, hidden: hideCols.includes('COMPANYID') },
                             { accessor: 'CREATEDBY', title: 'Created By', sortable: true, hidden: hideCols.includes('CREATEDBY') },
                             { accessor: 'CREATEDON', title: 'Created On', sortable: true, hidden: hideCols.includes('CREATEDON') },
-                            { accessor: 'REMARK', title: 'Remark', sortable: true, hidden: hideCols.includes('Remark') },
+                            { accessor: 'CUSTOME', title: 'Custome', sortable: true, hidden: hideCols.includes('CUSTOME') },
+                            { accessor: 'DEALERCODE', title: 'Dealer Code', sortable: true, hidden: hideCols.includes('DEALERCODE') },
+                            { accessor: 'DEALERID', title: 'Dealer ID', sortable: true, hidden: hideCols.includes('DEALERID') },
+                            { accessor: 'ESTAG', title: 'Estag', sortable: true, hidden: hideCols.includes('ESTAG') },
+                            { accessor: 'EXPIRYDAYS', title: 'Expiry Days', sortable: true, hidden: hideCols.includes('EXPIRYDAYS') },
+                            { accessor: 'GENDER', title: 'Gender', sortable: true, hidden: hideCols.includes('GENDER') },
+                            { accessor: 'HSNCODE', title: 'HSN Code', sortable: true, hidden: hideCols.includes('HSNCODE') },
+                            { accessor: 'ITEMDESC', title: 'Item Description', sortable: true, hidden: hideCols.includes('ITEMDESC') },
+                            { accessor: 'ITEMID', title: 'Item ID', sortable: true, hidden: hideCols.includes('ITEMID') }, 
+                            { accessor: 'I_GROUP', title: 'Group', sortable: true, hidden: hideCols.includes('I_GROUP') },
+                            { accessor: 'I_SIZE', title: 'Size', sortable: true, hidden: hideCols.includes('I_SIZE') },
+                            { accessor: 'MARKDOWN', title: 'Markdown', sortable: true, hidden: hideCols.includes('MARKDOWN') },
+                            { accessor: 'MARKUP', title: 'Markup', sortable: true, hidden: hideCols.includes('MARKUP') },
+                            { accessor: 'MATERIAL', title: 'Material', sortable: true, hidden: hideCols.includes('MATERIAL') },
+                            { accessor: 'MAXQTY', title: 'Max Quantity', sortable: true, hidden: hideCols.includes('MAXQTY') },
+                            { accessor: 'MINQTY', title: 'Min Quantity', sortable: true, hidden: hideCols.includes('MINQTY') },
+                            { accessor: 'MRP', title: 'MRP', sortable: true, hidden: hideCols.includes('MRP') },
+                            { accessor: 'MRPDISC', title: 'MRP Discount', sortable: true, hidden: hideCols.includes('MRPDISC') },
+                            { accessor: 'PACKING', title: 'Packing', sortable: true, hidden: hideCols.includes('PACKING') },
+                            { accessor: 'PCODE', title: 'PCode', sortable: true, hidden: hideCols.includes('PCODE') },
+                            { accessor: 'PDATE', title: 'PDate', sortable: true, hidden: hideCols.includes('PDATE') },
+                            { accessor: 'PHOTO', title: 'Photo', sortable: true, hidden: hideCols.includes('PHOTO') },
+                            { accessor: 'PRODUCT', title: 'Product', sortable: true, hidden: hideCols.includes('PRODUCT') },
+                            { accessor: 'PURPRICE', title: 'Purchase Price', sortable: true, hidden: hideCols.includes('PURPRICE') },
+                            { accessor: 'QTY', title: 'Quantity', sortable: true, hidden: hideCols.includes('QTY') },
+                            { accessor: 'RATE', title: 'Rate', sortable: true, hidden: hideCols.includes('RATE') },
+                            { accessor: 'REMARK', title: 'Remark', sortable: true, hidden: hideCols.includes('REMARK') },
+                            { accessor: 'REORDERQTY', title: 'Reorder Quantity', sortable: true, hidden: hideCols.includes('REORDERQTY') },
+                            { accessor: 'SALEPRICE', title: 'Sale Price', sortable: true, hidden: hideCols.includes('SALEPRICE') },
+                            { accessor: 'SCOLOR', title: 'Secondary Color', sortable: true, hidden: hideCols.includes('SCOLOR') },
+                            { accessor: 'SEASON', title: 'Season', sortable: true, hidden: hideCols.includes('SEASON') },
+                            { accessor: 'SECTION', title: 'Section', sortable: true, hidden: hideCols.includes('SECTION') },
+                            { accessor: 'SHELFNO', title: 'Shelf Number', sortable: true, hidden: hideCols.includes('SHELFNO') },
+                            { accessor: 'STATUS', title: 'Status', sortable: true, hidden: hideCols.includes('STATUS') },
+                            { accessor: 'STYLE', title: 'Style', sortable: true, hidden: hideCols.includes('STYLE') },
+                            { accessor: 'SUBCATEGORY', title: 'Subcategory', sortable: true, hidden: hideCols.includes('SUBCATEGORY') },
+                            { accessor: 'SUBGROUP', title: 'Subgroup', sortable: true, hidden: hideCols.includes('SUBGROUP') },
+                            { accessor: 'TAG', title: 'Tag', sortable: true, hidden: hideCols.includes('TAG') },
+                            { accessor: 'TAX', title: 'Tax', sortable: true, hidden: hideCols.includes('TAX') },
+                            { accessor: 'UNIT', title: 'Unit', sortable: true, hidden: hideCols.includes('UNIT') },
                             { accessor: 'UPDATEDBY', title: 'Updated By', sortable: true, hidden: hideCols.includes('UPDATEDBY') },
                             { accessor: 'UPDATEDON', title: 'Updated On', sortable: true, hidden: hideCols.includes('UPDATEDON') },
-                            { accessor: 'STATUS', title: 'Status', sortable: true, hidden: hideCols.includes('age') },
-                            {
-                                accessor: 'ADOB',
-                                title: 'DOB',
-                                sortable: true,
-                                hidden: hideCols.includes('dob'),
-                                // render: ({ dob }) => <div>{formatDate(dob)}</div>,
-                            }
+                        
                         ]}
                         // totalRecords={initialRecords.length}
                         totalRecords={totalRecords}

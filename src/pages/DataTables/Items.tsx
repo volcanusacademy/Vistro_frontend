@@ -364,14 +364,25 @@ const Items = () => {
                 setInitialRecords(data);
                 setRecordsData(data)
                 setTempData(data)
-                console.log(detail, 'dataaaaaa');
-
-
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
     }, []);
+
+//     useEffect(() => {
+//         const sendData = async () =>{
+//           const api = await axios.post(`${BASE_URL}/postcmbAW`,{TblName: 'MASTER',  FldName: 'PRIMENAME',  FldCode: 'PRIMEKEYID', OrdBy: 'SEQUENCE',WhFldName: 'brand'},{
+//             headers:{
+//                 "Content-Type":"application/json"
+//             }
+//           })
+//           console.log("postcmbAW res",api.data)
+//           setInitialRecords(api.data.PRIMENAME);
+//           console.log('initial value',setInitialRecords)
+//         }
+// sendData();
+//     }, []);
 
     interface ApiResponse {
         totalRecords: number;
@@ -386,7 +397,6 @@ const Items = () => {
         const fetchData = async () => {
             try {
                 const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
-                console.log(currentPage, 'aaaaaaa')
                 const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
                 setInitialRecords(agents);
                 setRecordsData(agents);

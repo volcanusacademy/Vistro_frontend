@@ -234,7 +234,6 @@ id:number;
                 setInitialRecords(detail);
                 setRecordsData(detail);
                 setTempData(detail);
-                console.log(detail,'dataaa');
       })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -263,7 +262,6 @@ id:number;
         const fetchData = async () => {
             try {
                 const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
-                console.log(currentPage, 'aaaaaaa')
                 const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
                 setInitialRecords(agents);
                 setRecordsData(agents);
@@ -711,7 +709,7 @@ id:number;
         <tr>
             <td>
                 <label htmlFor="">City
-                <select name="City" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'84px', width:'144px'}}
+                <select name="City" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'84px', width:'130px'}}
                 value={selectedCity}
                         onChange={handleDropdownChange}
                              >
@@ -726,7 +724,7 @@ id:number;
             </td>
             <td>
                 <label htmlFor="">State
-                <select name="State" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'41px', width:'144px'}}
+                <select name="State" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'41px', width:'131px'}}
                 value={selectedState}
                         onChange={handleDropdownChange}
                              >
@@ -741,7 +739,7 @@ id:number;
             </td>
             <td>
                 <label htmlFor="">Sale Price
-                    <select name="Sale_price" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'32px', width:'144px'}}
+                    <select name="Sale_price" style={{border:'1px solid #e5e7eb',borderRadius:'5px', marginLeft:'12px', width:'131px'}}
                      value={selectedStatus}
                      onChange={handleDropdownChange}
                     >

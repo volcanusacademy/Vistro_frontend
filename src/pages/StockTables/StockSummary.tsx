@@ -228,9 +228,6 @@ const StockSummary = () => {
                 setInitialRecords(data);
                 setRecordsData(data)
                 setTempData(data)
-                console.log(detail, 'dataaaaaa');
-
-
             })
             .catch(error => {
                 console.error('Error fetching data:', error);

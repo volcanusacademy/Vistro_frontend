@@ -79,7 +79,6 @@ const Header = () => {
   
           // Assuming the response contains user data like name and email
           const userData = response.data;
-          console.log(userData,'user')
   
           // Update the state with the user data
           setUser(userData);

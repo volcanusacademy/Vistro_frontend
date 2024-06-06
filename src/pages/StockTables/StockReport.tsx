@@ -228,7 +228,6 @@ const StockReport = () => {
                 setInitialRecords(data);
                 setRecordsData(data)
                 setTempData(data)
-                console.log(detail, 'dataaaaaa');
 
 
             })

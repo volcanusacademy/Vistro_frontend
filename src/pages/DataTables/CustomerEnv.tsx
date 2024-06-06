@@ -235,7 +235,6 @@ id:number;
                 setInitialRecords(detail);
                 setRecordsData(detail);
                 setTempData(detail);
-                console.log(detail,'dataaa');
       })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -264,7 +263,6 @@ id:number;
         const fetchData = async () => {
             try {
                 const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
-                console.log(currentPage, 'aaaaaaa')
                 const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
                 setInitialRecords(agents);
                 setRecordsData(agents);

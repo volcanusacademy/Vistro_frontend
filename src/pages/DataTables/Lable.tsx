@@ -290,9 +290,6 @@ const Lable = () => {
                 setInitialRecords(data);
                 setRecordsData(data)
                 setTempData(data)
-                console.log(detail, 'dataaaaaa');
-
-
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -312,7 +309,6 @@ const Lable = () => {
         const fetchData = async () => {
             try {
                 const response: AxiosResponse<ApiResponse> = await axios.get(`${BASE_URL}/getMasterPagination?page=${currentPage}`);
-                console.log(currentPage, 'aaaaaaa')
                 const { totalRecords, totalPages, currentPage: fetchedCurrentPage, agents } = response.data;
                 setInitialRecords(agents);
                 setRecordsData(agents);

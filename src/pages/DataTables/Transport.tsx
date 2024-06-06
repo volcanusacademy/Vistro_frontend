@@ -232,7 +232,6 @@ const Transport = () => {
                 setInitialRecords(detail);
                 setRecordsData(detail);
                 setTempData(detail);
-                console.log(detail, 'dataaaaaa');
             })
             .catch(error => {
                 console.error('Error fetching data:', error);

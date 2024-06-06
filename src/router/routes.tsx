@@ -68,6 +68,8 @@ const Dealers = lazy(() => import('../pages/DataTables/Dealers'));
 const Export = lazy(() => import('../pages/DataTables/Export'));
 const ColumnChooser = lazy(() => import('../pages/DataTables/ColumnChooser'));
 const Lable = lazy(() => import('../pages/DataTables/Lable'));
+const MasterInput = lazy(() => import('../pages/DataTables/MasterInput'));
+const FrmCodeType = lazy(() => import('../pages/DataTables/FrmCodeType'));
 const BrandItem = lazy(() => import('../pages/StockTables/BrandItem'));
 const StockDetail = lazy(() => import('../pages/StockTables/StockDetail'));
 const ItemBrand = lazy(() => import('../pages/StockTables/ItemBrand'));
@@ -76,6 +78,10 @@ const StockReport = lazy(() => import('../pages/StockTables/StockReport'));
 const StockSummary = lazy(() => import('../pages/StockTables/StockSummary'));
 const StockMovement = lazy(() => import('../pages/StockTables/StockMovement'));
 const StockAging = lazy(() => import('../pages/StockTables/StockAging'));
+const STI_Detail = lazy(() => import('../pages/StockTransfer/STI_Detail'));
+const STI_Summary = lazy(() => import('../pages/StockTransfer/STI_Summary'));
+const STO_Detail = lazy(() => import('../pages/StockTransfer/STO_Detail'));
+const STO_Summary = lazy(() => import('../pages/StockTransfer/STO_Summary'));
 const SellingBrand = lazy(() => import('../pages/SalesTables/BestIn/SellingBrand'));
 const SellingProduct = lazy(() => import('../pages/SalesTables/BestIn/SellingProduct'));
 const SellingItem = lazy(() => import('../pages/SalesTables/BestIn/SellingItem'));
@@ -442,6 +448,15 @@ const routes = [
         path: '/datatables/lable',
         element: <Lable />,
     },
+    {
+        path: '/datatables/masterInput',
+        element: <MasterInput />  ,
+    },
+    {
+        path: '/datatables/frmCodeType',
+        element: <FrmCodeType />  ,
+        
+    },
 
     //StockTables
     {
@@ -475,6 +490,24 @@ const routes = [
     {
         path: '/stockTables/stockAging',
         element: <StockAging />,
+    },
+
+    //Stock Transfer
+    {
+        path: '/stock_Transfer/sti_Detail',
+        element: <STI_Detail />
+    },
+    {
+        path: '/stock_Transfer/sti_Summary',
+        element: <STI_Summary />
+    },
+    {
+        path: '/stock_Transfer/sto_Detail',
+        element: <STO_Detail />
+    },
+    {
+        path: '/stock_Transfer/sto_Summary',
+        element: <STO_Summary />
     },
 
     //Sales Table

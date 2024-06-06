@@ -100,7 +100,6 @@ const Employees = () => {
                 setInitialRecords(detail);
                 setRecordsData(detail);
                 setTempData(detail);
-                console.log(detail, 'kgihg');
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);

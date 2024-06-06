@@ -972,9 +972,49 @@ const Sidebar = () => {
                                 <li>
                                     <NavLink to="/datatables/lable">Lable</NavLink>
                                 </li>
+                                {/* <li>
+                                    <NavLink to="/datatables/masterInput">Setting</NavLink>
+                                </li> 
                                 <li>
-                                    <NavLink to="">Setting</NavLink>
-                                </li>   
+                                    <NavLink to="/datatables/frmCodeType">CodeType</NavLink>
+                                </li>   */}
+                                <li>
+                        <button type="button" className={`${bestInSubMenuOpen ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('best_in')}>
+                            <div className="flex items-center">
+                                {/* <IconMenuDatatables className="group-hover:!text-primary shrink-0" /> */}
+                                <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Setting</span>
+                            </div>
+                            <div className={bestInSubMenuOpen ? '' : 'rtl:rotate-90 -rotate-90'}>
+                                <IconCaretDown />
+                            </div>
+                        </button>
+
+                        <AnimateHeight duration={300} height={bestInSubMenuOpen ? 'auto' : 0}>
+                            <ul className="sub-menu text-gray-500">
+                                <li>
+                                    <NavLink to="/datatables/masterInput">Search</NavLink>
+                                </li>
+                                <li>
+  <NavLink to="/datatables/frmCodeType?category=brand">Brand</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=product">Product</NavLink>
+</li>
+                               {/* <li>
+                                    <NavLink to="/salesTables/sellingItem">Best Selling Item Name Wise</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/sellingCustomer">Best Selling Customer</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/salesComparison">Sales Tax Comparison</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/salesTables/itemWiseSale">Item Wise Sale Tax</NavLink>
+                                </li> */}
+                            </ul>
+                        </AnimateHeight>
+                    </li>
                             </ul>
                         </AnimateHeight>
                     </li>
@@ -1476,16 +1516,16 @@ const Sidebar = () => {
                         <AnimateHeight duration={300} height={stransferSubMenuOpen ? 'auto' : 0}>
                             <ul className="sub-menu text-gray-500">
                                 <li>
-                                    <NavLink to="#">STI Details</NavLink>
+                                    <NavLink to="/stock_Transfer/sti_Detail">STI Details</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="#">STI Summary</NavLink>
+                                    <NavLink to="/stock_Transfer/sti_Summary">STI Summary</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="#">STO Detail</NavLink>
+                                    <NavLink to="/stock_Transfer/sto_Detail">STO Detail</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="#">STO Summary</NavLink>
+                                    <NavLink to="/stock_Transfer/sto_Summary">STO Summary</NavLink>
                                 </li>
                             </ul>
                         </AnimateHeight>

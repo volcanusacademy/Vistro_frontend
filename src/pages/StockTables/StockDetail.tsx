@@ -720,7 +720,7 @@ const StockReport = () => {
                             <label htmlFor="">Product
                                 <select name="Product"
                                     style={{
-                                        width: "144px",
+                                        width: "100px",
                                         marginLeft: "3px",
                                         border: "1px solid #e5e7eb",
                                         borderRadius: '5px',
@@ -741,7 +741,7 @@ const StockReport = () => {
                             <label htmlFor="">Brand
                                 <select name="Brand"
                                     style={{
-                                        width: "144px",
+                                        width: "100px",
                                         marginLeft: "3px",
                                         border: "1px solid #e5e7eb",
                                         borderRadius: '5px'
@@ -760,7 +760,7 @@ const StockReport = () => {
                             <label htmlFor="">Sup Color
                                 <select name="Sup Color"
                                     style={{
-                                        width: "144px",
+                                        width: "86px",
                                         marginLeft: "3px",
                                         border: "1px solid #e5e7eb",
                                         borderRadius: '5px'
@@ -779,8 +779,8 @@ const StockReport = () => {
                             <label htmlFor="">Color
                                 <select name="Color"
                                     style={{
-                                        width: "144px",
-                                        marginLeft: "58px",
+                                        width: "100px",
+                                        marginLeft: "10px",
                                         border: "1px solid #e5e7eb",
                                         borderRadius: '5px'
                                     }}
@@ -798,7 +798,7 @@ const StockReport = () => {
                             <label htmlFor="">Size
                                 <select name="Size"
                                     style={{
-                                        width: "144px",
+                                        width: "100px",
                                         marginLeft: "82px",
                                         border: "1px solid #e5e7eb",
                                         borderRadius: '5px'

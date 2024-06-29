@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setPageTitle, toggleRTL } from '../../store/themeConfigSlice';
@@ -14,66 +14,281 @@ import IconMessageDots from '../../components/Icon/IconMessageDots';
 import { useLocation } from 'react-router-dom';
 import { BASE_URL } from '../../config';
 import axios from 'axios';
-import { space } from 'postcss/lib/list';
-const FrmCodeType = (page:any) => {
+import { dE } from '@fullcalendar/core/internal-common';
+import { DataTable, DataTableSortStatus } from 'mantine-datatable';
+import sortBy from 'lodash/sortBy';
+
+const FrmCodeType = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const category = searchParams.get('category');
-
+    const [page, setPage] = useState(1);
+    const PAGE_SIZES = [10, 20, 30, 50, 100];
+    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
     const [currentPage, setCurrentPage] = useState('');
-    const [initialRecords, setInitialRecords] = useState<UserData[]>([]);
+    const [initialRecords, setInitialRecords] = useState<UsersData[]>([]);
+    const [codetype, setCodetype] = useState('');
+    const [primekeyid, setPrimekeyid] = useState('');
+    const [primename, setPrimename] = useState('');
+    const [sequence, setSequence] = useState('');
+    const [status, setStatus] = useState('');
+    const [remark, setRemark] = useState('');
+    const [products, setProducts] = useState([]);
+    const [productData, setProductData] = useState<UserData[]>([]);
+    const [newRecordsData, setNewRecordsData] = useState<UserData[]>([]);
+    const [totalRecords, setTotalRecords] = useState(0);
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [formData, setFormData] = useState({
+        codetype: '',
+        primekeyid: '',
+        primename: '',
+        sequence: '',
+        status: '',
+        remark: ''
+    });
+    const [user, setUser] = useState<{ name: string, email: string, companyid:string } | null>(null);
 
+
+    useEffect(() => {
+        const userDataString = localStorage.getItem('userData');
+        if (userDataString) {
+            const user = JSON.parse(userDataString);
+            setUser(user);
+            // console.log('localStorageData',user)
+        }
+    }, []);
     interface UserData {
-        PRIMEKEYID:number,
-        PRIMENAME:string
+        primekeyid: number,
+        primename: string,
+        id: number,
+        sequence:number,
+        status:string,
+        remark:string
+    }
+    interface UsersData{
+        PRIMENAME: string,
+        PRIMEKEYID: number
     }
 
-    useEffect(() => {
-        // Set page title based on the category
-        if (category === 'brand') {
-            setCurrentPage('Brand');
-        } else if (category === 'product') {
-            setCurrentPage('Product');
-        } 
-        dispatch(setPageTitle(currentPage));
-    }, [category, dispatch, currentPage]);
-
 
     useEffect(() => {
-        const sendData = async () =>{
-          const api = await axios.post(`${BASE_URL}/postcmb`,{TblName: 'MASTER',  FldName: 'PRIMENAME',  FldCode: 'PRIMEKEYID', OrdBy: 'SEQUENCE',WhFldName: 'Status'},{
-            headers:{
-                "Content-Type":"application/json"
-            }
-          })
-          setInitialRecords(api.data);
+        let pageTitle = '';
+        switch (category) {
+            case 'brand':
+                pageTitle = 'Brand';
+                break;
+            case 'product':
+                pageTitle = 'Product';
+                break;
+            case 'buyer':
+                pageTitle = 'Buyer';
+                break;
+            case 'colour':
+                pageTitle = 'Colour';
+                break;
+            case 'scolor':
+                pageTitle = 'Supplier Color';
+                break;
+            case 'category':
+                pageTitle = 'Category';
+                break;
+            case 'subCategory':
+                pageTitle = 'Sub Category';
+                break;
+            case 'group':
+                pageTitle = 'Group';
+                break;
+            case 'subGroup':
+                pageTitle = 'Sub Group';
+                break;
+            case 'material':
+                pageTitle = 'Material';
+                break;
+            case 'size':
+                pageTitle = 'Size';
+                break;
+            case 'style':
+                pageTitle = 'Style';
+                break;
+            case 'section':
+                pageTitle = 'Section';
+                break;
+            case 'season':
+                pageTitle = 'Season';
+                break;
+            case 'unit':
+                pageTitle = 'Unit';
+                break;
+            case 'packing':
+                pageTitle = 'Packing';
+                break;
+            case 'gender':
+                pageTitle = 'Gender';
+                break;
+            case 'tag':
+                pageTitle = 'Tag';
+                break;
+            default:
+                pageTitle = '';
         }
-sendData();
+        // setPage(1); // Reset to the first page on category change
+        // fetchAllData();
+        setCurrentPage(pageTitle);
+        dispatch(setPageTitle(pageTitle));
+        setPage(1); // Reset to the first page on category change
+        // Fetch data based on the category (codetype)
+        
+        // axios.get(`${BASE_URL}/getCodeTypeData`, { params: { codetype: category } })
+        //     .then(response => {
+        //         setProductData(response.data);
+        //         setNewRecordsData(response.data);
+        //         console.log('newData from api',response.data)
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching data:', error);
+        //     });
+
+    },  [category, dispatch]);
+
+    useEffect(() => {
+        fetchAllData();
+    }, [category, page, pageSize, sortStatus]);
+
+
+    useEffect(() => {
+        const data = sortBy(initialRecords, sortStatus.columnAccessor);
+        setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
+        setPage(1);
+    }, [sortStatus]);
+
+    useEffect(() => {
+        fetchAllData();
+    }, [page, pageSize]);
+
+    const fetchAllData = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/getCodeTypeData`, { params: { codetype: category, page, pageSize } });
+            setProductData(response.data.records);
+            setNewRecordsData(response.data.records);
+            setTotalRecords(response.data.total);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const api = await axios.post(`${BASE_URL}/postcmb`, { TblName: 'MASTER', FldName: 'PRIMENAME', FldCode: 'PRIMEKEYID', OrdBy: 'SEQUENCE', WhFldName: 'Status' }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            setInitialRecords(api.data);
+        }
+        fetchData();
     }, []);
-
-    useEffect(() => {
-        dispatch(setPageTitle('Contact Us Boxed'));
-    });
-    const navigate = useNavigate();
-
-    const submitForm = () => {
-        navigate('/');
-    };
-
-    const isDark = useSelector((state: IRootState) => state.themeConfig.theme === 'dark' || state.themeConfig.isDarkMode);
-    const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
-    const themeConfig = useSelector((state: IRootState) => state.themeConfig);
-    const setLocale = (flag: string) => {
-        setFlag(flag);
-        if (flag.toLowerCase() === 'ae') {
-            dispatch(toggleRTL('rtl'));
-        } else {
-            dispatch(toggleRTL('ltr'));
+    
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+         if (!user) {
+        console.error('User is not set');
+        return;
+    }
+    
+            let response;
+            if (editingId) {
+                
+                // If editingId is present, update existing product
+                response = await axios.put(`${BASE_URL}/editProducts/${editingId}`, {
+                    codetype: `${category}`,
+                     updatedby: `${user.name}`, // Replace with actual codetype if needed
+                     primename,
+                     status,
+                     sequence,
+                     remark
+                });
+            } else {
+             if (!user) {
+        console.error('User is not set');
+        return;
+    } 
+                // Otherwise, add new product
+                response = await axios.post(`${BASE_URL}/addProducts`, {
+                    codetype:`${category}`, // Replace with actual codetype if needed
+                    createdby: `${user.name}`,
+                    companyid:`${user.companyid}`,
+                    primename,
+                    status,
+                    sequence,
+                    remark,
+                });
+            }
+    
+            // console.log('Response from backend:', response.data);
+    
+            // Clear form fields after submission
+            setPrimekeyid('');
+            setPrimename('');
+            setStatus('');
+            setSequence('');
+            setRemark('');
+            setEditingId(null); // Reset editingId after submit
+    
+            // Refresh product list after update or add
+            fetchProductData(); // Implement fetchProductData to update product list
+        } catch (error) {
+            console.error('Error inserting/updating data:', error);
         }
     };
-    const [flag, setFlag] = useState(themeConfig.locale);
 
+    const fetchProductData = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/getCodeTypeData`, { params: { codetype: category, page, pageSize } });
+            setProductData(response.data.records);
+            setNewRecordsData(response.data.records);
+            setTotalRecords(response.data.total);
+            console.log('newData from api', response.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    
+    const handleDelete = async (primekeyid:number) => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/deleteProducts/${primekeyid}`, {
+                data: {
+                    codetype: category // Pass the codetype in the request body
+                }
+            });
+            console.log('Delete response:', response.data);
+            // Optionally, update UI or perform additional actions after successful deletion
+            fetchProductData(); // Implement fetchProductData to update product list
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
+
+    
+    const handleEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, record: { primekeyid: number; primename: string; status: string; sequence: number, remark: string },) => {
+        // let EditRecord = p0;
+        setEditingId(record.primekeyid.toString());
+        // setPrimekeyid(record.primekeyid.toString());
+        setPrimename(record.primename);
+        setStatus(record.status);
+        setSequence(record.sequence.toString()); 
+        setRemark(record.remark);
+         // Scroll to the top
+         window.scrollTo({
+            top: 200,
+            behavior: 'smooth' // Use 'auto' if you don't want the smooth scrolling effect
+        });
+    };
+    
+    
+    
     return (
         <div>
             <div className="absolute inset-0">
@@ -88,59 +303,39 @@ sendData();
                 <div className="relative w-full max-w-[870px] rounded-md bg-[linear-gradient(45deg,#fff9f9_0%,rgba(255,255,255,0)_25%,rgba(255,255,255,0)_75%,_#fff9f9_100%)] p-2 dark:bg-[linear-gradient(52.22deg,#0E1726_0%,rgba(14,23,38,0)_18.66%,rgba(14,23,38,0)_51.04%,rgba(14,23,38,0)_80.07%,#0E1726_100%)]">
                     <div className="relative flex flex-col justify-center rounded-md bg-white/60 backdrop-blur-lg dark:bg-black/50 px-6 lg:min-h-[758px] py-20">
                         <div className="absolute top-6 end-6">
-                            <div className="dropdown">
-                                <Dropdown
-                                    offset={[0, 8]}
-                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                    btnClassName="flex items-center gap-2.5 rounded-lg border border-white-dark/30 bg-white px-2 py-1.5 text-white-dark hover:border-primary hover:text-primary dark:bg-black"
-                                    button={
-                                        <>
-                                            <div>
-                                                <img src={`/assets/images/flags/${flag.toUpperCase()}.svg`} alt="image" className="h-5 w-5 rounded-full object-cover" />
-                                            </div>
-                                            <div className="text-base font-bold uppercase">{flag}</div>
-                                            <span className="shrink-0">
-                                                <IconCaretDown />
-                                            </span>
-                                        </>
-                                    }
-                                >
-                                    <ul className="!px-2 text-dark dark:text-white-dark grid grid-cols-2 gap-2 font-semibold dark:text-white-light/90 w-[280px]">
-                                        {themeConfig.languageList.map((item: any) => {
-                                            return (
-                                                <li key={item.code}>
-                                                    <button
-                                                        type="button"
-                                                        className={`flex w-full hover:text-primary rounded-lg ${flag === item.code ? 'bg-primary/10 text-primary' : ''}`}
-                                                        onClick={() => {
-                                                            i18next.changeLanguage(item.code);
-                                                            // setFlag(item.code);
-                                                            setLocale(item.code);
-                                                        }}
-                                                    >
-                                                        <img src={`/assets/images/flags/${item.code.toUpperCase()}.svg`} alt="flag" className="w-5 h-5 object-cover rounded-full" />
-                                                        <span className="ltr:ml-3 rtl:mr-3">{item.name}</span>
-                                                    </button>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Dropdown>
-                            </div>
                         </div>
                         <div className="mx-auto w-full max-w-[440px]">
                             <div className="mb-10">
-                                <h1 className="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">{currentPage}</h1>
+                                <h1 className="text-3xl font-extrabold !leading-snug text-primary md:text-4xl">{currentPage}</h1>
                             </div>
-                            <form className="space-y-5" onSubmit={submitForm}>
-                                <div className="relative text-white-dark">
-                                    <input id="Name" type="text" placeholder="Name" className="form-input ps-10 placeholder:text-white-dark" />
-                                    <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                                        <IconUser fill={true} />
-                                    </span>
-                                </div>
-                                <div className="relative text-white-dark">
-                                <label htmlFor="">Status
+                            <form className="space-y-5" onSubmit={handleSubmit}>
+                                 
+                <div className="relative text-white-dark">
+                    <input
+                        type="text"
+                        placeholder="Primename"
+                        value={primename}
+                        onChange={(e) => setPrimename(e.target.value)}
+                        className="form-input ps-10 placeholder:text-white-dark"
+                    />
+                    <span className="absolute start-4 top-1/2 -translate-y-1/2">
+                        <IconPhoneCall fill={true} />
+                    </span>
+                </div>
+                <div className="relative text-white-dark">
+                    <input
+                        type="text"
+                        placeholder="Sequence"
+                        value={sequence}
+                        onChange={(e) => setSequence(e.target.value)}
+                        className="form-input ps-10 placeholder:text-white-dark"
+                    />
+                    <span className="absolute start-4 top-1/2 -translate-y-1/2">
+                        <IconPhoneCall fill={true} />
+                    </span>
+                </div>
+                                
+                                <label htmlFor="">
                                 <select name="cmbStatus"
                                     style={{
                                         width: "144px",
@@ -148,39 +343,89 @@ sendData();
                                         border: "1px solid #e5e7eb",
                                         borderRadius: '5px'
                                     }}
-                                    // value={selectedFirm}
-                                    // onChange={handleDropdownChange}
+                                    onChange={(e) => setStatus(e.target.value)}
                                 >
-                                    
+                                    <option>Status</option>
                                     {initialRecords.map((record, index) => (
                                         <option key={index} value={record.PRIMENAME}>{record.PRIMENAME}</option>
                                     ))}
                                 </select>
                             </label>
-                                    {/* <input id="status" type="text" placeholder="Status" className="form-input ps-10 placeholder:text-white-dark" />
-                                    <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                                        <IconMail fill={true} />
-                                    </span> */}
-                                </div>
-                                <div className="relative text-white-dark">
-                                    <input id="status" type="text" placeholder="Sequence" className="form-input ps-10 placeholder:text-white-dark" />
-                                    <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                                        <IconPhoneCall fill={true} />
-                                    </span>
-                                </div>
-                                <div className="relative text-white-dark">
-                                    <textarea id="Remark" rows={4} className="form-textarea resize-none ps-10 placeholder:text-white-dark" placeholder="Remark"></textarea>
-                                    <span className="absolute start-4 top-2.5">
-                                        <IconMessageDots fill={true} />
-                                    </span>
-                                </div>
-                                <button type="submit" className="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]">
-                                    Submit
-                                </button>
+                                  <div className="relative text-white-dark">
+                    <textarea
+                        rows={4}
+                        placeholder="Remark"
+                        value={remark}
+                        onChange={(e) => setRemark(e.target.value)}
+                        className="form-textarea resize-none ps-10 placeholder:text-white-dark"
+                    />
+                    <span className="absolute start-4 top-2.5">
+                        <IconMessageDots fill={true} />
+                    </span>
+                </div>
+                                <button
+                    type="submit"
+                    className="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]"
+                >
+                    {editingId ? 'Update' : 'Submit'}
+                </button>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="mt-6">
+                                <div className="flex justify-between mb-4">
+                                    <h2 className="text-2xl font-bold text text-danger">{currentPage}</h2>
+                                </div>
+                               
+                            </div>
+                            <div className="datatables">
+                <DataTable
+                    highlightOnHover
+                    className="whitespace-nowrap table-hover"
+                    records={productData}
+                    columns={[
+                        { accessor: 'primekeyid', title: 'Id', sortable: true },
+                        { accessor: 'primename', title: 'Prime Name', sortable: true },
+                        { accessor: 'sequence', title: 'Sequence', sortable: true },
+                        { accessor: 'remark', title: 'Remark', sortable: true },
+                        { accessor: 'status', title: 'Status', sortable: true },
+                        {
+                            accessor: 'action',
+                            title: <div style={{ marginLeft: '40px' }}>Action</div>,
+                            render: (record) => (
+                                <div className="flex space-x-2">
+                                    <button
+                                        className='btn btn-warning mr-2'
+                                        onClick={(e) => handleEdit(e, record)}
+                                        style={{ width: '57px' }}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className='btn btn-danger mr-2'
+                                        onClick={() => handleDelete(record.primekeyid)}
+                                        style={{ padding: '8px' }}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            ),
+                        },
+                    ]}
+                    totalRecords={totalRecords}
+                    recordsPerPage={pageSize}
+                    page={page}
+                    onPageChange={(p) => setPage(p)}
+                    recordsPerPageOptions={PAGE_SIZES}
+                    onRecordsPerPageChange={(size) => {
+                        setPageSize(size);
+                        setPage(1); // Reset to first page when page size changes
+                    }}
+                    sortStatus={sortStatus}
+                    onSortStatusChange={setSortStatus}
+                />
             </div>
         </div>
     );

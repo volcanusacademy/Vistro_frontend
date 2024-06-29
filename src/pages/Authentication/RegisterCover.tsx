@@ -38,21 +38,17 @@ const RegisterCover = () => {
     const [name, setname] = useState("")
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
+    const [comId, setComId] = useState("")
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(name, email, password)
-        debugger
         e.preventDefault();
         try {
-            debugger
-            const response = await axios.post(`${BASE_URL}/add_user`, { name, email, password }, {
+            const response = await axios.post(`${BASE_URL}/add_user`, { name, email, password, companyid: comId }, {
                 headers: {
                     "Content-Type": "application/json",
                 },
                 withCredentials: true
             });
-
-            console.log('Response:', response.data);
             // Reset form fields if needed
             // (e.currentTarget as HTMLFormElement).reset();
             // Redirect or perform any other action after successful submission
@@ -62,6 +58,33 @@ const RegisterCover = () => {
             // Handle error, display error message, or perform other actions
         }
     };
+
+    useEffect(() => {
+        // Function to fetch data from the getCompanyId API
+        const fetchCompanyId = () => {
+            axios.get(`${BASE_URL}/getCompanyId`)
+                .then(response => {
+                    const companyIdData = response.data[0];
+                    // setComId(companyIdData)
+                    // Save the data in localStorage
+                    localStorage.setItem('companyIdData', JSON.stringify(companyIdData));
+                })
+                .catch(error => {
+                    console.error('Error fetching company ID:', error);
+                });
+        };
+
+        // Call the function to fetch data
+        fetchCompanyId();
+    }, []); 
+    useEffect(() => {
+        const userDataString = localStorage.getItem('companyIdData');
+        if (userDataString) {
+            const user = JSON.parse(userDataString);
+            // console.log(user.companyid)
+            setComId(user.companyid);
+        }
+    }, []);
 
     return (
         <div>

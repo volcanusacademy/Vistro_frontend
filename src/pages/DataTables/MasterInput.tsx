@@ -35,7 +35,7 @@ const MasterInput = () => {
     const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
     const [selectedField, setSelectedField] = useState<string>('All');
-  const [options, setOptions] = useState<Option[]>([]);
+    const [options, setOptions] = useState<Option[]>([]);
 
 
     
@@ -264,45 +264,45 @@ const MasterInput = () => {
         setSelectedField(event.target.value);
       };
 
-    // const handleSearchClick = async () => {
-    //     if (selectedField!=="All") {
-    //         try {
-    //             const response = await fetch(`${BASE_URL}/getMasterSet?codetype=${selectedField}`);
-    //             const data = await response.json();
-    //             const dataWithId = data.map((item: any, index: number) => ({
-    //                 ...item,
-    //                 id: index + 1,
-    //             }));
-    //             console.log(dataWithId,"resss")
+    const handleSearchClick = async () => {
+        if (selectedField!=="All") {
+            try {
+                const response = await fetch(`${BASE_URL}/getMasterSet?codetype=${selectedField}`);
+                const data = await response.json();
+                const dataWithId = data.map((item: any, index: number) => ({
+                    ...item,
+                    id: index + 1,
+                }));
+                console.log(dataWithId,"resss")
                 
-    //             setInitialRecords(dataWithId);
-    //             setRecordsData(dataWithId);
-    //             setTempData(dataWithId);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     } else if(selectedField=="All"){
+                setInitialRecords(dataWithId);
+                setRecordsData(dataWithId);
+                setTempData(dataWithId);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        } else if(selectedField=="All"){
             
-    //         try {
-    //             const response = await fetch(`${BASE_URL}/getMasterSet`);
-    //             const data = await response.json();
-    //             const dataWithId = data.map((item: any, index: number) => ({
-    //                 ...item,
-    //                 id: index + 1,
-    //             }));
-    //             setInitialRecords(dataWithId);
-    //             setRecordsData(dataWithId);
-    //             setTempData(dataWithId);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     }
-    //     else {
-    //         setInitialRecords([]);
-    //         setRecordsData([]);
-    //         setTempData([]);
-    //     }
-    // };
+            try {
+                const response = await fetch(`${BASE_URL}/getMasterSet`);
+                const data = await response.json();
+                const dataWithId = data.map((item: any, index: number) => ({
+                    ...item,
+                    id: index + 1,
+                }));
+                setInitialRecords(dataWithId);
+                setRecordsData(dataWithId);
+                setTempData(dataWithId);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        else {
+            setInitialRecords([]);
+            setRecordsData([]);
+            setTempData([]);
+        }
+    };
 
     const handleReset = () => {
         setSelectedField('');
@@ -310,6 +310,8 @@ const MasterInput = () => {
         setRecordsData([]);
         setTempData([]);
     };
+
+    console.log(options,'option detail')
 
     return (
         <div>
@@ -343,7 +345,7 @@ const MasterInput = () => {
                                     width: "12%",
                                     height: "33px"
                                 }}
-                                // onClick={handleSearchClick}
+                                onClick={handleSearchClick}
                                 onChange={handleDropdownChange}
                             >
                                 SEARCH

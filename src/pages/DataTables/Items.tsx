@@ -35,7 +35,7 @@ const Items = () => {
     const [totalRecords, setTotalRecords] = useState<number>(0);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
     const [selectedItem, setSelectedItem] = useState("");
-    const [selectedProduct, setSelectedProduct] = useState("");
+    const [selectedProduct, setSelectedProduct] = useState<UserData[]>([]);
     const [selectedBrand, setSelectedBrand] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
@@ -122,6 +122,7 @@ const Items = () => {
         UPDATEDBY: string;
         UPDATEDON: string;
         WSP: number;
+        PRIMENAME:string;
     }
 
     // interface FormData {
@@ -239,71 +240,69 @@ const Items = () => {
     // });
 
 
-    const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = event.target;
-        if (name === 'Item Name') {
-            setSelectedItem(value);
-        } else if (name === 'Product') {
-            setSelectedProduct(value);
-        } else if (name === 'Brand') {
-            setSelectedBrand(value);
-        } else if (name === 'Color') {
-            setSelectedColor(value);
-        } else if (name === 'Size') {
-            setSelectedSize(value);
-        }
-        else if (name === 'Style') {
-            setSelectedStyle(value);
-        }
-        else if (name === 'Material') {
-            setSelectedMaterial(value);
-        }
-        else if (name === 'Dealer') {
-            setSelectedDealer(value);
-        }
-        else if (name === 'Buyer') {
-            setSelectedBuyer(value);
-        }
-        else if (name === 'Season') {
-            setSelectedSeason(value);
-        }
-        else if (name === 'Company') {
-            setSelectedCompany(value);
-        }
+    // const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    //     const { name, value } = event.target;
+    //     if (name === 'Item Name') {
+    //         setSelectedItem(value);
+    //     } else if (name === 'Brand') {
+    //         setSelectedBrand(value);
+    //     } else if (name === 'Color') {
+    //         setSelectedColor(value);
+    //     } else if (name === 'Size') {
+    //         setSelectedSize(value);
+    //     }
+    //     else if (name === 'Style') {
+    //         setSelectedStyle(value);
+    //     }
+    //     else if (name === 'Material') {
+    //         setSelectedMaterial(value);
+    //     }
+    //     else if (name === 'Dealer') {
+    //         setSelectedDealer(value);
+    //     }
+    //     else if (name === 'Buyer') {
+    //         setSelectedBuyer(value);
+    //     }
+    //     else if (name === 'Season') {
+    //         setSelectedSeason(value);
+    //     }
+    //     else if (name === 'Company') {
+    //         setSelectedCompany(value);
+    //     }
 
-        else if (name === 'Packing') {
-            setSelectedPacking(value);
-        }
-        else if (name === 'Section') {
-            setSelectedSection(value);
-        }
-        else if (name === 'Group') {
-            setSelectedGroup(value);
-        }
-        else if (name === 'Barcode') {
-            setSelectedBarcode(value);
-        }
-        else if (name === 'Sub-Group') {
-            setSelectedSubGroup(value);
-        }
-        else if (name === 'Category') {
-            setSelectedCategory(value);
-        }
-        else if (name === 'Sub-Category') {
-            setSelectedSubCategory(value);
-        }
-        else if (name === 'Unit') {
-            setSelectedUnit(value);
-        }
-        else if (name === 'Status') {
-            setSelectedStatus(value);
-        }
-    }
+    //     else if (name === 'Packing') {
+    //         setSelectedPacking(value);
+    //     }
+    //     else if (name === 'Section') {
+    //         setSelectedSection(value);
+    //     }
+    //     else if (name === 'Group') {
+    //         setSelectedGroup(value);
+    //     }
+    //     else if (name === 'Barcode') {
+    //         setSelectedBarcode(value);
+    //     }
+    //     else if (name === 'Sub-Group') {
+    //         setSelectedSubGroup(value);
+    //     }
+    //     else if (name === 'Category') {
+    //         setSelectedCategory(value);
+    //     }
+    //     else if (name === 'Sub-Category') {
+    //         setSelectedSubCategory(value);
+    //     }
+    //     else if (name === 'Unit') {
+    //         setSelectedUnit(value);
+    //     }
+    //     else if (name === 'Status') {
+    //         setSelectedStatus(value);
+    //     }
+    // }
     const handleSearch = () => {
         const filteredData = initialRecords.filter(record => {
             return(selectedStatus === "" || record.STATUS === selectedStatus) &&
             (selectedItem === "" || record.ITEMNAME === selectedItem) &&
-            (selectedProduct === "" || record.PRODUCT === selectedProduct) &&
+            // (selectedProduct === "" || record.PRODUCT === selectedProduct) &&
             (selectedBrand === "" || record.BRAND === selectedBrand) &&
             (selectedSize === "" || record.I_SIZE === selectedSize) &&
             (selectedStyle === "" || record.STYLE === selectedStyle) &&
@@ -327,7 +326,7 @@ const Items = () => {
 
     const handleReset = () => {
         setSelectedItem("");
-        setSelectedProduct("");
+        // setSelectedProduct("");
         setSelectedBrand("");
         setSelectedSize("");
         setSelectedColor("");
@@ -354,31 +353,122 @@ const Items = () => {
         setPage(1);
     }, [pageSize]);
 
+        interface Record {
+            PRIMENAME: string;
+        }
+
+
+    // useEffect(() => {
+    //     fetch(`${BASE_URL}/getItem`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             let detail = data;
+    //             setClientData(detail);
+    //             setInitialRecords(data);
+    //             setRecordsData(data)
+    //             setTempData(data)
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching data:', error);
+    //         });
+    // }, []);
+   const [products, setProducts] = useState<Record[]>([]);
+  const [colors, setColors] = useState<Record[]>([]);
+  const [brands, setBrands] = useState<Record[]>([]);
+  const [statuses, setStatuses] = useState<Record[]>([]);
+  const [styles, setStyles] = useState<Record[]>([]);
+  const [sizes, setSizes] = useState<Record[]>([]);
+  const [buyers, setBuyers] = useState<Record[]>([]);
+  const [seasons, setSeasons] = useState<Record[]>([]);
+  const [company, setCompany] = useState<Record[]>([]);
+  const [sections, setSections] = useState<Record[]>([]);
+  
+    // useEffect(() => {
+    //   const fetchData = async (fieldName: string, setState: React.Dispatch<React.SetStateAction<Record[]>>) => {
+    //     try {
+    //       const response = await axios.post(`${BASE_URL}/postcmbAW`, {
+    //         TblName: 'MASTER',
+    //         FldName: 'PRIMENAME',
+    //         FldCode: 'PRIMEKEYID',
+    //         OrdBy: 'SEQUENCE',
+    //         WhFldName: fieldName
+    //       }, {
+    //         headers: {
+    //           "Content-Type": "application/json"
+    //         }
+    //       });
+    //       console.log("response from apiIIIIIII",response.data);
+    //       setProducts(response.data);
+
+    //     } catch (error) {
+    //       console.error(`Error fetching data for ${fieldName}`, error);
+    //     }
+    //   };
+  
+    //   fetchData('Product', setProducts);
+    //   fetchData('Color', setColors);
+    //   fetchData('Brand', setBrands);
+    //   fetchData('Status', setStatuses);
+    // }, []); 
 
     useEffect(() => {
-        fetch(`${BASE_URL}/getItem`)
-            .then(response => response.json())
-            .then(data => {
-                let detail = data;
-                setClientData(detail);
-                setInitialRecords(data);
-                setRecordsData(data)
-                setTempData(data)
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
+        const fetchData = async () => {
+          try {
+            const response = await axios.post(`${BASE_URL}/postcmbAW`, {TblName: 'MASTER',FldName: 'PRIMENAME',FldCode: 'PRIMEKEYID',OrdBy: 'SEQUENCE',WhFldName: ['Product', 'Status','Colour','Brand','Style','Size','Buyer','Season','Company','Section'] // Modify your backend to handle an array of field names
+            }, {
+              headers: {
+                "Content-Type": "application/json"
+              }
             });
-    }, []);
+            console.log("Combined API response:", response.data);
+            setProducts(response.data.Product);
+            setStatuses(response.data.Status);
+            setBrands(response.data.Brand);
+            setColors(response.data.Colour);
+            setStyles(response.data.Style);
+            setSizes(response.data.Size);
+            setBuyers(response.data.Buyer)
+            setSeasons(response.data.Season)
+            setCompany(response.data.Company)
+            setSections(response.data.Section)
+          } catch (error) {
+            console.error("Error fetching data", error);
+          }
+        };
+        fetchData();
+      }, []);
+
+    const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      console.log('Selected value:', e.target.value);
+    };
 
 //     useEffect(() => {
-//         const sendData = async () =>{
-//           const api = await axios.post(`${BASE_URL}/postcmbAW`,{TblName: 'MASTER',  FldName: 'PRIMENAME',  FldCode: 'PRIMEKEYID', OrdBy: 'SEQUENCE',WhFldName: 'brand'},{
+//         const sendData = async (TblName,FldName) =>{
+//           const api = await axios.post(`${BASE_URL}/postcmbAW`,{TblName, FldName,  FldCode: 'PRIMEKEYID', OrdBy: 'SEQUENCE',WhFldName: 'Product'},{
 //             headers:{
 //                 "Content-Type":"application/json"
 //             }
 //           })
-//           console.log("postcmbAW res",api.data)
+//           console.log("postcmbAW res new",api.data)
 //           setInitialRecords(api.data.PRIMENAME);
+//           setProducts(api.data);
+//           console.log('selectedRecord',products)
+//           console.log('initial value',setInitialRecords)
+//         }
+// sendData();
+//     }, []);
+
+//     useEffect(() => {
+//         const sendData = async () =>{
+//           const api = await axios.post(`${BASE_URL}/postcmbAW`,{TblName: 'MASTER',  FldName: 'PRIMENAME',  FldCode: 'PRIMEKEYID', OrdBy: 'SEQUENCE',WhFldName: 'Status'},{
+//             headers:{
+//                 "Content-Type":"application/json"
+//             }
+//           })
+//           console.log("postcmbAW res new",api.data)
+//           setInitialRecords(api.data.PRIMENAME);
+//           setStatuses(api.data);
+//           console.log('selectedRecord',statuses)
 //           console.log('initial value',setInitialRecords)
 //         }
 // sendData();
@@ -733,6 +823,8 @@ const Items = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortStatus]);
 
+console.log("mySelectedP",selectedProduct);
+
     return (
         <div>
             <div className="panel mt-6">
@@ -871,7 +963,7 @@ const Items = () => {
                     <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
                 <table>
-                    <tr style={{ display: 'flex', flexDirection: 'row' }}>
+                    <tr style={{ display: 'flex', flexDirection: 'row' }} className='responsive' >
 
 
                         <label htmlFor="">Item Name
@@ -879,35 +971,25 @@ const Items = () => {
                         </label>
 
 
-                        <label htmlFor="" style={{ marginLeft: '2%' }}>Product
-                            <select name="Product" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width: '144px', marginTop: '10px' }}
-                            value={selectedProduct}
-                            onChange={handleDropdownChange}
-                            >
-                                <option value="">--ALL--</option>
-                                
-                                {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.PRODUCT} >{record.PRODUCT} </option>
-                            ))
-                        }
-                            </select>
-                        </label>
+                      <label htmlFor="product" style={{ marginLeft: '2%' }}>Product
+        <select name="Product" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width: '144px', marginTop: '10px' }}
+          onChange={handleDropdownChange}>
+          <option value="">--ALL--</option>
+          {products.map((record, index) => (
+            <option key={index} value={record.PRIMENAME}>{record.PRIMENAME}</option>
+          ))}
+        </select>
+      </label>
 
 
-                        <label htmlFor="" style={{ marginLeft: '2%' }}>Brand
-                            <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '80px', width: '144px', marginTop: '10px' }}
-                            value={selectedBrand}
-                            onChange={handleDropdownChange}
-                            >
-                                <option value="">--ALL--</option>
-                                {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.BRAND} >{record.BRAND} </option>
-                            ))
-                        }
-                            </select>
-                        </label>
+                        <label htmlFor="brand" style={{ marginLeft: '2%' }}>Brand
+        <select name="Brand" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width: '144px', marginTop: '10px' }} onChange={handleDropdownChange}>
+          <option value="">--ALL--</option>
+          {brands.map((record, index) => (
+            <option key={index} value={record.PRIMENAME}>{record.PRIMENAME}</option>
+          ))}
+        </select>
+      </label>
 
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Size
                             <select name="Size" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '80px', width: '144px', marginTop: '10px' }}
@@ -916,27 +998,22 @@ const Items = () => {
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.I_SIZE} >{record.I_SIZE} </option>
+                            sizes.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
                         </label>
 
 
-                        <label htmlFor="" style={{ marginLeft: '2%' }}>Color
-                            <select name="Color" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '5px', width: '144px', marginTop: '10px' }} 
-                            value={selectedColor}
-                            onChange={handleDropdownChange}
-                            >
-                                <option value="">--ALL--</option>
-                                {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.COLOR} >{record.COLOR} </option>
-                            ))
-                        }
-                            </select>
-                        </label>
+                        <label htmlFor="color" style={{ marginLeft: '2%' }}>Color
+        <select name="Color" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width: '144px', marginTop: '10px' }} onChange={handleDropdownChange}>
+          <option value="">--ALL--</option>
+          {colors.map((record, index) => (
+            <option key={index} value={record.PRIMENAME}>{record.PRIMENAME}</option>
+          ))}
+        </select>
+      </label>
 
 
                     </tr>
@@ -945,13 +1022,13 @@ const Items = () => {
 
                         <label htmlFor="" style={{ marginLeft: '2%' }}>Style
                             <select name="Style" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '4px', width: '144px', marginTop: '10px' }}
-                            value={selectedStyle}
+                            // value={selectedStyle}
                             onChange={handleDropdownChange}
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.STYLE} >{record.STYLE} </option>
+                            styles.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
@@ -992,8 +1069,8 @@ const Items = () => {
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.BUYER} >{record.BUYER} </option>
+                            buyers.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
@@ -1005,8 +1082,8 @@ const Items = () => {
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.SEASON} >{record.SEASON} </option>
+                            seasons.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
@@ -1025,8 +1102,8 @@ const Items = () => {
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.COMPANY} >{record.COMPANY} </option>
+                            company.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
@@ -1039,8 +1116,8 @@ const Items = () => {
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.PACKING} >{record.PACKING} </option>
+                            sections.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
@@ -1054,8 +1131,8 @@ const Items = () => {
                             >
                                 <option value="">--ALL--</option>
                                 {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.SECTION} >{record.SECTION} </option>
+                            sections.map((record,index) =>(
+                                <option key={index} value={record.PRIMENAME} >{record.PRIMENAME} </option>
                             ))
                         }
                             </select>
@@ -1139,19 +1216,14 @@ const Items = () => {
                             </select>
                         </label>
 
-                        <label htmlFor="" style={{ marginLeft: '2%' }}>Status
-                            <select name="Status" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '3px', width: '144px' }}
-                            value={selectedStatus}
-                            onChange={handleDropdownChange}
-                            >
-                                <option value="">--ALL--</option>
-                                {
-                            initialRecords.map((record,index) =>(
-                                <option key={index} value={record.STATUS} >{record.STATUS} </option>
-                            ))
-                        }
-                            </select>
-                        </label>
+                        <label htmlFor="status" style={{ marginLeft: '2%' }}>Status
+        <select name="Status" style={{ border: '1px solid black', borderRadius: '5px', marginLeft: '10px', width: '144px', marginTop: '10px' }} onChange={handleDropdownChange}>
+          <option value="">--ALL--</option>
+          {statuses.map((record, index) => (
+            <option key={index} value={record.PRIMENAME}>{record.PRIMENAME}</option>
+          ))}
+        </select>
+      </label>
                     </tr>
                 </table>
 

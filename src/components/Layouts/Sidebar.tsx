@@ -999,7 +999,54 @@ const Sidebar = () => {
 </li>
 <li>
   <NavLink to="/datatables/frmCodeType?category=product">Product</NavLink>
+</li><li>
+  <NavLink to="/datatables/frmCodeType?category=buyer">Buyer</NavLink>
 </li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=colour">Colour</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=scolor">SColor</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=category">Category</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=subCategory">Sub Category</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=group">Group</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=subGroup">Sub Group</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=material">Material</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=size">Size</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=style">Style</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=section">Section</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=season">Season</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=unit">Unit</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=packing">Packing</NavLink>
+</li>
+<li>
+  <NavLink to="/datatables/frmCodeType?category=gender">Gender</NavLink>
+</li><li>
+  <NavLink to="/datatables/frmCodeType?category=tag">Tag</NavLink>
+</li>
+
                                {/* <li>
                                     <NavLink to="/salesTables/sellingItem">Best Selling Item Name Wise</NavLink>
                                 </li>

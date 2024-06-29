@@ -121,3 +121,8 @@ table tr .mantine-Checkbox-root {
 .table-hover.invoice-table > div:nth-child(2) {
     @apply !px-5;
 }
+.responsive{
+    display: grid;
+    justify-content:space-between;
+    align-items: center;
+}

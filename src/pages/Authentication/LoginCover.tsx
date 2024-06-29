@@ -46,10 +46,8 @@ const LoginCover = () => {
                 },
             });
             if (response) {
-                // console.log(response,'res');
                 let userData:any = response.data.user
                 // Redirect or perform any action after successful login
-                // alert("Login Successfull")
                 localStorage.setItem('userData', JSON.stringify(userData));
                 navigate('/index', { replace: false}); // Use replace option to prevent going back
             } else {

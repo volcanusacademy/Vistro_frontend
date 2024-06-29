@@ -94,7 +94,6 @@ const Employees = () => {
             .then((response) => response.json())
 
             .then((data) => {
-                debugger;
                 let detail = data;
                 setClientData(detail);
                 setInitialRecords(detail);

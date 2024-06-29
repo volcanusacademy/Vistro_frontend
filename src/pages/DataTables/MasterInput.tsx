@@ -278,6 +278,7 @@ const MasterInput = () => {
                 setInitialRecords(dataWithId);
                 setRecordsData(dataWithId);
                 setTempData(dataWithId);
+                // setOptions(dataWithId)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
